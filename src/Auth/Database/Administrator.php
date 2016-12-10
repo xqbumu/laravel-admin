@@ -17,6 +17,8 @@ class Administrator extends Model implements AuthenticatableContract
 
     protected $fillable = ['username', 'password', 'name'];
 
+    protected $intendant_zone;
+
     /**
      * Create a new Eloquent model instance.
      *
@@ -24,11 +26,17 @@ class Administrator extends Model implements AuthenticatableContract
      */
     public function __construct(array $attributes = [])
     {
-        $connection = config('admin.database.connection') ?: config('database.default');
+        if ($route = \Route::current()) {
+            $this->intendant_zone = \Route::current()->getAction()['intendant']['zone'];
+        } else {
+            $this->intendant_zone = 'admin';
+        }
+
+        $connection = config('intendant.'.$this->intendant_zone.'.database.connection') ?: config('database.default');
 
         $this->setConnection($connection);
 
-        $this->setTable(config('admin.database.users_table'));
+        $this->setTable(config('intendant.'.$this->intendant_zone.'.database.users_table'));
 
         parent::__construct($attributes);
     }
@@ -40,7 +48,7 @@ class Administrator extends Model implements AuthenticatableContract
      */
     public function roles()
     {
-        $pivotTable = config('admin.database.role_users_table');
+        $pivotTable = config('intendant.'.$this->intendant_zone.'.database.role_users_table');
 
         return $this->belongsToMany(Role::class, $pivotTable, 'user_id', 'role_id');
     }
@@ -52,7 +60,7 @@ class Administrator extends Model implements AuthenticatableContract
      */
     public function permissions()
     {
-        $pivotTable = config('admin.database.user_permissions_table');
+        $pivotTable = config('intendant.'.$this->intendant_zone.'.database.user_permissions_table');
 
         return $this->belongsToMany(Permission::class, $pivotTable, 'user_id', 'permission_id');
     }

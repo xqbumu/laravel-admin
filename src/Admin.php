@@ -253,4 +253,30 @@ class Admin
     {
         return Auth::guard('admin')->user();
     }
+
+    /**
+     * Get admin path.
+     *
+     * @param string $path
+     *
+     * @return string
+     */
+    public function admin_path($path = '')
+    {
+        return ucfirst(config('admin.directory')).($path ? DIRECTORY_SEPARATOR.$path : $path);
+    }
+
+    /**
+     * Get admin url.
+     *
+     * @param string $url
+     *
+     * @return string
+     */
+    public function admin_url($url = '')
+    {
+        $prefix = trim(config('admin.prefix'), '/');
+
+        return ($prefix ? "/$prefix" : '').'/'.trim($url, '/');
+    }
 }

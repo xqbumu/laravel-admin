@@ -12,6 +12,7 @@ class AdminServiceProvider extends ServiceProvider
      * @var array
      */
     protected $commands = [
+        'CreateCommand',
         'MakeCommand',
         'MenuCommand',
         'InstallCommand',
@@ -50,17 +51,27 @@ class AdminServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadViewsFrom(__DIR__.'/../../views', 'admin');
-        $this->loadTranslationsFrom(__DIR__.'/../../lang/', 'admin');
-
-        $this->publishes([__DIR__.'/../../config/admin.php' => config_path('admin.php')], 'laravel-admin');
-        $this->publishes([__DIR__.'/../../assets' => public_path('packages/admin')], 'laravel-admin');
+        $this->bootResources();
 
         if (file_exists($routes = admin_path('routes.php'))) {
             require $routes;
 
             $this->app['admin.router']->register();
         }
+    }
+
+    /**
+     * Boot the service resources.
+     *
+     * @return void
+     */
+    public function bootResources()
+    {
+        $this->loadViewsFrom(__DIR__.'/../../views', 'admin');
+        $this->loadTranslationsFrom(__DIR__.'/../../lang/', 'admin');
+
+        $this->publishes([__DIR__.'/../../config/admin.php' => config_path('admin.php')], 'laravel-admin');
+        $this->publishes([__DIR__.'/../../assets' => public_path('packages/admin')], 'laravel-admin');
     }
 
     /**
