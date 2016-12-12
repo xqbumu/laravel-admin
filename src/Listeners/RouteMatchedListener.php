@@ -24,7 +24,7 @@ class RouteMatchedListener
             // 动态按模块加载 Admin，很重要
             $loader->alias('Admin', '\\Intendant\\'.ucfirst($intendant_zone).'\\Facades\\Admin');
 
-            
+            // 设置默认数据库
             \Config::set('database.default', $intendant_zone);
         }
     }
