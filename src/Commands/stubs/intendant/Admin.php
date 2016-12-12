@@ -49,6 +49,16 @@ class Admin extends EnAdmin
     }
 
     /**
+     * Left sider-bar menu.
+     *
+     * @return array
+     */
+    public function menu()
+    {
+        return call_user_func(array(self::configs()['database']['menu_model'], 'toTree'));
+    }
+
+    /**
      * @return mixed
      */
     public function user()

@@ -2,7 +2,7 @@
     <li class="dd-item" data-id="{{ $branch['id'] }}">
         <div class="dd-handle">
             <strong>{{ $branch['title'] }}</strong>&nbsp;&nbsp;&nbsp;
-            <a href="{{ admin_url($branch['uri']) }}" class="dd-nodrag">{{ admin_url($branch['uri']) }}</a>
+            <a href="{{ Admin::url($branch['uri']) }}" class="dd-nodrag">{{ Admin::url($branch['uri']) }}</a>
             <span class="pull-right action dd-nodrag" data-field-name="_edit">
                 <a href="/{{ $path }}/{{ $branch['id'] }}/edit"><i class="fa fa-edit"></i></a>
                 <a href="javascript:void(0);" data-id="{{ $branch['id'] }}" class="_delete"><i class="fa fa-trash"></i></a>

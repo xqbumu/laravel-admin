@@ -1,34 +1,44 @@
 <?php
 
+// 只能修改该处
+$intendant_zone = '{$stub_intendant_zone}';
+
 return [
+
+    /*
+     * Laravel-intendant infomation important.
+     */
+    'intendant' => [
+        'zone' => $intendant_zone,
+    ],
 
     /*
      * Laravel-intendant name.
      */
-    'name'  => 'Laravel-{$stub_intendant_zone_upper}',
+    'name'  => 'Laravel-'.ucfirst($intendant_zone),
 
     /*
      * Laravel-intendant url prefix.
      */
-    'prefix'    => '{$stub_intendant_zone}',
+    'prefix'    => $intendant_zone,
 
     /*
      * Laravel-intendant install directory.
      */
-    'directory' => app_path('Intendant/{$stub_intendant_zone_upper}'),
+    'directory' => base_path('Core/Intendant/'.$intendant_zone),
 
     /*
      * Laravel-intendant title.
      */
-    'title'  => 'Intendant',
+    'title'  => ucfirst($intendant_zone),
 
     /*
      * Laravel-intendant auth setting.
      */
     'auth' => [
         'driver'   => 'session',
-        'provider' => '',
-        'model'    => Intendant\{$stub_intendant_zone_upper}\Auth\Database\Intendantistrator::class,
+        'provider' => 'eloquent',
+        'model'    => Intendant\{$stub_intendant_zone_upper}\Auth\Database\Administrator::class,
     ],
 
     /*
@@ -36,37 +46,46 @@ return [
      */
     'upload'  => [
 
-        'disk' => 'intendant',
+        'disk' => 'admin',
 
         'directory'  => [
             'image'  => 'image',
             'file'   => 'file',
         ],
 
-        'host' => 'http://localhost:8000/upload/',
+        'host' => 'http://localhost:8210/upload',
     ],
 
     /*
-     * Laravel-intendant dataintendant setting.
+     * Laravel-intendant database setting.
      */
-    'dataintendant' => [
-        'users_table' => 'intendant_users',
-        'users_model' => InCore\Intendant\Auth\Database\Intendantistrator::class,
+    'database' => [
+        'connection' => $intendant_zone,
 
-        'roles_table' => 'intendant_roles',
-        'roles_model' => InCore\Intendant\Auth\Database\Role::class,
+        'users_table' => 'users',
+        'users_model' => Intendant\{$stub_intendant_zone_upper}\Auth\Database\Administrator::class,
+        'users_seed'  => Intendant\{$stub_intendant_zone_upper}\Auth\Database\AdminTablesSeeder::class,
 
-        'permissions_table' => 'intendant_permissions',
-        'permissions_model' => InCore\Intendant\Auth\Database\Permission::class,
+        'roles_table' => 'roles',
+        'roles_model' => Intendant\{$stub_intendant_zone_upper}\Auth\Database\Role::class,
 
-        'menu_table'  => 'intendant_menu',
-        'menu_model'  => InCore\Intendant\Auth\Database\Menu::class,
+        'permissions_table' => 'permissions',
+        'permissions_model' => Intendant\{$stub_intendant_zone_upper}\Auth\Database\Permission::class,
 
-        'operation_log_table'    => 'intendant_operation_log',
-        'user_permissions_table' => 'intendant_user_permissions',
-        'role_users_table'       => 'intendant_role_users',
-        'role_permissions_table' => 'intendant_role_permissions',
-        'role_menu_table'        => 'intendant_role_menu',
+        'menu_table'  => 'menu',
+        'menu_model'  => Intendant\{$stub_intendant_zone_upper}\Auth\Database\Menu::class,
+
+        'operation_log_table'    => 'operation_log',
+        'operation_log_model'  => Intendant\{$stub_intendant_zone_upper}\Auth\Database\OperationLog::class,
+
+        'user_permissions_table' => 'user_permissions',
+
+        'role_users_table'       => 'role_users',
+
+        'role_permissions_table' => 'role_permissions',
+
+        'role_menu_table'        => 'role_menu',
+
     ],
 
     /*

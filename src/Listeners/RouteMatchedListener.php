@@ -21,8 +21,11 @@ class RouteMatchedListener
             $intendant_zone = $route_action['intendant']['zone'];
             $loader = AliasLoader::getInstance();
 
-            // 动态按模块加载 Admin
+            // 动态按模块加载 Admin，很重要
             $loader->alias('Admin', '\\Intendant\\'.ucfirst($intendant_zone).'\\Facades\\Admin');
+
+            
+            \Config::set('database.default', $intendant_zone);
         }
     }
 }

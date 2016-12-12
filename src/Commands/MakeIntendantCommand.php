@@ -7,26 +7,26 @@ use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Composer;
 
-class MakeRepositoryCommand extends Command
+class MakeIntendantCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'admin:repository {repository}';
+    protected $signature = 'admin:intendant {intendant}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Make a repository and interface';
+    protected $description = 'Make a intendant and interface';
 
     /**
      * @var
      */
-    protected $repository;
+    protected $intendant;
     /**
      * @var
      */
@@ -58,29 +58,29 @@ class MakeRepositoryCommand extends Command
      */
     public function handle()
     {
-        //获取repository和model两个参数值
-        $this->repository = $this->argument('repository');
+        //获取intendant和model两个参数值
+        $this->intendant = $this->argument('intendant');
 
-        //自动生成RepositoryInterface和Repository文件
-        $this->writeRepositoryAndInterface();
+        //自动生成IntendantInterface和Intendant文件
+        $this->writeIntendantAndInterface();
 
         //重新生成autoload.php文件
         $this->composer->dumpAutoloads();
     }
 
-    private function writeRepositoryAndInterface()
+    private function writeIntendantAndInterface()
     {
-        if($this->createRepository($this->repository)){
+        if($this->createIntendant($this->intendant)){
             //若生成成功,则输出信息
-            $this->info('Success to make a '.ucfirst($this->repository).' Repository and a '.ucfirst($this->repository).'Interface Interface');
+            $this->info('Success to make a '.ucfirst($this->intendant).' Intendant and a '.ucfirst($this->intendant).'Interface Interface');
         }
     }
 
-    private function createRepository()
+    private function createIntendant()
     {
         // 生成目标目录
         $this->target_dir = $this->getDirectory();
-        // 创建文件存放路径, RepositoryInterface放在app/Repositories,Repository个人一般放在app/Repositories/Eloquent里
+        // 创建文件存放路径, IntendantInterface放在app/Repositories,Intendant个人一般放在app/Repositories/Eloquent里
         $this->createDirectory($this->target_dir);
         // 生成两个文件
         return $this->createClass();
@@ -96,7 +96,7 @@ class MakeRepositoryCommand extends Command
 
     private function getDirectory()
     {
-        return base_path('core'.DIRECTORY_SEPARATOR.'Intendant'.DIRECTORY_SEPARATOR.ucfirst($this->repository));
+        return base_path('core'.DIRECTORY_SEPARATOR.'Intendant'.DIRECTORY_SEPARATOR.ucfirst($this->intendant));
     }
 
     private function createClass()
@@ -115,22 +115,22 @@ class MakeRepositoryCommand extends Command
 
     private function getInterfaceDirectory()
     {
-        return Config::get('repository.directory_path');
+        return Config::get('intendant.directory_path');
     }
 
-    private function getRepositoryName()
+    private function getIntendantName()
     {
-        // 根据输入的repository变量参数,是否需要加上'Repository'
-        $repositoryName = $this->getRepository();
-        if((strlen($repositoryName) < strlen('Repository')) || strrpos($repositoryName, 'Repository', -11)){
-            $repositoryName .= 'Repository';
+        // 根据输入的intendant变量参数,是否需要加上'Intendant'
+        $intendantName = $this->getIntendant();
+        if((strlen($intendantName) < strlen('Intendant')) || strrpos($intendantName, 'Intendant', -11)){
+            $intendantName .= 'Intendant';
         }
-        return $repositoryName;
+        return $intendantName;
     }
 
     private function getInterfaceName()
     {
-        return $this->getRepositoryName().'Interface';
+        return $this->getIntendantName().'Interface';
     }
 
     private function templateStub()
@@ -170,8 +170,8 @@ class MakeRepositoryCommand extends Command
 
     private function getTemplateData()
     {
-        $stub_intendant_zone          = $this->repository;
-        $stub_intendant_zone_upper    = ucfirst($this->repository);
+        $stub_intendant_zone          = $this->intendant;
+        $stub_intendant_zone_upper    = ucfirst($this->intendant);
 
         $templateVar = [
             'stub_intendant_zone'            => $stub_intendant_zone,
@@ -196,18 +196,18 @@ class MakeRepositoryCommand extends Command
         if(isset($modelName) && !empty($modelName)){
             $modelName = ucfirst($modelName);
         }else{
-            // 若option选项没写,则根据repository来生成Model Name
-            $modelName = $this->getModelFromRepository();
+            // 若option选项没写,则根据intendant来生成Model Name
+            $modelName = $this->getModelFromIntendant();
         }
 
         return $modelName;
     }
 
-    private function getModelFromRepository()
+    private function getModelFromIntendant()
     {
-        $repository = strtolower($this->getRepository());
-        $repository = str_replace('repository', '', $repository);
-        return ucfirst($repository);
+        $intendant = strtolower($this->getIntendant());
+        $intendant = str_replace('intendant', '', $intendant);
+        return ucfirst($intendant);
     }
 
 }

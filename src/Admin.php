@@ -254,6 +254,15 @@ class Admin
         return Auth::guard('admin')->user();
     }
 
+
+    /**
+     * @return mixed
+     */
+    public function configs()
+    {
+        return config('admin');
+    }
+
     /**
      * Get admin path.
      *

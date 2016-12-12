@@ -4,7 +4,7 @@
 
         <div class="box-tools">
             <div class="btn-group pull-right" style="margin-right: 10px">
-                <a href="/{{ $path }}/create" class="btn btn-sm btn-success">{{ trans('admin::lang.new') }}</a>
+                <a href="{{ Admin::url($path.'/'.create) }}" class="btn btn-sm btn-success">{{ trans('admin::lang.new') }}</a>
             </div>
 
         </div>

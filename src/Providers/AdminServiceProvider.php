@@ -13,7 +13,7 @@ class AdminServiceProvider extends ServiceProvider
      */
     protected $commands = [
         'CreateCommand',
-        'MakeRepositoryCommand',
+        'MakeIntendantCommand',
         'MakeCommand',
         'MenuCommand',
         'InstallCommand',

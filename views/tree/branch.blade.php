@@ -3,7 +3,7 @@
         <div class="dd-handle">
             {{ $branch['title'] }}
             <span class="pull-right action dd-nodrag" data-field-name="_edit">
-                <a href="/{{ $path }}/{{ $branch['id'] }}/edit"><i class="fa fa-edit"></i></a>
+                <a href="{{ Admin::url($path.'/'.$branch['id'].'/edit') }}"><i class="fa fa-edit"></i></a>
                 <a href="javascript:void(0);" data-id="{{ $branch['id'] }}" class="_delete"><i class="fa fa-trash"></i></a>
             </span>
         </div>
@@ -13,7 +13,7 @@
         <div class="dd-handle">
             {{ $branch['title'] }}
             <span class="pull-right action dd-nodrag" data-field-name="_edit">
-                <a href="/{{ $path }}/{{ $branch['id'] }}/edit"><i class="fa fa-edit"></i></a>
+                <a href="{{ Admin::url($path.'/'.$branch['id'].'/edit') }}"><i class="fa fa-edit"></i></a>
                 <a href="javascript:void(0);" data-id="{{ $branch['id'] }}" class="_delete"><i class="fa fa-trash"></i></a>
             </span>
         </div>
