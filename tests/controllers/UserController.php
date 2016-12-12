@@ -85,11 +85,11 @@ class UserController extends Controller
             $grid->profile()->start_at('开始时间');
             $grid->profile()->end_at('结束时间');
 
-            $grid->column('column1_not_in_table')->display(function ($row) {
-                return 'full name:'.$row['full_name'];
+            $grid->column('column1_not_in_table')->display(function () {
+                return 'full name:'.$this->full_name;
             });
 
-            $grid->column('column2_not_in_table')->display(function ($row) {
+            $grid->column('column2_not_in_table')->display(function () {
                 return $this->email.'#'.$this->profile['color'];
             });
 
@@ -137,7 +137,9 @@ class UserController extends Controller
             $form->email('email')->rules('required');
             $form->mobile('mobile');
             $form->image('avatar')->help('上传头像', 'fa-image');
-            $form->password('password');
+            $form->ignore(['password_confirmation']);
+            $form->password('password')->rules('confirmed');
+            $form->password('password_confirmation');
 
             $form->divide();
 

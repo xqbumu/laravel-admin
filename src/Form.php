@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\MessageBag;
 use Illuminate\Validation\Validator;
 use Spatie\EloquentSortable\Sortable;
 
@@ -128,6 +129,13 @@ class Form
      * @var array
      */
     public static $availableFields = [];
+
+    /**
+     * Ignored saving fields.
+     *
+     * @var array
+     */
+    protected $ignored = [];
 
     /**
      * Collected field assets.
@@ -285,8 +293,9 @@ class Form
     {
         $data = Input::all();
 
-        if ($validator = $this->validationFails($data)) {
-            return back()->withInput()->withErrors($validator->messages());
+        // Handle validation errors.
+        if ($validationMessages = $this->validationMessages($data)) {
+            return back()->withInput()->withErrors($validationMessages);
         }
 
         $this->prepare($data, $this->saving);
@@ -319,7 +328,7 @@ class Form
      */
     protected function prepare($data = [], Closure $callback = null)
     {
-        $this->inputs = $data;
+        $this->inputs = $this->removeIgnoredFields($data);
 
         if ($callback instanceof Closure) {
             $callback($this);
@@ -332,6 +341,20 @@ class Form
         $this->updates = array_filter($updates, function ($val) {
             return !is_null($val);
         });
+    }
+
+    /**
+     * Remove ignored fields from input.
+     *
+     * @param array $input
+     *
+     * @return array
+     */
+    protected function removeIgnoredFields($input)
+    {
+        array_forget($input, $this->ignored);
+
+        return $input;
     }
 
     /**
@@ -424,8 +447,9 @@ class Form
             return response(['status' => true, 'message' => trans('admin::lang.succeeded')]);
         }
 
-        if ($validator = $this->validationFails($data)) {
-            return back()->withInput()->withErrors($validator->messages());
+        // Handle validation errors.
+        if ($validationMessages = $this->validationMessages($data)) {
+            return back()->withInput()->withErrors($validationMessages);
         }
 
         $this->model = $this->model->with($this->getRelations())->findOrFail($id);
@@ -643,6 +667,20 @@ class Form
     }
 
     /**
+     * Ignore fields to save.
+     *
+     * @param string|array $fields
+     *
+     * @return $this
+     */
+    public function ignore($fields)
+    {
+        $this->ignored = (array) $fields;
+
+        return $this;
+    }
+
+    /**
      * @param array        $data
      * @param string|array $columns
      *
@@ -722,25 +760,47 @@ class Form
     }
 
     /**
-     * Validation fails.
+     * Get validation messages.
      *
      * @param array $input
      *
-     * @return bool
+     * @return MessageBag|bool
      */
-    protected function validationFails($input)
+    protected function validationMessages($input)
     {
+        $failedValidators = [];
+
         foreach ($this->builder->fields() as $field) {
-            if (!$validator = $field->validate($input)) {
+            if (!$validator = $field->getValidator($input)) {
                 continue;
             }
 
             if (($validator instanceof Validator) && !$validator->passes()) {
-                return $validator;
+                $failedValidators[] = $validator;
             }
         }
 
-        return false;
+        $message = $this->mergeValidationMessages($failedValidators);
+
+        return $message->any() ? $message : false;
+    }
+
+    /**
+     * Merge validation messages from input validators.
+     *
+     * @param \Illuminate\Validation\Validator[] $validators
+     *
+     * @return MessageBag
+     */
+    protected function mergeValidationMessages($validators)
+    {
+        $messageBag = new MessageBag();
+
+        foreach ($validators as $validator) {
+            $messageBag = $messageBag->merge($validator->messages());
+        }
+
+        return $messageBag;
     }
 
     /**
