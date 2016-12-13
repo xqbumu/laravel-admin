@@ -258,7 +258,7 @@ class Admin
     /**
      * @return mixed
      */
-    public function configs()
+    public static function configs()
     {
         return config('admin');
     }
