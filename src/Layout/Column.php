@@ -48,6 +48,6 @@ class Column implements Buildable
 
     protected function endColumn()
     {
-        echo '</div>';
+        echo '</section>';
     }
 }
