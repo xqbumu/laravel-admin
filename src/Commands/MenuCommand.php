@@ -2,7 +2,7 @@
 
 namespace Encore\Incore\Commands;
 
-use Encore\Incore\Facades\Docore
+use Encore\Incore\Facades\Docore;
 use Illuminate\Console\Command;
 
 class MenuCommand extends Command

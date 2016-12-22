@@ -32,7 +32,7 @@
         <ul class="mailbox-attachments clearfix">
             @foreach($grid->rows() as $row)
                 <li>
-                    <span class="mailbox-attachment-icon has-img"><img src="{!! isset($server) ? $server : config('admin.upload.host') !!}/{!! $row->column($image_column) !!}" alt="Attachment"></span>
+                    <span class="mailbox-attachment-icon has-img"><img src="{!! isset($server) ? $server : Docore::configs('upload.host') !!}/{!! $row->column($image_column) !!}" alt="Attachment"></span>
                     <div class="mailbox-attachment-info">
                         <a href="#" class="mailbox-attachment-name" style="word-break:break-all;"><i class="fa fa-camera"></i>&nbsp;&nbsp;{!! isset($text_column) ? $row->column($text_column) : '' !!}</a>
                         <span class="mailbox-attachment-size">
@@ -40,7 +40,7 @@
                             <span class="pull-right">
                             @if($grid->allowActions())
                                 {!! $row->actions() !!}
-                                <a href="{!! isset($server) ? $server : config('admin.upload.host') !!}/{!! $row->column($image_column) !!}" target="_blank" download="custom-filename.jpg"><i class="fa fa-cloud-download"></i></a>
+                                <a href="{!! isset($server) ? $server : Docore::configs('upload.host') !!}/{!! $row->column($image_column) !!}" target="_blank" download="custom-filename.jpg"><i class="fa fa-cloud-download"></i></a>
                             @endif
                             </span>
                         </span>

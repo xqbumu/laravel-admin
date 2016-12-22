@@ -2,7 +2,7 @@
 
 namespace Encore\Incore\Grid\Displayers;
 
-use Encore\Incore\Docore
+use Encore\Incore\Docore;
 
 class Editable extends AbstractDisplayer
 {

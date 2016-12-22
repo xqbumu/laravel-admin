@@ -2,7 +2,7 @@
 
 namespace Encore\Incore\Grid\Filter;
 
-use Encore\Incore\Docore
+use Encore\Incore\Docore;
 
 class Between extends AbstractFilter
 {

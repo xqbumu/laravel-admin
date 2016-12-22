@@ -7,7 +7,7 @@ use Encore\Incore\Form\Field;
 class Mobile extends Field
 {
     protected static $js = [
-        '/packages/admin/AdminLTE/plugins/input-mask/jquery.inputmask.bundle.min.js',
+        '/packages/docore/AdminLTE/plugins/input-mask/jquery.inputmask.js',
     ];
 
     protected $format = '99999999999';

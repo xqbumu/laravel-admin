@@ -2,7 +2,7 @@
 
 namespace Encore\Incore\Routing;
 
-use Encore\Incore\Facades\Docore
+use Encore\Incore\Facades\Docore;
 use Illuminate\Routing\Router as LaravelRouter;
 
 class Router

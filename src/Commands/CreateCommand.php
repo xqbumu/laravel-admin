@@ -1,8 +1,8 @@
 <?php
 
-namespace Inchow\Incore\Commands;
+namespace Encore\Incore\Commands;
 
-use Inchow\Incore\Facades\Incore;
+use Encore\Incore\Facades\Incore;
 use Illuminate\Console\Command;
 
 class CreateCommand extends Command
@@ -12,14 +12,14 @@ class CreateCommand extends Command
      *
      * @var string
      */
-    protected $name = 'incore:create';
+    protected $name = 'docore:create';
 
     /**
     * The name and signature of the console command.
     *
     * @var string
     */
-    protected $signature = 'incore:create
+    protected $signature = 'docore:create
                             {intendant : Wath the intendant member should be named}';
 
     /**
@@ -77,7 +77,7 @@ class CreateCommand extends Command
      */
     protected function initIntendantDirectory($intendant = 'admin')
     {
-        $this->call('incore:intendant', [
+        $this->call('docore:intendant', [
             'intendant' => $intendant,
         ]);
     }

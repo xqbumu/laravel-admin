@@ -2,7 +2,7 @@
 
 namespace Encore\Incore\Widgets\Chart;
 
-use Encore\Incore\Docore
+use Encore\Incore\Docore;
 use Illuminate\Support\Arr;
 
 class Pie extends Chart

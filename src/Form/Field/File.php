@@ -48,7 +48,7 @@ class File extends Field
      * @var array
      */
     protected static $css = [
-        '/packages/admin/bootstrap-fileinput/css/fileinput.min.css',
+        '/packages/docore/bootstrap-fileinput/css/fileinput.min.css',
     ];
 
     /**
@@ -57,8 +57,8 @@ class File extends Field
      * @var array
      */
     protected static $js = [
-        '/packages/admin/bootstrap-fileinput/js/plugins/canvas-to-blob.min.js',
-        '/packages/admin/bootstrap-fileinput/js/fileinput.min.js',
+        '/packages/docore/bootstrap-fileinput/js/plugins/canvas-to-blob.min.js',
+        '/packages/docore/bootstrap-fileinput/js/fileinput.min.js',
     ];
 
     /**

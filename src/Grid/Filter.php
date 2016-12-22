@@ -2,7 +2,7 @@
 
 namespace Encore\Incore\Grid;
 
-use Encore\Incore\Facades\Docore
+use Encore\Incore\Facades\Docore;
 use Encore\Incore\Grid;
 use Encore\Incore\Grid\Filter\AbstractFilter;
 use Illuminate\Support\Facades\Input;
@@ -203,7 +203,7 @@ EOT;
     public function __call($method, $arguments)
     {
         if (in_array($method, $this->supports)) {
-            $className = '\\Encore\\Admin\\Grid\\Filter\\'.ucfirst($method);
+            $className = '\\Encore\\Incore\\Grid\\Filter\\'.ucfirst($method);
             $reflection = new ReflectionClass($className);
 
             return $this->addFilter($reflection->newInstanceArgs($arguments));

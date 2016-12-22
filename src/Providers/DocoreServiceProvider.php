@@ -6,7 +6,7 @@ use Encore\Incore\Routing\Router;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 
-class IncoreServiceProvider extends ServiceProvider
+class DocoreServiceProvider extends ServiceProvider
 {
     /**
      * @var array
@@ -26,10 +26,10 @@ class IncoreServiceProvider extends ServiceProvider
      * @var array
      */
     protected $routeMiddleware = [
-        'incore.auth'        => \Encore\Incore\Middleware\Authenticate::class,
-        'incore.pjax'        => \Encore\Incore\Middleware\PjaxMiddleware::class,
-        'incore.log'         => \Encore\Incore\Middleware\OperationLog::class,
-        'incore.permission'  => \Encore\Incore\Middleware\PermissionMiddleware::class,
+        'docore.auth'        => \Encore\Incore\Middleware\Authenticate::class,
+        'docore.pjax'        => \Encore\Incore\Middleware\PjaxMiddleware::class,
+        'docore.log'         => \Encore\Incore\Middleware\OperationLog::class,
+        'docore.permission'  => \Encore\Incore\Middleware\PermissionMiddleware::class,
     ];
 
     /**
@@ -38,10 +38,10 @@ class IncoreServiceProvider extends ServiceProvider
      * @var array
      */
     protected $middlewareGroups = [
-        'incore' => [
-            'incore.auth',
-            'incore.pjax',
-            'incore.log',
+        'docore' => [
+            'docore.auth',
+            'docore.pjax',
+            'docore.log',
         ],
     ];
 
@@ -54,10 +54,10 @@ class IncoreServiceProvider extends ServiceProvider
     {
         $this->bootResources();
 
-        if (file_exists($routes = incore_path('routes.php'))) {
+        if (file_exists($routes = Docore::incore_path('routes.php'))) {
             require $routes;
 
-            $this->app['incore.router']->register();
+            $this->app['docore.router']->register();
         }
     }
 
@@ -68,11 +68,11 @@ class IncoreServiceProvider extends ServiceProvider
      */
     public function bootResources()
     {
-        $this->loadViewsFrom(__DIR__.'/../../resources/views', 'incore');
-        $this->loadTranslationsFrom(__DIR__.'/../../resources/lang/', 'incore');
+        $this->loadViewsFrom(__DIR__.'/../../resources/views', 'docore');
+        $this->loadTranslationsFrom(__DIR__.'/../../resources/lang/', 'docore');
 
-        $this->publishes([__DIR__.'/../../resources/config/incore.php' => config_path('incore.php')], 'laravel-incore');
-        $this->publishes([__DIR__.'/../../resources/assets' => public_path('packages/incore')], 'laravel-incore');
+        $this->publishes([__DIR__.'/../../resources/config/docore.php' => config_path('docore.php')], 'laravel-docore');
+        $this->publishes([__DIR__.'/../../resources/assets' => public_path('packages/docore')], 'laravel-docore');
     }
 
     /**
@@ -105,10 +105,10 @@ class IncoreServiceProvider extends ServiceProvider
     protected function setupAuth()
     {
         config([
-            'auth.guards.incore.driver'    => 'session',
-            'auth.guards.incore.provider'  => 'incore',
-            'auth.providers.incore.driver' => 'eloquent',
-            'auth.providers.incore.model'  => 'Encore\Incore\Auth\Database\Administrator',
+            'auth.guards.docore.driver'    => 'session',
+            'auth.guards.docore.provider'  => 'docore',
+            'auth.providers.docore.driver' => 'eloquent',
+            'auth.providers.docore.model'  => 'Encore\Incore\Auth\Database\Administrator',
         ]);
     }
 
@@ -120,7 +120,7 @@ class IncoreServiceProvider extends ServiceProvider
     protected function setupClassAliases()
     {
         $aliases = [
-            'incore.router'  => \Encore\Incore\Routing\Router::class,
+            'docore.router'  => \Encore\Incore\Routing\Router::class,
         ];
 
         foreach ($aliases as $key => $alias) {
@@ -135,7 +135,7 @@ class IncoreServiceProvider extends ServiceProvider
      */
     public function registerRouter()
     {
-        $this->app->singleton('incore.router', function ($app) {
+        $this->app->singleton('docore.router', function ($app) {
             return new Router($app['router']);
         });
     }

@@ -3,7 +3,7 @@
 namespace Encore\Incore\Middleware;
 
 use Closure;
-use Encore\Incore\Docore
+use Encore\Incore\Docore;
 use Illuminate\Support\Facades\Auth;
 
 class Authenticate

@@ -2,7 +2,7 @@
 
 namespace Encore\Incore\Form;
 
-use Encore\Incore\Docore
+use Encore\Incore\Docore;
 use Encore\Incore\Form;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\Validator;
@@ -228,6 +228,23 @@ class Field
         }
 
         return '';
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * set the default val.
+     *
+     * @return $this
+     */
+    public function setDefault($val)
+    {
+        $this->default = $val;
+        return $this;
     }
 
     /**
@@ -591,10 +608,5 @@ class Field
      */
     public function __call($method, $arguments)
     {
-        if ($method === 'default') {
-            $this->default = $arguments[0];
-
-            return $this;
-        }
     }
 }

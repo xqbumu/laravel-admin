@@ -7,11 +7,11 @@ use Encore\Incore\Form\Field;
 class Color extends Field
 {
     protected static $css = [
-        '/packages/admin/AdminLTE/plugins/colorpicker/bootstrap-colorpicker.min.css',
+        '/packages/docore/AdminLTE/plugins/colorpicker/bootstrap-colorpicker.min.css',
     ];
 
     protected static $js = [
-        '/packages/admin/AdminLTE/plugins/colorpicker/bootstrap-colorpicker.min.js',
+        '/packages/docore/AdminLTE/plugins/colorpicker/bootstrap-colorpicker.min.js',
     ];
 
     /**

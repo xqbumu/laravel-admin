@@ -7,11 +7,11 @@ use Encore\Incore\Form\Field;
 class SwitchField extends Field
 {
     protected static $css = [
-        '/packages/admin/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css',
+        '/packages/docore/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css',
     ];
 
     protected static $js = [
-        '/packages/admin/bootstrap-switch/dist/js/bootstrap-switch.min.js',
+        '/packages/docore/bootstrap-switch/dist/js/bootstrap-switch.min.js',
     ];
 
     protected $states = [

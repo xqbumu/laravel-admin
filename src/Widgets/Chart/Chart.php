@@ -2,7 +2,7 @@
 
 namespace Encore\Incore\Widgets\Chart;
 
-use Encore\Incore\Docore
+use Encore\Incore\Docore;
 use Encore\Incore\Widgets\Widget;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Renderable;

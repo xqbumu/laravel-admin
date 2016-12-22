@@ -2,7 +2,7 @@
 
 namespace Encore\Incore\Form;
 
-use Encore\Incore\Docore
+use Encore\Incore\Docore;
 use Encore\Incore\Form;
 use Illuminate\Support\Collection;
 

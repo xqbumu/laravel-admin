@@ -2,7 +2,7 @@
 
 namespace Encore\Incore\Grid\Filter\Field;
 
-use Encore\Incore\Docore
+use Encore\Incore\Docore;
 
 class DateTime
 {

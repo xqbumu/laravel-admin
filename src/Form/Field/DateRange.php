@@ -7,12 +7,12 @@ use Encore\Incore\Form\Field;
 class DateRange extends Field
 {
     protected static $css = [
-        '/packages/admin/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
+        '/packages/docore/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css',
     ];
 
     protected static $js = [
-        '/packages/admin/moment/min/moment-with-locales.min.js',
-        '/packages/admin/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
+        '/packages/docore/moment/min/moment-with-locales.min.js',
+        '/packages/docore/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js',
     ];
 
     protected $format = 'YYYY-MM-DD';

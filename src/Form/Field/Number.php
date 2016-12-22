@@ -7,7 +7,7 @@ use Encore\Incore\Form\Field;
 class Number extends Field
 {
     protected static $js = [
-        '/packages/admin/number-input/bootstrap-number-input.js',
+        '/packages/docore/number-input/bootstrap-number-input.js',
     ];
 
     public function render()

@@ -2,7 +2,7 @@
 
 namespace Encore\Incore\Middleware;
 
-use Encore\Incore\Facades\Docore
+use Encore\Incore\Facades\Docore;
 use Illuminate\Http\Request;
 
 class OperationLog

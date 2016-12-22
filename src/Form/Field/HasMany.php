@@ -2,7 +2,7 @@
 
 namespace Encore\Incore\Form\Field;
 
-use Encore\Incore\Docore
+use Encore\Incore\Docore;
 use Encore\Incore\Form\Field;
 use Encore\Incore\Grid;
 use Encore\Incore\Form;

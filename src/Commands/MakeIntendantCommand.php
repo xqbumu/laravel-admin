@@ -1,6 +1,6 @@
 <?php
 
-namespace Inchow\Incore\Commands;
+namespace Encore\Incore\Commands;
 
 use Config;
 use Illuminate\Console\Command;
@@ -14,7 +14,7 @@ class MakeIntendantCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'incore:intendant {intendant}';
+    protected $signature = 'docore:intendant {intendant}';
 
     /**
      * The console command description.

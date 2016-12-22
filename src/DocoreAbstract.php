@@ -151,7 +151,7 @@ abstract class DocoreAbstract
 
         static::$css = array_merge(static::$css, $css);
 
-        return view('incore::partials.css', ['css' => array_unique(static::$css)]);
+        return view('docore::partials.css', ['css' => array_unique(static::$css)]);
     }
 
     /**
@@ -173,7 +173,7 @@ abstract class DocoreAbstract
 
         static::$js = array_merge(static::$js, $js);
 
-        return view('incore::partials.js', ['js' => array_unique(static::$js)]);
+        return view('docore::partials.js', ['js' => array_unique(static::$js)]);
     }
 
     /**
@@ -189,7 +189,7 @@ abstract class DocoreAbstract
             return;
         }
 
-        return view('incore::partials.script', ['script' => array_unique(static::$script)]);
+        return view('docore::partials.script', ['script' => array_unique(static::$script)]);
     }
 
     /**

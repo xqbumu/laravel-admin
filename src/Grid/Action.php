@@ -2,7 +2,7 @@
 
 namespace Encore\Incore\Grid;
 
-use Encore\Incore\Docore
+use Encore\Incore\Docore;
 
 class Action
 {

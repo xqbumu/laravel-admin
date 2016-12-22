@@ -9,11 +9,11 @@ class Tags extends Field
     protected $value = [];
 
     protected static $css = [
-        '/packages/admin/AdminLTE/plugins/select2/select2.min.css',
+        '/packages/docore/AdminLTE/plugins/select2/select2.min.css',
     ];
 
     protected static $js = [
-        '/packages/admin/AdminLTE/plugins/select2/select2.full.min.js',
+        '/packages/docore/AdminLTE/plugins/select2/select2.full.min.js',
     ];
 
     public function fill($data)

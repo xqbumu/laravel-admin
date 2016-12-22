@@ -9,7 +9,7 @@ class Ip extends Field
     protected $rules = 'ip';
 
     protected static $js = [
-        '/packages/admin/AdminLTE/plugins/input-mask/jquery.inputmask.bundle.min.js',
+        '/packages/docore/AdminLTE/plugins/input-mask/jquery.inputmask.js',
     ];
 
     public function render()

@@ -7,12 +7,12 @@ use Encore\Incore\Form\Field;
 class Slider extends Field
 {
     protected static $css = [
-        '/packages/admin/AdminLTE/plugins/ionslider/ion.rangeSlider.css',
-        '/packages/admin/AdminLTE/plugins/ionslider/ion.rangeSlider.skinNice.css',
+        '/packages/docore/AdminLTE/plugins/ionslider/ion.rangeSlider.css',
+        '/packages/docore/AdminLTE/plugins/ionslider/ion.rangeSlider.skinNice.css',
     ];
 
     protected static $js = [
-        '/packages/admin/AdminLTE/plugins/ionslider/ion.rangeSlider.min.js',
+        '/packages/docore/AdminLTE/plugins/ionslider/ion.rangeSlider.min.js',
     ];
 
     protected $options = [
