@@ -1,0 +1,19 @@
+/*
+ * diy Style css
+ * ----------
+ */
+
+@media (max-width: 768px) {
+    div.navbar-collapse#topmenu-collapse {
+        margin-top: 50px;
+    }
+}
+
+@media (min-width: 768px) {
+    div.navbar-custom-menu {
+        position: fixed;
+    }
+    div.navbar-custom-menu ul.navbar-nav li.topmenu-toggle {
+        display: none;
+    }
+}
