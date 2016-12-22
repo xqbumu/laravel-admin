@@ -17,7 +17,7 @@ class Image extends AbstractDisplayer
             if (url()->isValidUrl($path)) {
                 $src = $path;
             } else {
-                $server = $server ?: config('admin.upload.host');
+                $server = $server ?: \Docore::configs('upload.host');
                 $src = trim($server, '/').'/'.trim($path, '/');
             }
 

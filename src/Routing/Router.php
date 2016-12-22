@@ -49,7 +49,7 @@ class Router
     protected function prepareAttributes()
     {
         $this->attributes = [
-            'prefix'        => config('admin.prefix'),
+            'prefix'        => \Docore::configs('prefix'),
             'namespace'     => Docore::controllerNamespace(),
             'middleware'    => ['web', 'admin'],
         ];

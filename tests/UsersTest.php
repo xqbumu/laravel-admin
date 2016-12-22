@@ -33,7 +33,7 @@ class UsersTest extends TestCase
             ->see('Create')
             ->submitForm('Submit', $user)
             ->seePageIs('admin/auth/users')
-            ->seeInDatabase(config('admin.database.users_table'), ['username' => 'Test']);
+            ->seeInDatabase(\Docore::configs('database.users_table'), ['username' => 'Test']);
 
         $this->visit('admin/auth/logout')
             ->dontSeeIsAuthenticated('admin')
@@ -59,7 +59,7 @@ class UsersTest extends TestCase
             ->see('Create')
             ->submitForm('Submit', ['name' => 'test', 'roles' => [1]])
             ->seePageIs('admin/auth/users')
-            ->seeInDatabase(config('admin.database.users_table'), ['name' => 'test']);
+            ->seeInDatabase(\Docore::configs('database.users_table'), ['name' => 'test']);
     }
 
     public function testResetPassword()

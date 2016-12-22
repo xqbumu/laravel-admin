@@ -58,7 +58,7 @@
                         <li><!-- start message -->
                             <a href="#">
                             <div class="pull-left">
-                                <img src="{{ asset ("/packages/incore/AdminLTE/dist/img/user8-128x128.jpg") }}" class="img-circle" alt="User Image">
+                                <img src="{{ asset ("/packages/docore/AdminLTE/dist/img/user8-128x128.jpg") }}" class="img-circle" alt="User Image">
                             </div>
                             <h4>
                                 Support Team
@@ -71,7 +71,7 @@
                         <li>
                             <a href="#">
                             <div class="pull-left">
-                                <img src="{{ asset ("/packages/incore/AdminLTE/dist/img/user3-128x128.jpg") }}" class="img-circle" alt="User Image">
+                                <img src="{{ asset ("/packages/docore/AdminLTE/dist/img/user3-128x128.jpg") }}" class="img-circle" alt="User Image">
                             </div>
                             <h4>
                                 AdminLTE Design Team
@@ -83,7 +83,7 @@
                         <li>
                             <a href="#">
                             <div class="pull-left">
-                                <img src="{{ asset ("/packages/incore/AdminLTE/dist/img/user4-128x128.jpg") }}" class="img-circle" alt="User Image">
+                                <img src="{{ asset ("/packages/docore/AdminLTE/dist/img/user4-128x128.jpg") }}" class="img-circle" alt="User Image">
                             </div>
                             <h4>
                                 Developers
@@ -95,7 +95,7 @@
                         <li>
                             <a href="#">
                             <div class="pull-left">
-                                <img src="{{ asset ("/packages/incore/AdminLTE/dist/img/user5-128x128.jpg") }}" class="img-circle" alt="User Image">
+                                <img src="{{ asset ("/packages/docore/AdminLTE/dist/img/user5-128x128.jpg") }}" class="img-circle" alt="User Image">
                             </div>
                             <h4>
                                 Sales Department
@@ -107,7 +107,7 @@
                         <li>
                             <a href="#">
                             <div class="pull-left">
-                                <img src="{{ asset ("/packages/incore/AdminLTE/dist/img/user6-128x128.jpg") }}" class="img-circle" alt="User Image">
+                                <img src="{{ asset ("/packages/docore/AdminLTE/dist/img/user6-128x128.jpg") }}" class="img-circle" alt="User Image">
                             </div>
                             <h4>
                                 Reviewers
@@ -242,14 +242,14 @@
                     <!-- Menu Toggle Button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <!-- The user image in the navbar-->
-                        <img src="{{ asset ("/packages/incore/AdminLTE/dist/img/user2-160x160.jpg") }}" class="user-image" alt="User Image">
+                        <img src="{{ asset ("/packages/docore/AdminLTE/dist/img/user2-160x160.jpg") }}" class="user-image" alt="User Image">
                         <!-- hidden-xs hides the username on small devices so only the image appears. -->
                         <span class="hidden-xs">{{ Docore::user()->name }}</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- The user image in the menu -->
                         <li class="user-header">
-                            <img src="{{ asset ("/packages/incore/AdminLTE/dist/img/user2-160x160.jpg") }}" class="img-circle" alt="User Image">
+                            <img src="{{ asset ("/packages/docore/AdminLTE/dist/img/user2-160x160.jpg") }}" class="img-circle" alt="User Image">
                             <p>
                                 {{ Docore::user()->name }}
                                 <small>Member since admin {{ Docore::user()->created_at }}</small>

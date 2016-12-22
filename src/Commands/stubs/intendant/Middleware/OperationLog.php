@@ -26,7 +26,7 @@ class OperationLog
                 'input'   => json_encode($request->input()),
             ];
 
-            call_user_func(array(Incore::configs('database.operation_log_model'), 'create'), $log);
+            call_user_func(array(\Docore::configs('database.operation_log_model'), 'create'), $log);
         }
 
         return $next($request);

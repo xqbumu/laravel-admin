@@ -96,7 +96,7 @@ class File extends Field
      */
     protected function initStorage()
     {
-        $this->storage = Storage::disk(config('admin.upload.disk'));
+        $this->storage = Storage::disk(\Docore::configs('upload.disk'));
     }
 
     /**
@@ -148,7 +148,7 @@ class File extends Field
      */
     public function defaultStorePath()
     {
-        return config('admin.upload.directory.file');
+        return \Docore::configs('upload.directory.file');
     }
 
     /**
@@ -376,7 +376,7 @@ EOT;
             return $path;
         }
 
-        return rtrim(config('admin.upload.host'), '/').'/'.trim($path, '/');
+        return rtrim(\Docore::configs('upload.host'), '/').'/'.trim($path, '/');
     }
 
     /**

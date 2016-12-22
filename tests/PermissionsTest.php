@@ -31,8 +31,8 @@ class PermissionsTest extends TestCase
             ->see('Permissions')
             ->submitForm('Submit', ['slug' => 'can-delete', 'name' => 'Can delete'])
             ->seePageIs('admin/auth/permissions')
-            ->seeInDatabase(config('admin.database.permissions_table'), ['slug' => 'can-edit', 'name' => 'Can edit'])
-            ->seeInDatabase(config('admin.database.permissions_table'), ['slug' => 'can-delete', 'name' => 'Can delete'])
+            ->seeInDatabase(\Docore::configs('database.permissions_table'), ['slug' => 'can-edit', 'name' => 'Can edit'])
+            ->seeInDatabase(\Docore::configs('database.permissions_table'), ['slug' => 'can-delete', 'name' => 'Can delete'])
             ->assertEquals(2, Permission::count());
 
         $this->assertTrue(Administrator::first()->can('can-edit'));
@@ -58,7 +58,7 @@ class PermissionsTest extends TestCase
             ->see('Edit')
             ->submitForm('Submit', ['permissions' => [1]])
             ->seePageIs('admin/auth/roles')
-            ->seeInDatabase(config('admin.database.role_permissions_table'), ['role_id' => 1, 'permission_id' => 1]);
+            ->seeInDatabase(\Docore::configs('database.role_permissions_table'), ['role_id' => 1, 'permission_id' => 1]);
     }
 
     public function testAddPermissionToUser()
@@ -74,8 +74,8 @@ class PermissionsTest extends TestCase
             ->see('Edit')
             ->submitForm('Submit', ['permissions' => [1], 'roles' => [1]])
             ->seePageIs('admin/auth/users')
-            ->seeInDatabase(config('admin.database.user_permissions_table'), ['user_id' => 1, 'permission_id' => 1])
-            ->seeInDatabase(config('admin.database.role_users_table'), ['user_id' => 1, 'role_id' => 1]);
+            ->seeInDatabase(\Docore::configs('database.user_permissions_table'), ['user_id' => 1, 'permission_id' => 1])
+            ->seeInDatabase(\Docore::configs('database.role_users_table'), ['user_id' => 1, 'role_id' => 1]);
     }
 
     public function testAddUserAndAssignPermission()
@@ -90,7 +90,7 @@ class PermissionsTest extends TestCase
             ->see('Create')
             ->submitForm('Submit', $user)
             ->seePageIs('admin/auth/users')
-            ->seeInDatabase(config('admin.database.users_table'), ['username' => 'Test']);
+            ->seeInDatabase(\Docore::configs('database.users_table'), ['username' => 'Test']);
 
         $this->assertFalse(Administrator::find(2)->isAdministrator());
 
@@ -112,7 +112,7 @@ class PermissionsTest extends TestCase
             ->see('Edit')
             ->submitForm('Submit', ['permissions' => [1]])
             ->seePageIs('admin/auth/users')
-            ->seeInDatabase(config('admin.database.user_permissions_table'), ['user_id' => 2, 'permission_id' => 1]);
+            ->seeInDatabase(\Docore::configs('database.user_permissions_table'), ['user_id' => 2, 'permission_id' => 1]);
 
         $this->assertTrue(Administrator::find(2)->can('can-update'));
         $this->assertTrue(Administrator::find(2)->cannot('can-remove'));
@@ -121,7 +121,7 @@ class PermissionsTest extends TestCase
             ->see('Edit')
             ->submitForm('Submit', ['permissions' => [2]])
             ->seePageIs('admin/auth/users')
-            ->seeInDatabase(config('admin.database.user_permissions_table'), ['user_id' => 2, 'permission_id' => 2]);
+            ->seeInDatabase(\Docore::configs('database.user_permissions_table'), ['user_id' => 2, 'permission_id' => 2]);
 
         $this->assertTrue(Administrator::find(2)->can('can-remove'));
 
@@ -129,8 +129,8 @@ class PermissionsTest extends TestCase
             ->see('Edit')
             ->submitForm('Submit', ['permissions' => []])
             ->seePageIs('admin/auth/users')
-            ->missingFromDatabase(config('admin.database.user_permissions_table'), ['user_id' => 2, 'permission_id' => 1])
-            ->missingFromDatabase(config('admin.database.user_permissions_table'), ['user_id' => 2, 'permission_id' => 2]);
+            ->missingFromDatabase(\Docore::configs('database.user_permissions_table'), ['user_id' => 2, 'permission_id' => 1])
+            ->missingFromDatabase(\Docore::configs('database.user_permissions_table'), ['user_id' => 2, 'permission_id' => 2]);
 
         $this->assertTrue(Administrator::find(2)->cannot('can-update'));
         $this->assertTrue(Administrator::find(2)->cannot('can-remove'));
@@ -149,7 +149,7 @@ class PermissionsTest extends TestCase
             ->see('Create')
             ->submitForm('Submit', $user)
             ->seePageIs('admin/auth/users')
-            ->seeInDatabase(config('admin.database.users_table'), ['username' => 'Test']);
+            ->seeInDatabase(\Docore::configs('database.users_table'), ['username' => 'Test']);
 
         $this->assertFalse(Administrator::find(2)->isAdministrator());
 
@@ -158,7 +158,7 @@ class PermissionsTest extends TestCase
             ->see('Roles')
             ->submitForm('Submit', ['slug' => 'developer', 'name' => 'Developer...'])
             ->seePageIs('admin/auth/roles')
-            ->seeInDatabase(config('admin.database.roles_table'), ['slug' => 'developer', 'name' => 'Developer...'])
+            ->seeInDatabase(\Docore::configs('database.roles_table'), ['slug' => 'developer', 'name' => 'Developer...'])
             ->assertEquals(2, Role::count());
 
         $this->assertFalse(Administrator::find(2)->isRole('developer'));
@@ -168,7 +168,7 @@ class PermissionsTest extends TestCase
             ->see('Edit')
             ->submitForm('Submit', ['roles' => [2]])
             ->seePageIs('admin/auth/users')
-            ->seeInDatabase(config('admin.database.role_users_table'), ['user_id' => 2, 'role_id' => 2]);
+            ->seeInDatabase(\Docore::configs('database.role_users_table'), ['user_id' => 2, 'role_id' => 2]);
 
         $this->assertTrue(Administrator::find(2)->isRole('developer'));
 
@@ -187,7 +187,7 @@ class PermissionsTest extends TestCase
             ->see('Edit')
             ->submitForm('Submit', ['permissions' => [1]])
             ->seePageIs('admin/auth/roles')
-            ->seeInDatabase(config('admin.database.role_permissions_table'), ['role_id' => 2, 'permission_id' => 1]);
+            ->seeInDatabase(\Docore::configs('database.role_permissions_table'), ['role_id' => 2, 'permission_id' => 1]);
 
         $this->assertTrue(Administrator::find(2)->can('can-remove'));
     }
@@ -198,15 +198,15 @@ class PermissionsTest extends TestCase
             ->see('Permissions')
             ->submitForm('Submit', ['slug' => 'can-edit', 'name' => 'Can edit'])
             ->seePageIs('admin/auth/permissions')
-            ->seeInDatabase(config('admin.database.permissions_table'), ['slug' => 'can-edit'])
-            ->seeInDatabase(config('admin.database.permissions_table'), ['name' => 'Can edit'])
+            ->seeInDatabase(\Docore::configs('database.permissions_table'), ['slug' => 'can-edit'])
+            ->seeInDatabase(\Docore::configs('database.permissions_table'), ['name' => 'Can edit'])
             ->assertEquals(1, Permission::count());
 
         $this->visit('admin/auth/permissions/1/edit')
             ->see('Permissions')
             ->submitForm('Submit', ['slug' => 'can-delete'])
             ->seePageIs('admin/auth/permissions')
-            ->seeInDatabase(config('admin.database.permissions_table'), ['slug' => 'can-delete'])
+            ->seeInDatabase(\Docore::configs('database.permissions_table'), ['slug' => 'can-delete'])
             ->assertEquals(1, Permission::count());
     }
 }

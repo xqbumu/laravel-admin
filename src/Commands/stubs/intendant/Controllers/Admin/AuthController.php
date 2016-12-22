@@ -17,7 +17,7 @@ class AuthController extends Controller
     public function getLogin()
     {
         if (!Auth::guard('admin')->guest()) {
-            return redirect(Incore::configs('prefix'));
+            return redirect(\Docore::configs('prefix'));
         }
 
         return view('incore::login');
@@ -41,7 +41,7 @@ class AuthController extends Controller
         }
 
         if (Auth::guard('admin')->attempt($credentials)) {
-            return Redirect::intended(Incore::configs('prefix'));
+            return Redirect::intended(\Docore::configs('prefix'));
         }
 
         return Redirect::back()->withInput()->withErrors(['username' => $this->getFailedLoginMessage()]);
@@ -54,7 +54,7 @@ class AuthController extends Controller
     {
         Auth::guard('admin')->logout();
 
-        return redirect(Incore::configs('prefix'));
+        return redirect(\Docore::configs('prefix'));
     }
 
     protected function getFailedLoginMessage()

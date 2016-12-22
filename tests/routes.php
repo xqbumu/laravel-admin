@@ -1,7 +1,7 @@
 <?php
 
 Route::group([
-    'prefix'        => config('admin.prefix'),
+    'prefix'        => \Docore::configs('prefix'),
     'namespace'     => 'Tests\Controllers',
     'middleware'    => ['web', 'admin'],
 ], function ($router) {

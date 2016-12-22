@@ -98,7 +98,7 @@ class MakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        $directory = config('admin.directory');
+        $directory = \Docore::configs('directory');
 
         $namespace = ucfirst(basename($directory));
 

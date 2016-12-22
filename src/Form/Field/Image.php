@@ -28,7 +28,7 @@ class Image extends File
      */
     public function defaultStorePath()
     {
-        return config('admin.upload.directory.image');
+        return \Docore::configs('upload.directory.image');
     }
 
     /**

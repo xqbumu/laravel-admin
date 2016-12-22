@@ -246,7 +246,7 @@ class UploaderController extends Controller
             return $path;
         }
 
-        return rtrim(Incore::configs('upload.host'), '/').'/'.trim($path, '/');
+        return rtrim(\Docore::configs('upload.host'), '/').'/'.trim($path, '/');
     }
 
     /**
@@ -256,7 +256,7 @@ class UploaderController extends Controller
      */
     protected function _initStorage()
     {
-        $this->storage = Storage::disk(Incore::configs('upload.disk'));
+        $this->storage = Storage::disk(\Docore::configs('upload.disk'));
     }
 
     /**
@@ -282,10 +282,10 @@ class UploaderController extends Controller
             } else if ($default) {
                 $file_dir = $default;
             } else {
-                $file_dir = Incore::configs('upload.directory.default');
+                $file_dir = \Docore::configs('upload.directory.default');
             }
         } else {
-            $file_dir = Incore::configs('upload.directory.default');
+            $file_dir = \Docore::configs('upload.directory.default');
         }
 
         return $file_dir.'/'.date('Y-m-d');

@@ -3,7 +3,7 @@
 use Illuminate\Routing\Router;
 
 Route::group([
-    'prefix'        => Incore::configs('prefix'),
+    'prefix'        => \Docore::configs('prefix'),
     'namespace'     => Incore::controllerNamespace(),
     'middleware'    => ['web', 'admin'],
 ], function (Router $router) {

@@ -43,7 +43,7 @@ class UninstallCommand extends Command
      */
     protected function removeFilesAndDirectories()
     {
-        $this->laravel['files']->deleteDirectory(config('admin.directory'));
+        $this->laravel['files']->deleteDirectory(\Docore::configs('directory'));
         $this->laravel['files']->deleteDirectory(public_path('packages/admin/'));
         $this->laravel['files']->delete(config_path('admin.php'));
     }

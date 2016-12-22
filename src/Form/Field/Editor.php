@@ -7,7 +7,7 @@ use Encore\Incore\Form\Field;
 class Editor extends Field
 {
     protected static $js = [
-        '/packages/incore/AdminLTE/plugins/ckeditor/ckeditor.js',
+        '/packages/docore/AdminLTE/plugins/ckeditor/ckeditor.js',
     ];
 
     public function render()
