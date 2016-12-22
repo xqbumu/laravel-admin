@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Grid\Filter;
+namespace Encore\Incore\Grid\Filter;
 
-use Encore\Admin\Admin;
+use Encore\Incore\Docore
 
 class Between extends AbstractFilter
 {
@@ -87,7 +87,7 @@ class Between extends AbstractFilter
 
     public function datetime()
     {
-        $this->view = 'admin::filter.betweenDatetime';
+        $this->view = 'docore::filter.betweenDatetime';
 
         $this->prepareForDatetime();
     }
@@ -111,7 +111,7 @@ class Between extends AbstractFilter
             });
 EOT;
 
-        Admin::script($script);
+        Docore::script($script);
     }
 
     public function render()

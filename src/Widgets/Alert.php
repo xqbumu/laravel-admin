@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Admin\Widgets;
+namespace Encore\Incore\Widgets;
 
 use Illuminate\Contracts\Support\Renderable;
 
@@ -37,7 +37,7 @@ class Alert extends Widget implements Renderable
     {
         $this->content = (string) $content;
 
-        $this->title = $title ?: trans('admin::lang.alert');
+        $this->title = $title ?: trans('docore::lang.alert');
 
         $this->style = $style;
     }
@@ -90,6 +90,6 @@ class Alert extends Widget implements Renderable
      */
     public function render()
     {
-        return view('admin::widgets.alert', $this->variables())->render();
+        return view('docore::widgets.alert', $this->variables())->render();
     }
 }

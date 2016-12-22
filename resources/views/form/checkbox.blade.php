@@ -4,7 +4,7 @@
 
     <div class="col-sm-6" id="{{$id}}">
 
-        @include('admin::form.error')
+        @include('docore::form.error')
 
         <div class="input-group">
             @foreach($options as $option => $label)
@@ -14,7 +14,7 @@
 
         <input type="hidden" name="{{$name}}[]">
 
-        @include('admin::form.help-block')
+        @include('docore::form.help-block')
 
     </div>
 </div>

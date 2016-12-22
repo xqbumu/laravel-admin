@@ -1,9 +1,9 @@
 <?php
 
-namespace Encore\Admin\Form;
+namespace Encore\Incore\Form;
 
-use Encore\Admin\Admin;
-use Encore\Admin\Form;
+use Encore\Incore\Docore
+use Encore\Incore\Form;
 use Illuminate\Support\Collection;
 
 /**
@@ -132,15 +132,15 @@ class Builder
     public function title()
     {
         if ($this->mode == static::MODE_CREATE) {
-            return trans('admin::lang.create');
+            return trans('docore::lang.create');
         }
 
         if ($this->mode == static::MODE_EDIT) {
-            return trans('admin::lang.edit');
+            return trans('docore::lang.edit');
         }
 
         if ($this->mode == static::MODE_VIEW) {
-            return trans('admin::lang.view');
+            return trans('docore::lang.view');
         }
 
         return '';
@@ -245,7 +245,7 @@ class Builder
             return;
         }
 
-        return '<button type="submit" class="btn btn-info pull-right">'.trans('admin::lang.submit').'</button>';
+        return '<button type="submit" class="btn btn-info pull-right">'.trans('docore::lang.submit').'</button>';
     }
 
     /**
@@ -255,7 +255,7 @@ class Builder
      */
     public function render()
     {
-        $confirm = trans('admin::lang.delete_confirm');
+        $confirm = trans('docore::lang.delete_confirm');
         $token = csrf_token();
 
         $slice = $this->mode == static::MODE_CREATE ? -1 : -2;
@@ -278,7 +278,7 @@ class Builder
             });
 SCRIPT;
 
-        Admin::script($script);
+        Docore::script($script);
 
         $vars = [
             'id'       => $this->id,
@@ -290,7 +290,7 @@ SCRIPT;
             $this->disableDeletion();
         }
 
-        return view('admin::form', $vars)->render();
+        return view('docore::form', $vars)->render();
     }
 
     /**

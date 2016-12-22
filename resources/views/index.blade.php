@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{ Admin::title() }}</title>
+    <title>{{ Docore::title() }}</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
@@ -14,7 +14,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset("/packages/admin/AdminLTE/dist/css/skins/" . config('admin.skin') .".min.css") }}">
 
-    {!! Admin::css() !!}
+    {!! Docore::css() !!}
     <link rel="stylesheet" href="{{ asset("/packages/admin/nestable/nestable.css") }}">
     <link rel="stylesheet" href="{{ asset("/packages/admin/bootstrap3-editable/css/bootstrap-editable.css") }}">
     <link rel="stylesheet" href="{{ asset("/packages/admin/google-fonts/fonts.css") }}">
@@ -37,16 +37,16 @@
 <body class="hold-transition {{config('admin.skin')}} {{join(' ', config('admin.layout'))}}">
 <div class="wrapper">
 
-    @include('admin::partials.header')
+    @include('docore::partials.header')
 
-    @include('admin::partials.sidebar')
+    @include('docore::partials.sidebar')
 
     <div class="content-wrapper" id="pjax-container">
         @yield('content')
-        {!! Admin::script() !!}
+        {!! Docore::script() !!}
     </div>
 
-    @include('admin::partials.footer')
+    @include('docore::partials.footer')
 
 </div>
 
@@ -58,7 +58,7 @@
 <script src="{{ asset ("/packages/admin/noty/jquery.noty.packaged.min.js") }}"></script>
 <script src="{{ asset ("/packages/admin/bootstrap3-editable/js/bootstrap-editable.min.js") }}"></script>
 
-{!! Admin::js() !!}
+{!! Docore::js() !!}
 
 <script>
 

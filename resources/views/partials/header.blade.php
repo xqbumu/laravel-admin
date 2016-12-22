@@ -25,7 +25,7 @@
                         <!-- The user image in the navbar-->
                         <img src="{{ asset ("/packages/admin/AdminLTE/dist/img/user2-160x160.jpg") }}" class="user-image" alt="User Image">
                         <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                        <span class="hidden-xs">{{ Admin::user()->name }}</span>
+                        <span class="hidden-xs">{{ Docore::user()->name }}</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- The user image in the menu -->
@@ -33,8 +33,8 @@
                             <img src="{{ asset ("/packages/admin/AdminLTE/dist/img/user2-160x160.jpg") }}" class="img-circle" alt="User Image">
 
                             <p>
-                                {{ Admin::user()->name }}
-                                <small>Member since admin {{ Admin::user()->created_at }}</small>
+                                {{ Docore::user()->name }}
+                                <small>Member since admin {{ Docore::user()->created_at }}</small>
                             </p>
                         </li>
                         <li class="user-footer">
@@ -42,7 +42,7 @@
                                 {{--<a href="#" class="btn btn-default btn-flat">Profile</a>--}}
                             {{--</div>--}}
                             <div class="pull-right">
-                                <a href="{{ Admin::url('auth/logout') }}" class="btn btn-default btn-flat">{{ trans('admin::lang.logout') }}</a>
+                                <a href="{{ Docore::url('auth/logout') }}" class="btn btn-default btn-flat">{{ trans('docore::lang.logout') }}</a>
                             </div>
                         </li>
                     </ul>

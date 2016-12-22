@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Admin\Widgets;
+namespace Encore\Incore\Widgets;
 
 use Illuminate\Contracts\Support\Renderable;
 
@@ -133,6 +133,6 @@ class Box extends Widget implements Renderable
      */
     public function render()
     {
-        return view('admin::widgets.box', $this->attributes)->render();
+        return view('docore::widgets.box', $this->attributes)->render();
     }
 }

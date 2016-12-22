@@ -1,15 +1,15 @@
 <?php
 
-namespace Encore\Admin;
+namespace Encore\Incore;
 
 use Closure;
-use Encore\Admin\Exception\Handle;
-use Encore\Admin\Facades\Admin as AdminManager;
-use Encore\Admin\Grid\Column;
-use Encore\Admin\Grid\Exporter;
-use Encore\Admin\Grid\Filter;
-use Encore\Admin\Grid\Model;
-use Encore\Admin\Grid\Row;
+use Encore\Incore\Exception\Handle;
+use Encore\Incore\Facades\Docore as DocoreManager;
+use Encore\Incore\Grid\Column;
+use Encore\Incore\Grid\Exporter;
+use Encore\Incore\Grid\Filter;
+use Encore\Incore\Grid\Model;
+use Encore\Incore\Grid\Row;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -27,7 +27,7 @@ class Grid
     /**
      * The grid data model instance.
      *
-     * @var \Encore\Admin\Grid\Model
+     * @var \Encore\Incore\Grid\Model
      */
     protected $model;
 
@@ -83,7 +83,7 @@ class Grid
     /**
      * The grid Filter.
      *
-     * @var \Encore\Admin\Grid\Filter
+     * @var \Encore\Incore\Grid\Filter
      */
     protected $filter;
 
@@ -167,7 +167,7 @@ class Grid
      *
      * @var string
      */
-    protected $view = 'admin::grid.table';
+    protected $view = 'docore::grid.table';
 
     /**
      * Per-page options.
@@ -336,7 +336,7 @@ class Grid
 
         $query = Input::all();
 
-        return $this->model()->eloquent()->appends($query)->render('admin::pagination');
+        return $this->model()->eloquent()->appends($query)->render('docore::pagination');
     }
 
     /**
@@ -816,15 +816,15 @@ class Grid
     public static function registerColumnDisplayer()
     {
         $map = [
-            'editable'      => \Encore\Admin\Grid\Displayers\Editable::class,
-            'switch'        => \Encore\Admin\Grid\Displayers\SwitchDisplay::class,
-            'select'        => \Encore\Admin\Grid\Displayers\Select::class,
-            'image'         => \Encore\Admin\Grid\Displayers\Image::class,
-            'label'         => \Encore\Admin\Grid\Displayers\Label::class,
-            'button'        => \Encore\Admin\Grid\Displayers\Button::class,
-            'link'          => \Encore\Admin\Grid\Displayers\Link::class,
-            'badge'         => \Encore\Admin\Grid\Displayers\Badge::class,
-            'progressBar'   => \Encore\Admin\Grid\Displayers\ProgressBar::class,
+            'editable'      => \Encore\Incore\Grid\Displayers\Editable::class,
+            'switch'        => \Encore\Incore\Grid\Displayers\SwitchDisplay::class,
+            'select'        => \Encore\Incore\Grid\Displayers\Select::class,
+            'image'         => \Encore\Incore\Grid\Displayers\Image::class,
+            'label'         => \Encore\Incore\Grid\Displayers\Label::class,
+            'button'        => \Encore\Incore\Grid\Displayers\Button::class,
+            'link'          => \Encore\Incore\Grid\Displayers\Link::class,
+            'badge'         => \Encore\Incore\Grid\Displayers\Badge::class,
+            'progressBar'   => \Encore\Incore\Grid\Displayers\ProgressBar::class,
         ];
 
         foreach ($map as $abstract => $class) {
@@ -886,7 +886,7 @@ class Grid
             return with(new Handle($e))->render();
         }
 
-        AdminManager::script($this->script());
+        DocoreManager::script($this->script());
 
         return view($this->view, $this->variables())->render();
     }
@@ -900,7 +900,7 @@ class Grid
     {
         $path = app('router')->current()->getPath();
         $token = csrf_token();
-        $confirm = trans('admin::lang.delete_confirm');
+        $confirm = trans('docore::lang.delete_confirm');
 
         return <<<EOT
 

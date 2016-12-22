@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Grid\Displayers;
+namespace Encore\Incore\Grid\Displayers;
 
-use Encore\Admin\Admin;
+use Encore\Incore\Docore
 
 class Select extends AbstractDisplayer
 {
@@ -36,7 +36,7 @@ $('.$class').select2().on('change', function(){
 
 EOT;
 
-        Admin::script($script);
+        Docore::script($script);
 
         $key = $this->row->{$this->grid->getKeyName()};
 

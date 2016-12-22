@@ -4,12 +4,12 @@
 
     <div class="col-sm-6">
 
-        @include('admin::form.error')
+        @include('docore::form.error')
 
         <input type="checkbox" class="{{$class}}_checkbox" {{ old($column, $value) == 'on' ? 'checked' : '' }} {!! $attributes !!} />
         <input type="hidden" class="{{$class}}" name="{{$name}}" class="" value="{{ old($column, $value) }}" />
 
-        @include('admin::form.help-block')
+        @include('docore::form.help-block')
 
     </div>
 </div>

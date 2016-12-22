@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Admin\Widgets;
+namespace Encore\Incore\Widgets;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Arr;
@@ -99,6 +99,6 @@ class Table extends Widget implements Renderable
             'style'   => $this->style,
         ];
 
-        return view('admin::widgets.table', $vars)->render();
+        return view('docore::widgets.table', $vars)->render();
     }
 }

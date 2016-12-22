@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Admin\Form\Field;
+namespace Encore\Incore\Form\Field;
 
 use Intervention\Image\ImageManagerStatic;
 use Symfony\Component\HttpFoundation\File\UploadedFile;

@@ -4,11 +4,11 @@
 
     <div class="col-sm-6">
 
-        @include('admin::form.error')
+        @include('docore::form.error')
 
         <input type="text" class="{{$class}}" name="{{$name}}" data-from="{{ old($column, $value) }}" {!! $attributes !!} />
 
-        @include('admin::form.help-block')
+        @include('docore::form.help-block')
 
     </div>
 </div>

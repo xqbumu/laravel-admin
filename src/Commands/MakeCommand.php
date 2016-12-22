@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Admin\Commands;
+namespace Encore\Incore\Commands;
 
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -13,7 +13,7 @@ class MakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $name = 'admin:make';
+    protected $name = 'docore:make';
 
     /**
      * The console command description.

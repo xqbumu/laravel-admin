@@ -4,11 +4,11 @@
 
     <div class="col-sm-6">
 
-        @include('admin::form.error')
+        @include('docore::form.error')
         <input type="file" class="{{$class}}" name="{{$name}}{{$multiple ? '[]' : ''}}" {!! $attributes !!}/>
         <input type="hidden" class="{{$class}}_action" name="{{$name}}_action" value="0"/>
 
-        @include('admin::form.help-block')
+        @include('docore::form.help-block')
 
     </div>
 </div>

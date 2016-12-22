@@ -4,13 +4,13 @@
 
     <div class="col-sm-6">
 
-        @include('admin::form.error')
+        @include('docore::form.error')
 
         <div class="input-group">
             <input type="text" name="{{$name}}" value="{{ old($column, $value) }}" class="form-control {{$class}}" placeholder="0" style="width: 100px" {!! $attributes !!} />
         </div>
 
-        @include('admin::form.help-block')
+        @include('docore::form.help-block')
 
     </div>
 </div>

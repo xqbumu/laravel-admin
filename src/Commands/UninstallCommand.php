@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Admin\Commands;
+namespace Encore\Incore\Commands;
 
 use Illuminate\Console\Command;
 
@@ -11,7 +11,7 @@ class UninstallCommand extends Command
      *
      * @var string
      */
-    protected $name = 'admin:uninstall';
+    protected $name = 'docore:uninstall';
 
     /**
      * The console command description.

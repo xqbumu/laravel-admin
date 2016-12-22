@@ -1,10 +1,10 @@
 <?php
 
-namespace Encore\Admin\Grid;
+namespace Encore\Incore\Grid;
 
 use Closure;
-use Encore\Admin\Grid;
-use Encore\Admin\Grid\Displayers\AbstractDisplayer;
+use Encore\Incore\Grid;
+use Encore\Incore\Grid\Displayers\AbstractDisplayer;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;

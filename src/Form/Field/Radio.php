@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Form\Field;
+namespace Encore\Incore\Form\Field;
 
-use Encore\Admin\Form\Field;
+use Encore\Incore\Form\Field;
 
 class Radio extends Field
 {

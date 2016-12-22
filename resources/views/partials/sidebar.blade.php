@@ -9,9 +9,9 @@
                 <img src="{{ asset ("/packages/admin/AdminLTE/dist/img/user2-160x160.jpg")}}" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p>{{ Admin::user()->name }}</p>
+                <p>{{ Docore::user()->name }}</p>
                 <!-- Status -->
-                <a href="#"><i class="fa fa-circle text-success"></i> {{ trans('admin::lang.online') }}</a>
+                <a href="#"><i class="fa fa-circle text-success"></i> {{ trans('docore::lang.online') }}</a>
             </div>
         </div>
 
@@ -29,9 +29,9 @@
 
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
-            <li class="header">{{ trans('admin::lang.menu') }}</li>
+            <li class="header">{{ trans('docore::lang.menu') }}</li>
 
-            @each('admin::partials.menu', Admin::menu(), 'item')
+            @each('docore::partials.menu', Docore::menu(), 'item')
 
         </ul>
         <!-- /.sidebar-menu -->

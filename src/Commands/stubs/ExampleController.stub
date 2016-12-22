@@ -2,12 +2,12 @@
 
 namespace DummyNamespace;
 
-use Encore\Admin\Form;
-use Encore\Admin\Grid;
-use Encore\Admin\Facades\Admin;
-use Encore\Admin\Layout\Content;
+use Inchow\Incore\Form;
+use Inchow\Incore\Grid;
+use Inchow\Incore\Facades\Incore;
+use Inchow\Incore\Layout\Content;
 use App\Http\Controllers\Controller;
-use Encore\Admin\Controllers\ModelForm;
+use Inchow\Incore\Controllers\ModelForm;
 
 class ExampleController extends Controller
 {
@@ -20,7 +20,7 @@ class ExampleController extends Controller
      */
     public function index()
     {
-        return Admin::content(function (Content $content) {
+        return Incore::content(function (Content $content) {
 
             $content->header('header');
             $content->description('description');
@@ -37,7 +37,7 @@ class ExampleController extends Controller
      */
     public function edit($id)
     {
-        return Admin::content(function (Content $content) use ($id) {
+        return Incore::content(function (Content $content) use ($id) {
 
             $content->header('header');
             $content->description('description');
@@ -53,7 +53,7 @@ class ExampleController extends Controller
      */
     public function create()
     {
-        return Admin::content(function (Content $content) {
+        return Incore::content(function (Content $content) {
 
             $content->header('header');
             $content->description('description');
@@ -69,7 +69,7 @@ class ExampleController extends Controller
      */
     protected function grid()
     {
-        return Admin::grid(YourModel::class, function (Grid $grid) {
+        return Incore::grid(YourModel::class, function (Grid $grid) {
 
             $grid->id('ID')->sortable();
 
@@ -85,7 +85,7 @@ class ExampleController extends Controller
      */
     protected function form()
     {
-        return Admin::form(YourModel::class, function (Form $form) {
+        return Incore::form(YourModel::class, function (Form $form) {
 
             $form->display('id', 'ID');
 

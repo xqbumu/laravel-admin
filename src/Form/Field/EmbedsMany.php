@@ -1,9 +1,9 @@
 <?php
 
-namespace Encore\Admin\Form\Field;
+namespace Encore\Incore\Form\Field;
 
-use Encore\Admin\Form;
-use Encore\Admin\Form\Field;
+use Encore\Incore\Form;
+use Encore\Incore\Form\Field;
 use Jenssegers\Mongodb\Relations\EmbedsMany as Relation;
 
 /**

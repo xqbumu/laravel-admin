@@ -1,7 +1,7 @@
-@if(Admin::user()->visible($item['roles']))
+@if(Docore::user()->visible($item['roles']))
     @if(!isset($item['children']))
         <li>
-            <a href="{{ Admin::url($item['uri']) }}"><i class="fa {{$item['icon']}}"></i>
+            <a href="{{ Docore::url($item['uri']) }}"><i class="fa {{$item['icon']}}"></i>
                 <span>{{$item['title']}}</span>
             </a>
         </li>
@@ -14,7 +14,7 @@
             </a>
             <ul class="treeview-menu">
                 @foreach($item['children'] as $item)
-                    @include('admin::partials.menu', $item)
+                    @include('docore::partials.menu', $item)
                 @endforeach
             </ul>
         </li>

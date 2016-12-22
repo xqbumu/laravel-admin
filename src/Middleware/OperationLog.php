@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Middleware;
+namespace Encore\Incore\Middleware;
 
-use Encore\Admin\Facades\Admin;
+use Encore\Incore\Facades\Docore
 use Illuminate\Http\Request;
 
 class OperationLog
@@ -17,16 +17,16 @@ class OperationLog
      */
     public function handle(Request $request, \Closure $next)
     {
-        if (Admin::user()) {
+        if (Docore::user()) {
             $log = [
-                'user_id' => Admin::user()->id,
+                'user_id' => Docore::user()->id,
                 'path'    => $request->path(),
                 'method'  => $request->method(),
                 'ip'      => $request->getClientIp(),
                 'input'   => json_encode($request->input()),
             ];
 
-            \Encore\Admin\Auth\Database\OperationLog::create($log);
+            \Encore\Incore\Auth\Database\OperationLog::create($log);
         }
 
         return $next($request);

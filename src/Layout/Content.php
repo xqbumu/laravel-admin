@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Admin\Layout;
+namespace Encore\Incore\Layout;
 
 use Closure;
 use Illuminate\Contracts\Support\Renderable;
@@ -80,7 +80,7 @@ class Content implements Renderable
             'content'     => $this->build(),
         ];
 
-        return view('admin::content', $items)->render();
+        return view('docore::content', $items)->render();
     }
 
     public function __toString()

@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Widgets\Chart;
+namespace Encore\Incore\Widgets\Chart;
 
-use Encore\Admin\Admin;
+use Encore\Incore\Docore
 use Illuminate\Support\Arr;
 
 class Pie extends Chart
@@ -77,8 +77,8 @@ EOT;
     {
         $this->elementId = $this->makeElementId();
 
-        Admin::script($this->script());
+        Docore::script($this->script());
 
-        return view('admin::widgets.chart.pie', ['id' => $this->elementId, 'data' => $this->data])->render();
+        return view('docore::widgets.chart.pie', ['id' => $this->elementId, 'data' => $this->data])->render();
     }
 }

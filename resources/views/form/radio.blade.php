@@ -4,13 +4,13 @@
 
     <div class="col-sm-6">
 
-        @include('admin::form.error')
+        @include('docore::form.error')
 
         @foreach($values as $option => $label)
             <input type="radio" name="{{$name}}" value="{{$option}}" class="minimal {{$id}}" {{ ($option == old($column, $value))?'checked':'' }} />&nbsp;{{$label}}&nbsp;&nbsp;
         @endforeach
 
-        @include('admin::form.help-block')
+        @include('docore::form.help-block')
 
     </div>
 </div>

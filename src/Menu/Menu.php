@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Menu;
+namespace Encore\Incore\Menu;
 
-use Encore\Admin\Facades\Admin as AdminManager;
+use Encore\Incore\Facades\Docore as DocoreManager;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Eloquent\Model;
 
@@ -63,7 +63,7 @@ class Menu implements Renderable
      */
     protected function buildupScript()
     {
-        $confirm = trans('admin::lang.delete_confirm');
+        $confirm = trans('docore::lang.delete_confirm');
         $token = csrf_token();
 
         return <<<SCRIPT
@@ -119,11 +119,11 @@ SCRIPT;
      */
     public function render()
     {
-        AdminManager::script($this->buildupScript());
+        DocoreManager::script($this->buildupScript());
 
         view()->share(['path'  => $this->path]);
 
-        return view('admin::menu.tree', $this->variables())->render();
+        return view('docore::menu.tree', $this->variables())->render();
     }
 
     /**

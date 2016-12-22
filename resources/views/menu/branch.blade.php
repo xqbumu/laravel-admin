@@ -20,7 +20,7 @@
         </div>
         <ol class="dd-list">
             @foreach($branch['children'] as $branch)
-                @include('admin::menu.branch', $branch)
+                @include('docore::menu.branch', $branch)
             @endforeach
         </ol>
     </li>

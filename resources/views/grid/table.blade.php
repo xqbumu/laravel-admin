@@ -4,11 +4,11 @@
 
         @if($grid->usePagination() && $grid->usePerPageSelector())
         <div class="input-group pull-left" style="width: 170px;">
-            <span class="input-group-addon"><small>{{ trans('admin::lang.show') }}</small></span>
+            <span class="input-group-addon"><small>{{ trans('docore::lang.show') }}</small></span>
             <select class="form-control input-xs per-page" name="per-page">
                 {!! $grid->perPageOptions() !!}
             </select>
-            <span class="input-group-addon"><small>{{ trans('admin::lang.items') }}</small></span>
+            <span class="input-group-addon"><small>{{ trans('docore::lang.items') }}</small></span>
         </div>
         @endif
 
@@ -16,13 +16,13 @@
 
         @if($grid->allowExport())
         <div class="btn-group pull-right" style="margin-right: 10px">
-            <a href="/{{ $grid->exportUrl() }}" target="_blank" class="btn btn-sm btn-warning"><i class="fa fa-download"></i>&nbsp;&nbsp;{{ trans('admin::lang.export') }}</a>
+            <a href="/{{ $grid->exportUrl() }}" target="_blank" class="btn btn-sm btn-warning"><i class="fa fa-download"></i>&nbsp;&nbsp;{{ trans('docore::lang.export') }}</a>
         </div>
         @endif
 
         @if($grid->allowCreation())
         <div class="btn-group pull-right" style="margin-right: 10px">
-            <a href="/{{$grid->resource()}}/create" class="btn btn-sm btn-success"><i class="fa fa-save"></i>&nbsp;&nbsp;{{ trans('admin::lang.new') }}</a>
+            <a href="/{{$grid->resource()}}/create" class="btn btn-sm btn-success"><i class="fa fa-save"></i>&nbsp;&nbsp;{{ trans('docore::lang.new') }}</a>
         </div>
         @endif
 
@@ -37,11 +37,11 @@
                 @endforeach
 
                 @if($grid->isOrderable())
-                    <th>{{ trans('admin::lang.order') }}</th>
+                    <th>{{ trans('docore::lang.order') }}</th>
                 @endif
 
                 @if($grid->allowActions())
-                    <th>{{ trans('admin::lang.action') }}</th>
+                    <th>{{ trans('docore::lang.action') }}</th>
                 @endif
             </tr>
 
@@ -73,7 +73,7 @@
     <div class="box-footer clearfix">
         <input type="checkbox" class="grid-select-all" />&nbsp;&nbsp;&nbsp;
         @if($grid->allowBatchDeletion())
-            <a class="btn btn-sm btn-danger batch-delete">{{ trans('admin::lang.batch_delete') }}</a>
+            <a class="btn btn-sm btn-danger batch-delete">{{ trans('docore::lang.batch_delete') }}</a>
         @endif
 
             <a class="btn btn-sm btn-primary grid-refresh"><i class="fa fa-refresh"></i></a>

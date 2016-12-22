@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Admin\Widgets\Chart;
+namespace Encore\Incore\Widgets\Chart;
 
 class Doughnut extends Pie
 {

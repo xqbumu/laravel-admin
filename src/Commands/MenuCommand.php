@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Commands;
+namespace Encore\Incore\Commands;
 
-use Encore\Admin\Facades\Admin;
+use Encore\Incore\Facades\Docore
 use Illuminate\Console\Command;
 
 class MenuCommand extends Command
@@ -12,7 +12,7 @@ class MenuCommand extends Command
      *
      * @var string
      */
-    protected $name = 'admin:menu';
+    protected $name = 'docore:menu';
 
     /**
      * The console command description.
@@ -28,7 +28,7 @@ class MenuCommand extends Command
      */
     public function fire()
     {
-        $menu = Admin::menu();
+        $menu = Docore::menu();
 
         echo json_encode($menu, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), "\r\n";
     }

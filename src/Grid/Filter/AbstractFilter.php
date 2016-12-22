@@ -1,10 +1,10 @@
 <?php
 
-namespace Encore\Admin\Grid\Filter;
+namespace Encore\Incore\Grid\Filter;
 
-use Encore\Admin\Grid\Filter\Field\DateTime;
-use Encore\Admin\Grid\Filter\Field\Select;
-use Encore\Admin\Grid\Filter\Field\Text;
+use Encore\Incore\Grid\Filter\Field\DateTime;
+use Encore\Incore\Grid\Filter\Field\Select;
+use Encore\Incore\Grid\Filter\Field\Text;
 
 abstract class AbstractFilter
 {
@@ -258,7 +258,7 @@ abstract class AbstractFilter
     public function render()
     {
         $class = explode('\\', get_called_class());
-        $view = 'admin::filter.'.strtolower(end($class));
+        $view = 'docore::filter.'.strtolower(end($class));
 
         return view($view, $this->variables());
     }

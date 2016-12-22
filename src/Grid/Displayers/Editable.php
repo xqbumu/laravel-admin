@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Grid\Displayers;
+namespace Encore\Incore\Grid\Displayers;
 
-use Encore\Admin\Admin;
+use Encore\Incore\Docore
 
 class Editable extends AbstractDisplayer
 {
@@ -144,7 +144,7 @@ class Editable extends AbstractDisplayer
 
         $options = json_encode($this->options);
 
-        Admin::script("$('.$class').editable($options);");
+        Docore::script("$('.$class').editable($options);");
 
         $attributes = [
             'href'       => '#',

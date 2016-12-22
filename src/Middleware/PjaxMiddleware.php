@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Admin\Middleware;
+namespace Encore\Incore\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;

@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Grid;
+namespace Encore\Incore\Grid;
 
-use Encore\Admin\Grid;
+use Encore\Incore\Grid;
 use Illuminate\Support\Arr;
 
 class Exporter

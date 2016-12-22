@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin;
+namespace Encore\Incore;
 
-use Encore\Admin\Facades\Admin as AdminManager;
+use Encore\Incore\Facades\Docore as DocoreManager;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -45,7 +45,7 @@ class Tree implements Renderable
      */
     protected function buildupScript()
     {
-        $confirm = trans('admin::lang.delete_confirm');
+        $confirm = trans('docore::lang.delete_confirm');
         $token = csrf_token();
 
         $this->script = <<<SCRIPT
@@ -91,11 +91,11 @@ SCRIPT;
 
         $this->buildupScript();
 
-        AdminManager::script($this->script);
+        DocoreManager::script($this->script);
 
         view()->share(['path'  => $this->path]);
 
-        return view('admin::tree', $this->variables())->render();
+        return view('docore::tree', $this->variables())->render();
     }
 
     /**

@@ -1,10 +1,10 @@
 <?php
 
-namespace Encore\Admin\Grid;
+namespace Encore\Incore\Grid;
 
-use Encore\Admin\Facades\Admin;
-use Encore\Admin\Grid;
-use Encore\Admin\Grid\Filter\AbstractFilter;
+use Encore\Incore\Facades\Docore
+use Encore\Incore\Grid;
+use Encore\Incore\Grid\Filter\AbstractFilter;
 use Illuminate\Support\Facades\Input;
 use ReflectionClass;
 
@@ -168,7 +168,7 @@ class Filter
             return $this->renderModalFilter();
         }
 
-        return view('admin::grid.filter')->with(['filters' => $this->filters, 'grid' => $this->grid]);
+        return view('docore::grid.filter')->with(['filters' => $this->filters, 'grid' => $this->grid]);
     }
 
     /**
@@ -187,9 +187,9 @@ $("#filter-modal .submit").click(function () {
 });
 
 EOT;
-        Admin::script($script);
+        Docore::script($script);
 
-        return view('admin::filter.modal')->with(['filters' => $this->filters(), 'grid' => $this->grid]);
+        return view('docore::filter.modal')->with(['filters' => $this->filters(), 'grid' => $this->grid]);
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Admin\Grid;
+namespace Encore\Incore\Grid;
 
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Database\Eloquent\Relations\Relation;

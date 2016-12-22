@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Grid;
+namespace Encore\Incore\Grid;
 
-use Encore\Admin\Admin;
+use Encore\Incore\Docore
 
 class Action
 {
@@ -88,7 +88,7 @@ class Action
      */
     protected function setUpScript()
     {
-        $confirm = trans('admin::lang.delete_confirm');
+        $confirm = trans('docore::lang.delete_confirm');
         $token = csrf_token();
         $script = <<<SCRIPT
 
@@ -120,7 +120,7 @@ $('._delete').click(function() {
 
 SCRIPT;
 
-        Admin::script($script);
+        Docore::script($script);
     }
 
     /**

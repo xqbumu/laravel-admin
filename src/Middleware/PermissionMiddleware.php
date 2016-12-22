@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Middleware;
+namespace Encore\Incore\Middleware;
 
-use Encore\Admin\Auth\Permission;
+use Encore\Incore\Auth\Permission;
 use Illuminate\Http\Request;
 
 class PermissionMiddleware

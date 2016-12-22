@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Admin\Form\Field;
+namespace Encore\Incore\Form\Field;
 
 class MultipleSelect extends Select
 {

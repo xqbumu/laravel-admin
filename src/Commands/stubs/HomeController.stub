@@ -3,27 +3,27 @@
 namespace DummyNamespace;
 
 use App\Http\Controllers\Controller;
-use Encore\Admin\Facades\Admin;
-use Encore\Admin\Layout\Column;
-use Encore\Admin\Layout\Content;
-use Encore\Admin\Layout\Row;
-use Encore\Admin\Widgets\Box;
-use Encore\Admin\Widgets\Chart\Bar;
-use Encore\Admin\Widgets\Chart\Doughnut;
-use Encore\Admin\Widgets\Chart\Line;
-use Encore\Admin\Widgets\Chart\Pie;
-use Encore\Admin\Widgets\Chart\PolarArea;
-use Encore\Admin\Widgets\Chart\Radar;
-use Encore\Admin\Widgets\Collapse;
-use Encore\Admin\Widgets\InfoBox;
-use Encore\Admin\Widgets\Tab;
-use Encore\Admin\Widgets\Table;
+use Inchow\Incore\Facades\Incore;
+use Inchow\Incore\Layout\Column;
+use Inchow\Incore\Layout\Content;
+use Inchow\Incore\Layout\Row;
+use Inchow\Incore\Widgets\Box;
+use Inchow\Incore\Widgets\Chart\Bar;
+use Inchow\Incore\Widgets\Chart\Doughnut;
+use Inchow\Incore\Widgets\Chart\Line;
+use Inchow\Incore\Widgets\Chart\Pie;
+use Inchow\Incore\Widgets\Chart\PolarArea;
+use Inchow\Incore\Widgets\Chart\Radar;
+use Inchow\Incore\Widgets\Collapse;
+use Inchow\Incore\Widgets\InfoBox;
+use Inchow\Incore\Widgets\Tab;
+use Inchow\Incore\Widgets\Table;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        return Admin::content(function (Content $content) {
+        return Incore::content(function (Content $content) {
 
             $content->header('Dashboard');
             $content->description('Description...');

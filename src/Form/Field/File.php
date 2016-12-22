@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Form\Field;
+namespace Encore\Incore\Form\Field;
 
-use Encore\Admin\Form\Field;
+use Encore\Incore\Form\Field;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;

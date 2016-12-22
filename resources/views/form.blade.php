@@ -5,12 +5,12 @@
         <div class="box-tools">
             @if($form->allowDeletion())
             <div class="btn-group pull-right">
-                <a href="javascript:void(0);" class="btn btn-sm btn-warning item_delete" data-id="{{ $id }}"><i class="fa fa-trash"></i>&nbsp;{{ trans('admin::lang.delete') }}</a>
+                <a href="javascript:void(0);" class="btn btn-sm btn-warning item_delete" data-id="{{ $id }}"><i class="fa fa-trash"></i>&nbsp;{{ trans('docore::lang.delete') }}</a>
             </div>
             @endif
 
             <div class="btn-group pull-right" style="margin-right: 10px">
-                <a href="{{ $resource }}" class="btn btn-sm btn-default"><i class="fa fa-list"></i>&nbsp;{{ trans('admin::lang.list') }}</a>
+                <a href="{{ $resource }}" class="btn btn-sm btn-default"><i class="fa fa-list"></i>&nbsp;{{ trans('docore::lang.list') }}</a>
             </div>
         </div>
     </div>
@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="btn-group pull-left">
-                    <input type="reset" class="btn btn-warning" value="{{ trans('admin::lang.reset') }}"/>
+                    <input type="reset" class="btn btn-warning" value="{{ trans('docore::lang.reset') }}"/>
                 </div>
 
             </div>

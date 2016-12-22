@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Admin\Widgets;
+namespace Encore\Incore\Widgets;
 
 abstract class Widget
 {

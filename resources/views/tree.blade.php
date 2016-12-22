@@ -4,7 +4,7 @@
 
         <div class="box-tools">
             <div class="btn-group pull-right" style="margin-right: 10px">
-                <a href="/{{ $path }}/create" class="btn btn-sm btn-success">{{ trans('admin::lang.new') }}</a>
+                <a href="/{{ $path }}/create" class="btn btn-sm btn-success">{{ trans('docore::lang.new') }}</a>
             </div>
 
         </div>
@@ -13,7 +13,7 @@
     <div class="box-body table-responsive no-padding">
         <div class="dd" id="{{ $id }}">
             <ol class="dd-list">
-                @each('admin::tree.branch', $items, 'branch')
+                @each('docore::tree.branch', $items, 'branch')
             </ol>
         </div>
     </div>
@@ -24,11 +24,11 @@
         <div class="col-sm-6">
 
             <div class="btn-group pull-right">
-                <button class="btn btn-info {{ $id }}-save">{{ trans('admin::lang.save') }}</button>
+                <button class="btn btn-info {{ $id }}-save">{{ trans('docore::lang.save') }}</button>
             </div>
 
             <div class="btn-group pull-left">
-                <button class="btn btn-warning {{ $id }}-refresh">{{ trans('admin::lang.refresh') }}</button>
+                <button class="btn btn-warning {{ $id }}-refresh">{{ trans('docore::lang.refresh') }}</button>
             </div>
 
         </div>

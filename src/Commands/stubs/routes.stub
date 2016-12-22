@@ -3,8 +3,8 @@
 use Illuminate\Routing\Router;
 
 Route::group([
-    'prefix'        => config('admin.prefix'),
-    'namespace'     => Admin::controllerNamespace(),
+    'prefix'        => Incore::configs('prefix'),
+    'namespace'     => Incore::controllerNamespace(),
     'middleware'    => ['web', 'admin'],
 ], function (Router $router) {
 

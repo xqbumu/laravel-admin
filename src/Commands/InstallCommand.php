@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Commands;
+namespace Encore\Incore\Commands;
 
-use Encore\Admin\Facades\Admin;
+use Encore\Incore\Facades\Docore
 use Illuminate\Console\Command;
 
 class InstallCommand extends Command
@@ -12,7 +12,7 @@ class InstallCommand extends Command
      *
      * @var string
      */
-    protected $name = 'admin:install';
+    protected $name = 'docore:install';
 
     /**
      * The console command description.
@@ -49,7 +49,7 @@ class InstallCommand extends Command
     {
         $this->call('migrate', ['--path' => str_replace(base_path(), '', __DIR__).'/../../migrations/']);
 
-        $this->call('db:seed', ['--class' => \Encore\Admin\Auth\Database\AdminTablesSeeder::class]);
+        $this->call('db:seed', ['--class' => \Encore\Incore\Auth\Database\AdminTablesSeeder::class]);
     }
 
     /**
@@ -96,7 +96,7 @@ class InstallCommand extends Command
 
         $this->laravel['files']->put(
             $homeController,
-            str_replace('DummyNamespace', Admin::controllerNamespace(), $contents)
+            str_replace('DummyNamespace', Docore::controllerNamespace(), $contents)
         );
         $this->line('<info>HomeController file was created:</info> '.str_replace(base_path(), '', $homeController));
     }
@@ -113,7 +113,7 @@ class InstallCommand extends Command
 
         $this->laravel['files']->put(
             $exampleController,
-            str_replace('DummyNamespace', Admin::controllerNamespace(), $contents)
+            str_replace('DummyNamespace', Docore::controllerNamespace(), $contents)
         );
         $this->line('<info>ExampleController file was created:</info> '.str_replace(base_path(), '', $exampleController));
     }
@@ -130,7 +130,7 @@ class InstallCommand extends Command
 
         $this->laravel['files']->put(
             $authController,
-            str_replace('DummyNamespace', Admin::controllerNamespace(), $contents)
+            str_replace('DummyNamespace', Docore::controllerNamespace(), $contents)
         );
         $this->line('<info>AuthController file was created:</info> '.str_replace(base_path(), '', $authController));
     }
@@ -147,7 +147,7 @@ class InstallCommand extends Command
 
         $this->laravel['files']->put(
             $controller,
-            str_replace('DummyNamespace', Admin::controllerNamespace(), $contents)
+            str_replace('DummyNamespace', Docore::controllerNamespace(), $contents)
         );
         $this->line(
             '<info>AdministratorController file was created:</info> '.str_replace(base_path(), '', $controller)
@@ -192,7 +192,7 @@ class InstallCommand extends Command
         $file = $this->directory.'/routes.php';
 
         $contents = $this->getStub('routes');
-        $this->laravel['files']->put($file, str_replace('DummyNamespace', Admin::controllerNamespace(), $contents));
+        $this->laravel['files']->put($file, str_replace('DummyNamespace', Docore::controllerNamespace(), $contents));
         $this->line('<info>Routes file was created:</info> '.str_replace(base_path(), '', $file));
     }
 

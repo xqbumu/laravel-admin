@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Admin\Widgets\Chart;
+namespace Encore\Incore\Widgets\Chart;
 
 use Illuminate\Support\Arr;
 

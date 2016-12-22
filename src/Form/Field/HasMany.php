@@ -1,12 +1,12 @@
 <?php
 
-namespace Encore\Admin\Form\Field;
+namespace Encore\Incore\Form\Field;
 
-use Encore\Admin\Admin;
-use Encore\Admin\Form\Field;
-use Encore\Admin\Grid;
-use Encore\Admin\Form;
-use Encore\Admin\Form\NestedForm;
+use Encore\Incore\Docore
+use Encore\Incore\Form\Field;
+use Encore\Incore\Grid;
+use Encore\Incore\Form;
+use Encore\Incore\Form\NestedForm;
 use Illuminate\Database\Eloquent\Relations\HasMany as Relation;
 
 /**
@@ -157,7 +157,7 @@ $('.has-many-{$this->column}-forms').on('click', '.remove', function () {
 
 EOT;
 
-        Admin::script($script);
+        Docore::script($script);
 
         return $templateHtml;
     }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Widgets;
+namespace Encore\Incore\Widgets;
 
-use Encore\Admin\Form\Field;
+use Encore\Incore\Form\Field;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Renderable;
 
@@ -157,7 +157,7 @@ class Form implements Renderable
      */
     public static function findFieldClass($method)
     {
-        $class = array_get(\Encore\Admin\Form::$availableFields, $method);
+        $class = array_get(\Encore\Incore\Form::$availableFields, $method);
 
         if (class_exists($class)) {
             return $class;
@@ -264,7 +264,7 @@ class Form implements Renderable
      */
     public function render()
     {
-        return view('admin::widgets.form', $this->getVariables())->render();
+        return view('docore::widgets.form', $this->getVariables())->render();
     }
 
     /**

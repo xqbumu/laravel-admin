@@ -1,9 +1,9 @@
 <?php
 
-namespace Encore\Admin\Form\Field;
+namespace Encore\Incore\Form\Field;
 
-use Encore\Admin\Facades\Admin;
-use Encore\Admin\Form\Field;
+use Encore\Incore\Facades\Docore
+use Encore\Incore\Form\Field;
 use Illuminate\Contracts\Support\Arrayable;
 
 class Select extends Field
@@ -77,7 +77,7 @@ $(".{$this->getElementClass()}").change(function () {
 });
 EOT;
 
-        Admin::script($script);
+        Docore::script($script);
     }
 
     /**

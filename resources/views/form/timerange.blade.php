@@ -4,7 +4,7 @@
 
     <div class="col-sm-6">
 
-        @include('admin::form.error')
+        @include('docore::form.error')
 
         <div class="row" style="width: 370px">
             <div class="col-lg-6">
@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        @include('admin::form.help-block')
+        @include('docore::form.help-block')
 
     </div>
 </div>

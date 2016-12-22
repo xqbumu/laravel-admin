@@ -1,10 +1,10 @@
 <?php
 
-namespace Encore\Admin\Form\Field;
+namespace Encore\Incore\Form\Field;
 
 class Year extends Date
 {
     protected $format = 'YYYY';
 
-    protected $view = 'admin::form.date';
+    protected $view = 'docore::form.date';
 }

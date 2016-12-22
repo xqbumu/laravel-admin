@@ -1,10 +1,10 @@
 <?php
 
-namespace Encore\Admin\Form\Field;
+namespace Encore\Incore\Form\Field;
 
 class Month extends Date
 {
     protected $format = 'MM';
 
-    protected $view = 'admin::form.date';
+    protected $view = 'docore::form.date';
 }

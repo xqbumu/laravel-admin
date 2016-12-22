@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Admin\Widgets;
+namespace Encore\Incore\Widgets;
 
 use Illuminate\Contracts\Support\Renderable;
 
@@ -75,6 +75,6 @@ class Tab extends Widget implements Renderable
      */
     public function render()
     {
-        return view('admin::widgets.tab', $this->attributes)->render();
+        return view('docore::widgets.tab', $this->attributes)->render();
     }
 }

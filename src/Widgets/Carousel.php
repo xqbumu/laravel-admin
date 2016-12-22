@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Admin\Widgets;
+namespace Encore\Incore\Widgets;
 
 use Illuminate\Contracts\Support\Renderable;
 
@@ -48,6 +48,6 @@ class Carousel extends Widget implements Renderable
             'title' => $this->title,
         ];
 
-        return view('admin::widgets.carousel', $variables)->render();
+        return view('docore::widgets.carousel', $variables)->render();
     }
 }

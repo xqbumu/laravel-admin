@@ -1,9 +1,9 @@
 <?php
 
-namespace Encore\Admin\Widgets\Chart;
+namespace Encore\Incore\Widgets\Chart;
 
-use Encore\Admin\Admin;
-use Encore\Admin\Widgets\Widget;
+use Encore\Incore\Docore
+use Encore\Incore\Widgets\Widget;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Renderable;
 
@@ -59,8 +59,8 @@ class Chart extends Widget implements Renderable
     {
         $this->elementId = $this->makeElementId();
 
-        Admin::script($this->script());
+        Docore::script($this->script());
 
-        return view('admin::widgets.chart', ['id' => $this->elementId])->render();
+        return view('docore::widgets.chart', ['id' => $this->elementId])->render();
     }
 }

@@ -4,11 +4,11 @@
 
     <div class="col-sm-6">
 
-        @include('admin::form.error')
+        @include('docore::form.error')
 
-        <textarea name="{{$name}}" class="form-control" rows="{{ $rows }}" placeholder="{{ trans('admin::lang.input') }} {{$label}}" {!! $attributes !!} >{{ old($column, $value) }}</textarea>
+        <textarea name="{{$name}}" class="form-control" rows="{{ $rows }}" placeholder="{{ trans('docore::lang.input') }} {{$label}}" {!! $attributes !!} >{{ old($column, $value) }}</textarea>
 
-        @include('admin::form.help-block')
+        @include('docore::form.help-block')
 
     </div>
 </div>

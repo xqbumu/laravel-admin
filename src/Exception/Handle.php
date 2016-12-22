@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Admin\Exception;
+namespace Encore\Incore\Exception;
 
 class Handle
 {
@@ -13,7 +13,7 @@ class Handle
 
     public function render()
     {
-        return view('admin::error', ['e' => $this->exception])->render();
+        return view('docore::error', ['e' => $this->exception])->render();
     }
 
     public function __toString()

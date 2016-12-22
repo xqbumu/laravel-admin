@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Grid\Displayers;
+namespace Encore\Incore\Grid\Displayers;
 
-use Encore\Admin\Admin;
+use Encore\Incore\Docore
 
 class SwitchDisplay extends AbstractDisplayer
 {
@@ -59,7 +59,7 @@ $('.$class').bootstrapSwitch({
 
 EOT;
 
-        Admin::script($script);
+        Docore::script($script);
 
         $key = $this->row->{$this->grid->getKeyName()};
 

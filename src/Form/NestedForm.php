@@ -1,9 +1,9 @@
 <?php
 
-namespace Encore\Admin\Form;
+namespace Encore\Incore\Form;
 
-use Encore\Admin\Admin;
-use Encore\Admin\Form;
+use Encore\Incore\Docore
+use Encore\Incore\Form;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
@@ -430,7 +430,7 @@ class NestedForm
             if ($script = $field->getScript()) {
                 $this->scripts[] = $field->getScript();
 
-                array_pop(Admin::$script);
+                array_pop(Docore::$script);
             }
         }
 

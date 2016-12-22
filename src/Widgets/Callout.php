@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Admin\Widgets;
+namespace Encore\Incore\Widgets;
 
 use Illuminate\Contracts\Support\Renderable;
 
@@ -70,6 +70,6 @@ class Callout extends Widget implements Renderable
      */
     public function render()
     {
-        return view('admin::widgets.callout', $this->variables())->render();
+        return view('docore::widgets.callout', $this->variables())->render();
     }
 }

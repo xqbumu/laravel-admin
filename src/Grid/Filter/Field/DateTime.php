@@ -1,13 +1,13 @@
 <?php
 
-namespace Encore\Admin\Grid\Filter\Field;
+namespace Encore\Incore\Grid\Filter\Field;
 
-use Encore\Admin\Admin;
+use Encore\Incore\Docore
 
 class DateTime
 {
     /**
-     * @var \Encore\Admin\Grid\Filter\AbstractFilter
+     * @var \Encore\Incore\Grid\Filter\AbstractFilter
      */
     protected $filter;
 
@@ -25,7 +25,7 @@ class DateTime
 
         $script = "$('#{$this->filter->getId()}').datetimepicker(".json_encode($options).');';
 
-        Admin::script($script);
+        Docore::script($script);
     }
 
     public function variables()

@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Admin\Layout;
+namespace Encore\Incore\Layout;
 
 class Row implements Buildable
 {

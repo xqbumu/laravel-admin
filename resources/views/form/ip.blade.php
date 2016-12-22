@@ -4,16 +4,16 @@
 
     <div class="col-sm-6">
 
-        @include('admin::form.error')
+        @include('docore::form.error')
 
         <div class="input-group">
             <div class="input-group-addon">
                 <i class="fa fa-laptop"></i>
             </div>
-            <input type="text" id="{{$id}}" name="{{$name}}" value="{{ old($column, $value) }}"  class="form-control" data-inputmask="'alias': 'ip'" data-mask placeholder="{{ trans('admin::lang.input') }} {{$label}}" style="width: 130px" {!! $attributes !!} />
+            <input type="text" id="{{$id}}" name="{{$name}}" value="{{ old($column, $value) }}"  class="form-control" data-inputmask="'alias': 'ip'" data-mask placeholder="{{ trans('docore::lang.input') }} {{$label}}" style="width: 130px" {!! $attributes !!} />
         </div>
 
-        @include('admin::form.help-block')
+        @include('docore::form.help-block')
 
     </div>
 </div>

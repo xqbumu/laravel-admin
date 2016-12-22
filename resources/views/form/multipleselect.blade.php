@@ -4,16 +4,16 @@
 
     <div class="col-sm-6">
 
-        @include('admin::form.error')
+        @include('docore::form.error')
 
-        <select class="form-control {{$class}}" name="{{$name}}[]" multiple="multiple" data-placeholder="{{ trans('admin::lang.choose') }}{{$label}}" {!! $attributes !!} >
+        <select class="form-control {{$class}}" name="{{$name}}[]" multiple="multiple" data-placeholder="{{ trans('docore::lang.choose') }}{{$label}}" {!! $attributes !!} >
             @foreach($options as $select => $option)
                 <option value="{{$select}}" {{  in_array($select, (array)old($column, $value)) ?'selected':'' }}>{{$option}}</option>
             @endforeach
         </select>
         <input type="hidden" name="{{$name}}[]" />
 
-        @include('admin::form.help-block')
+        @include('docore::form.help-block')
 
     </div>
 </div>

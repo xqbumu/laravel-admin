@@ -1,9 +1,9 @@
 <?php
 
-namespace Encore\Admin\Form;
+namespace Encore\Incore\Form;
 
-use Encore\Admin\Admin;
-use Encore\Admin\Form;
+use Encore\Incore\Docore
+use Encore\Incore\Form;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\Validator;
 
@@ -563,7 +563,7 @@ class Field
 
         $class = explode('\\', get_called_class());
 
-        return 'admin::form.'.strtolower(end($class));
+        return 'docore::form.'.strtolower(end($class));
     }
 
     public function getScript()
@@ -578,7 +578,7 @@ class Field
      */
     public function render()
     {
-        Admin::script($this->script);
+        Docore::script($this->script);
 
         return view($this->getView(), $this->variables());
     }

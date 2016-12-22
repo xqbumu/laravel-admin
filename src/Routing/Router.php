@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Routing;
+namespace Encore\Incore\Routing;
 
-use Encore\Admin\Facades\Admin;
+use Encore\Incore\Facades\Docore
 use Illuminate\Routing\Router as LaravelRouter;
 
 class Router
@@ -50,7 +50,7 @@ class Router
     {
         $this->attributes = [
             'prefix'        => config('admin.prefix'),
-            'namespace'     => Admin::controllerNamespace(),
+            'namespace'     => Docore::controllerNamespace(),
             'middleware'    => ['web', 'admin'],
         ];
     }
@@ -63,7 +63,7 @@ class Router
     protected function setAdminRoutes()
     {
         $attributes = $this->attributes;
-        $attributes['namespace'] = 'Encore\Admin\Controllers';
+        $attributes['namespace'] = 'Encore\Incore\Controllers';
 
         $this->router->group($attributes, function ($router) {
             $attributes = ['middleware' => 'admin.permission:allow,administrator'];

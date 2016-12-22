@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Admin\Widgets;
+namespace Encore\Incore\Widgets;
 
 use Illuminate\Contracts\Support\Renderable;
 
@@ -36,6 +36,6 @@ class InfoBox extends Widget implements Renderable
      */
     public function render()
     {
-        return view('admin::widgets.infoBox', $this->attributes)->render();
+        return view('docore::widgets.infoBox', $this->attributes)->render();
     }
 }

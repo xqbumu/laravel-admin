@@ -1,6 +1,6 @@
 <?php
 
-namespace Encore\Admin\Grid\Filter\Field;
+namespace Encore\Incore\Grid\Filter\Field;
 
 use Illuminate\Contracts\Support\Arrayable;
 
@@ -14,7 +14,7 @@ class Select
             $options = $options->toArray();
         }
 
-        $this->options = ['' => trans('admin::lang.choose')] + $options;
+        $this->options = ['' => trans('docore::lang.choose')] + $options;
     }
 
     public function variables()
