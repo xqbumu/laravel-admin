@@ -2,8 +2,11 @@
 
 namespace Encore\Admin\Form\Field;
 
+use Encore\Admin\Admin;
 use Encore\Admin\Form\Field;
 use Encore\Admin\Grid;
+use Encore\Admin\Form;
+use Encore\Admin\Form\NestedForm;
 use Illuminate\Database\Eloquent\Relations\HasMany as Relation;
 
 /**
@@ -11,23 +14,89 @@ use Illuminate\Database\Eloquent\Relations\HasMany as Relation;
  */
 class HasMany extends Field
 {
-    protected $relationName = null;
+    /**
+     * Relation name.
+     *
+     * @var string
+     */
+    protected $relationName = '';
 
+    /**
+     * Form builder.
+     *
+     * @var \Closure
+     */
     protected $builder = null;
 
+    /**
+     * Create a new HasMany field instance.
+     *
+     * @param $relation
+     * @param array $arguments
+     */
     public function __construct($relation, $arguments = [])
     {
         $this->relationName = $relation;
 
-        $this->builder = $arguments[1];
+        $this->column = $relation;
 
-        parent::__construct($relation, $arguments);
+        if (count($arguments) == 1) {
+            $this->label = $this->formatLabel();
+            $this->builder = $arguments[0];
+        }
+
+        if (count($arguments) == 2) {
+            $this->label = $arguments[0];
+            $this->builder = $arguments[1];
+        }
     }
 
-    public function render()
+    /**
+     * Prepare input data for insert or update.
+     *
+     * @param array $input
+     *
+     * @return array
+     */
+    public function prepare($input)
     {
-        if ($this->form->builder()->isMode('create')) {
-            return;
+        $relatedKeyName = $this->form->model()->{$this->relationName}()->getRelated()->getKeyName();
+
+        $form = $this->buildNestedForm($this->column, $this->builder);
+
+        return $form->setOriginal($this->original, $relatedKeyName)->prepare($input);
+    }
+
+    /**
+     * Build a Nested form.
+     *
+     * @param string $column
+     * @param \Closure$builder
+     *
+     * @return NestedForm
+     */
+    protected function buildNestedForm($column, \Closure $builder)
+    {
+        $form = new Form\NestedForm($column);
+
+        call_user_func($builder, $form);
+
+        $form->hidden(NestedForm::REMOVE_FLAG_NAME)->default(0)->attribute(['class' => NestedForm::REMOVE_FLAG_CLASS]);
+
+        return $form;
+    }
+
+    /**
+     * build Nested form for related data.
+     *
+     * @return array
+     *
+     * @throws \Exception
+     */
+    protected function buildRelatedForms()
+    {
+        if (is_null($this->value)) {
+            return [];
         }
 
         $model = $this->form->model();
@@ -38,10 +107,73 @@ class HasMany extends Field
             throw new \Exception('hasMany field must be a HasMany relation.');
         }
 
-        $grid = new Grid($relation->getRelated(), $this->builder);
+        $forms = [];
 
-        $grid->build();
+        foreach ($this->value as $data) {
+            $form = $this->buildNestedForm($this->column, $this->builder);
 
-        return parent::render()->with(['grid' => $grid]);
+            $key = array_get($data, $relation->getRelated()->getKeyName());
+
+            $forms[$key] = $form->fill($data)->setElementNameForOriginal($key);
+        }
+
+        return $forms;
+    }
+
+    /**
+     * Build a Nested form template for dynamically add sub form .
+     *
+     * @return string
+     */
+    protected function buildTemplateForm()
+    {
+        $template = $this->buildNestedForm($this->column, $this->builder);
+        $template->setElementNameForNew();
+
+        $templateHtml = $template->getFormHtml();
+        $templateScript = $template->getFormScript();
+
+        $removeClass = NestedForm::REMOVE_FLAG_CLASS;
+        $defaultKey = NestedForm::DEFAULT_KEY_NAME;
+
+        $script = <<<EOT
+
+$('.has-many-{$this->column}').on('click', '.add', function () {
+
+    var tpl = $('template.{$this->column}-tpl');
+    var count = tpl.data('count');
+
+    var template = tpl.html().replace(/\[{$defaultKey}\]/g, '['+count+']');
+    $('.has-many-{$this->column}-forms').append(template);
+    {$templateScript}
+
+    tpl.data('count', count+1);
+});
+
+$('.has-many-{$this->column}-forms').on('click', '.remove', function () {
+    $(this).closest('.has-many-{$this->column}-form').hide();
+    $(this).closest('.has-many-{$this->column}-form').find('.$removeClass').val(1);
+});
+
+EOT;
+
+        Admin::script($script);
+
+        return $templateHtml;
+    }
+
+    /**
+     * Render the `HasMany` field.
+     *
+     * @return $this
+     *
+     * @throws \Exception
+     */
+    public function render()
+    {
+        return parent::render()->with([
+            'forms'     => $this->buildRelatedForms(),
+            'template'  => $this->buildTemplateForm(),
+        ]);
     }
 }

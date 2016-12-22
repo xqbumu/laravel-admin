@@ -57,6 +57,20 @@ class Field
     protected $column = '';
 
     /**
+     * Form element name.
+     *
+     * @var string
+     */
+    protected $elementName = '';
+
+    /**
+     * Form element name.
+     *
+     * @var string
+     */
+    protected $elementClass = '';
+
+    /**
      * Variables of elements.
      *
      * @var array
@@ -214,6 +228,16 @@ class Field
         }
 
         return '';
+    }
+
+    /**
+     * Set form element name.
+     *
+     * @param $name
+     */
+    public function setElementName($name)
+    {
+        $this->elementName = $name;
     }
 
     /**
@@ -478,6 +502,36 @@ class Field
     }
 
     /**
+     * Set form element class.
+     *
+     * @param string $class
+     *
+     * @return $this
+     */
+    public function setElementClass($class)
+    {
+        $this->elementClass = $class;
+
+        return $this;
+    }
+
+    /**
+     * Get element class.
+     *
+     * @return string
+     */
+    protected function getElementClass()
+    {
+        if (!$this->elementClass) {
+            $name = $this->elementName ?: $this->formatName($this->column);
+
+            $this->elementClass = str_replace(['[', ']'], '_', $name);
+        }
+
+        return $this->elementClass;
+    }
+
+    /**
      * Get the view variables of this field.
      *
      * @return array
@@ -485,12 +539,13 @@ class Field
     protected function variables()
     {
         $this->variables['id'] = $this->id;
-        $this->variables['name'] = $this->formatName($this->column);
+        $this->variables['name'] = $this->elementName ?: $this->formatName($this->column);
         $this->variables['value'] = $this->value();
         $this->variables['label'] = $this->label;
         $this->variables['column'] = $this->column;
         $this->variables['attributes'] = $this->formatAttributes();
         $this->variables['help'] = $this->help;
+        $this->variables['class'] = $this->getElementClass();
 
         return $this->variables;
     }
@@ -509,6 +564,11 @@ class Field
         $class = explode('\\', get_called_class());
 
         return 'admin::form.'.strtolower(end($class));
+    }
+
+    public function getScript()
+    {
+        return $this->script;
     }
 
     /**

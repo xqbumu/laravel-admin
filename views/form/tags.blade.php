@@ -7,8 +7,8 @@
         @include('admin::form.error')
 
         <select class="form-control {{$class}}" name="{{$name}}[]" multiple="multiple" data-placeholder="{{ trans('admin::lang.choose') }}{{$label}}" {!! $attributes !!} >
-            @foreach($options as $select => $option)
-                <option value="{{$select}}" {{  in_array($select, (array)old($column, $value)) ?'selected':'' }}>{{$option}}</option>
+            @foreach($value as $select)
+                <option value="{{$select}}" selected>{{$select}}</option>
             @endforeach
         </select>
         <input type="hidden" name="{{$name}}[]" />

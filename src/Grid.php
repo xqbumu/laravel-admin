@@ -235,7 +235,7 @@ class Grid
 
         if (isset($relation) && $relation instanceof Relation) {
             $this->model()->with($relationName);
-            $column->setRelation($relation, $relationColumn);
+            $column->setRelation($relationName, $relationColumn);
         }
 
         return $column;
@@ -601,9 +601,15 @@ class Grid
      * Set grid as orderable.
      *
      * @return $this
+     *
+     * @throw \Exception
      */
     public function orderable()
     {
+        if (!trait_exists('\Spatie\EloquentSortable\SortableTrait')) {
+            throw new \Exception('To use orderable grid, please install package [spatie/eloquent-sortable] first.');
+        }
+
         $this->orderable = true;
 
         return $this;
@@ -800,6 +806,30 @@ class Grid
         }
 
         return $this->addColumn($method, $label);
+    }
+
+    /**
+     * Register column displayers.
+     *
+     * @return void.
+     */
+    public static function registerColumnDisplayer()
+    {
+        $map = [
+            'editable'      => \Encore\Admin\Grid\Displayers\Editable::class,
+            'switch'        => \Encore\Admin\Grid\Displayers\SwitchDisplay::class,
+            'select'        => \Encore\Admin\Grid\Displayers\Select::class,
+            'image'         => \Encore\Admin\Grid\Displayers\Image::class,
+            'label'         => \Encore\Admin\Grid\Displayers\Label::class,
+            'button'        => \Encore\Admin\Grid\Displayers\Button::class,
+            'link'          => \Encore\Admin\Grid\Displayers\Link::class,
+            'badge'         => \Encore\Admin\Grid\Displayers\Badge::class,
+            'progressBar'   => \Encore\Admin\Grid\Displayers\ProgressBar::class,
+        ];
+
+        foreach ($map as $abstract => $class) {
+            Column::extend($abstract, $class);
+        }
     }
 
     /**

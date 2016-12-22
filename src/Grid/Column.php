@@ -4,7 +4,10 @@ namespace Encore\Admin\Grid;
 
 use Closure;
 use Encore\Admin\Grid;
+use Encore\Admin\Grid\Displayers\AbstractDisplayer;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
 
 class Column
 {
@@ -56,13 +59,6 @@ class Column
     protected $attributes = [];
 
     /**
-     * Html callback.
-     *
-     * @var array
-     */
-    protected $htmlCallbacks = [];
-
-    /**
      * Relation name.
      *
      * @var bool
@@ -89,6 +85,13 @@ class Column
     protected $displayCallbacks = [];
 
     /**
+     * Displayers for grid column.
+     *
+     * @var array
+     */
+    public static $displayers = [];
+
+    /**
      * @param string $name
      * @param string $label
      */
@@ -100,6 +103,19 @@ class Column
     }
 
     /**
+     * Extend column displayer.
+     *
+     * @param $name
+     * @param $displayer
+     */
+    public static function extend($name, $displayer)
+    {
+        static::$displayers[$name] = $displayer;
+    }
+
+    /**
+     * Set grid instance for column.
+     *
      * @param Grid $grid
      */
     public function setGrid(Grid $grid)
@@ -154,13 +170,15 @@ class Column
     /**
      * Set relation.
      *
-     * @param $relation
+     * @param string $relation
+     * @param string $relationColumn
      *
      * @return $this
      */
-    public function setRelation($relation)
+    public function setRelation($relation, $relationColumn = null)
     {
-        $this->relation = $relation;
+        $this->relation       = $relation;
+        $this->relationColumn = $relationColumn;
 
         return $this;
     }
@@ -188,142 +206,9 @@ class Column
     }
 
     /**
-     * Wrap value with badge.
-     *
-     * @param string $style
-     *
-     * @return $this
-     */
-    public function badge($style = 'red')
-    {
-        return $this->display(function ($value) use ($style) {
-            return "<span class='badge bg-{$style}'>$value</span>";
-        });
-    }
-
-    /**
-     * Wrap value with label.
-     *
-     * @param string $style
-     *
-     * @return $this
-     */
-    public function label($style = 'success')
-    {
-        return $this->display(function ($value) use ($style) {
-            return "<span class='label label-{$style}'>$value</span>";
-        });
-    }
-
-    /**
-     * Wrap value as a link.
-     *
-     * @param $href
-     * @param string $target
-     *
-     * @return $this
-     */
-    public function link($href = '', $target = '_blank')
-    {
-        return $this->display(function ($value) use ($href, $target) {
-            $href = $href ?: $value;
-
-            return "<a href='$href' target='$target'>$value</a>";
-        });
-    }
-
-    /**
-     * Wrap value as a button.
-     *
-     * @param string $style
-     *
-     * @return $this
-     */
-    public function button($style = 'default')
-    {
-        return $this->display(function ($value) use ($style) {
-            $style = collect((array) $style)->map(function ($style) {
-                return 'btn-'.$style;
-            })->implode(' ');
-
-            return "<span class='btn $style'>$value</span>";
-        });
-    }
-
-    /**
-     * Wrap value as a progressbar.
-     *
-     * @param string $style
-     * @param string $size
-     * @param int    $max
-     *
-     * @return $this
-     */
-    public function progressBar($style = 'primary', $size = 'sm', $max = 100)
-    {
-        return $this->display(function ($value) use ($style, $size, $max) {
-            $style = collect((array) $style)->map(function ($style) {
-                return 'progress-bar-'.$style;
-            })->implode(' ');
-
-            return <<<EOT
-
-<div class="progress progress-$size">
-    <div class="progress-bar $style" role="progressbar" aria-valuenow="$value" aria-valuemin="0" aria-valuemax="$max" style="width: $value%">
-      <span class="sr-only">$value</span>
-    </div>
-</div>
-
-EOT;
-        });
-    }
-
-    /**
-     * Wrap value with image tag.
-     *
-     * @param string $server
-     * @param int    $width
-     * @param int    $height
-     *
-     * @return $this
-     */
-    public function image($server = '', $width = 200, $height = 200)
-    {
-        return $this->display(function ($path) use ($server, $width, $height) {
-            if (!$path) {
-                return '';
-            }
-
-            if (url()->isValidUrl($path)) {
-                $src = $path;
-            } else {
-                $server = $server ?: config('admin.upload.host');
-                $src = trim($server, '/').'/'.trim($path, '/');
-            }
-
-            return "<img src='$src' style='max-width:{$width}px;max-height:{$height}px' class='img img-thumbnail' />";
-        });
-    }
-
-    /**
-     * Make the column editable.
-     *
-     * @return $this
-     */
-    public function editable()
-    {
-        $editable = new Editable($this->name, func_get_args());
-        $editable->setResource($this->grid->resource());
-
-        $this->htmlCallback($editable->html());
-
-        return $this;
-    }
-
-    /**
      * Alias for `display()` method.
      *
-     * @param callable $callable
+     * @param Closure $callable
      *
      * @deprecated please use `display()` method instead.
      *
@@ -337,7 +222,7 @@ EOT;
     /**
      * Add a display callback.
      *
-     * @param callable $callback
+     * @param Closure $callback
      *
      * @return $this
      */
@@ -356,49 +241,6 @@ EOT;
     protected function hasDisplayCallbacks()
     {
         return !empty($this->displayCallbacks);
-    }
-
-    /**
-     * Set html callback.
-     *
-     * @param $callback
-     */
-    protected function htmlCallback($callback)
-    {
-        $this->htmlCallbacks[] = $callback;
-    }
-
-    /**
-     * If column has html callbacks.
-     *
-     * @return bool
-     */
-    protected function hasHtmlCallbacks()
-    {
-        return !empty($this->htmlCallbacks);
-    }
-
-    /**
-     * Wrap value with callback.
-     *
-     * @param $value
-     *
-     * @return mixed
-     */
-    protected function callHtmlCallbacks($value, $row = [])
-    {
-        foreach ($this->htmlCallbacks as $callback) {
-            $value = str_replace('{value}', $value, $callback);
-        }
-
-        $value = str_replace(
-            '{$value}',
-            is_null($this->original) ? 'NULL' : $this->htmlEntityEncode($this->original),
-            $value
-        );
-        $value = str_replace('{pk}', array_get($row, $this->grid->getKeyName()), $value);
-
-        return $value;
     }
 
     /**
@@ -454,11 +296,6 @@ EOT;
                 $value = $this->callDisplayCallbacks($this->original, $key);
                 array_set($row, $this->name, $value);
             }
-
-            if ($this->hasHtmlCallbacks()) {
-                $value = $this->callHtmlCallbacks($value, $row);
-                array_set($row, $this->name, $value);
-            }
         }
 
         return $data;
@@ -506,7 +343,7 @@ EOT;
         $query = app('request')->all();
         $query = array_merge($query, [$this->grid->model()->getSortName() => ['column' => $this->name, 'type' => $type]]);
 
-        $url = Url::current().'?'.http_build_query($query);
+        $url = URL::current().'?'.http_build_query($query);
 
         return "<a class=\"fa fa-fw $icon\" href=\"$url\"></a>";
     }
@@ -528,6 +365,82 @@ EOT;
     }
 
     /**
+     * Find a displayer to display column.
+     *
+     * @param string $abstract
+     * @param array  $arguments
+     *
+     * @return Column
+     */
+    protected function resolveDisplayer($abstract, $arguments)
+    {
+        if (array_key_exists($abstract, static::$displayers)) {
+            return $this->callBuiltinDisplayer(static::$displayers[$abstract], $arguments);
+        }
+
+        return $this->callSupportDisplayer($abstract, $arguments);
+    }
+
+    /**
+     * Call Illuminate/Support displayer.
+     *
+     * @param string $abstract
+     * @param array  $arguments
+     *
+     * @return Column
+     */
+    protected function callSupportDisplayer($abstract, $arguments)
+    {
+        return $this->display(function ($value) use ($abstract, $arguments) {
+
+            if (is_array($value) || $value instanceof Arrayable) {
+                return call_user_func_array([collect($value), $abstract], $arguments);
+            }
+
+            if (is_string($value)) {
+                return call_user_func_array([Str::class, $abstract], array_merge([$value], $arguments));
+            }
+
+            return $value;
+        });
+    }
+
+    /**
+     * Call Builtin displayer.
+     *
+     * @param string $abstract
+     * @param array  $arguments
+     *
+     * @return Column
+     */
+    protected function callBuiltinDisplayer($abstract, $arguments)
+    {
+        if ($abstract instanceof Closure) {
+            return $this->display(function ($value) use ($abstract, $arguments) {
+                return call_user_func_array($abstract, array_merge([$value], $arguments));
+            });
+        }
+
+        if (class_exists($abstract) && is_subclass_of($abstract, AbstractDisplayer::class)) {
+
+            $grid = $this->grid;
+            $column = $this;
+
+            return $this->display(function ($value) use ($abstract, $grid, $column, $arguments) {
+                $displayer = new $abstract($value, $grid, $column, $this);
+
+                return call_user_func_array([$displayer, 'display'], $arguments);
+            });
+        }
+
+        return $this;
+    }
+
+    /**
+     * Passes through all unknown calls to builtin displayer or supported displayer.
+     *
+     * Allow fluent calls on the Column object.
+     *
      * @param string $method
      * @param array  $arguments
      *
@@ -535,7 +448,7 @@ EOT;
      */
     public function __call($method, $arguments)
     {
-        if ($this->isRelation()) {
+        if ($this->isRelation() && ! $this->relationColumn) {
             $this->name = "{$this->relation}.$method";
             $this->label = isset($arguments[0]) ? $arguments[0] : ucfirst($method);
 
@@ -543,5 +456,7 @@ EOT;
 
             return $this;
         }
+
+        return $this->resolveDisplayer($method, $arguments);
     }
 }
