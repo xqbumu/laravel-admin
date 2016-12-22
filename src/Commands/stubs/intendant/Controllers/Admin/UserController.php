@@ -25,8 +25,8 @@ class UserController extends Controller
     public function index()
     {
         return Incore::content(function (Content $content) {
-            $content->header(trans('incore::lang.administrator'));
-            $content->description(trans('incore::lang.list'));
+            $content->header(trans('docore::lang.administrator'));
+            $content->description(trans('docore::lang.list'));
             $content->body($this->grid()->render());
         });
     }
@@ -41,8 +41,8 @@ class UserController extends Controller
     public function edit($id)
     {
         return Incore::content(function (Content $content) use ($id) {
-            $content->header(trans('incore::lang.administrator'));
-            $content->description(trans('incore::lang.edit'));
+            $content->header(trans('docore::lang.administrator'));
+            $content->description(trans('docore::lang.edit'));
             $content->body($this->form()->edit($id));
         });
     }
@@ -55,8 +55,8 @@ class UserController extends Controller
     public function create()
     {
         return Incore::content(function (Content $content) {
-            $content->header(trans('incore::lang.administrator'));
-            $content->description(trans('incore::lang.create'));
+            $content->header(trans('docore::lang.administrator'));
+            $content->description(trans('docore::lang.create'));
             $content->body($this->form());
         });
     }
@@ -70,10 +70,10 @@ class UserController extends Controller
     {
         return Incore::grid(Administrator::class, function (Grid $grid) {
             $grid->id('ID')->sortable();
-            $grid->username(trans('incore::lang.username'));
-            $grid->name(trans('incore::lang.name'));
+            $grid->username(trans('docore::lang.username'));
+            $grid->name(trans('docore::lang.name'));
 
-            $grid->roles(trans('incore::lang.roles'))->value(function ($roles) {
+            $grid->roles(trans('docore::lang.roles'))->value(function ($roles) {
                 $roles = array_map(function ($role) {
                     return "<span class='label label-success'>{$role['name']}</span>";
                 }, $roles);
@@ -81,8 +81,8 @@ class UserController extends Controller
                 return implode('&nbsp;', $roles);
             });
 
-            $grid->created_at(trans('incore::lang.created_at'));
-            $grid->updated_at(trans('incore::lang.updated_at'));
+            $grid->created_at(trans('docore::lang.created_at'));
+            $grid->updated_at(trans('docore::lang.updated_at'));
 
             $grid->rows(function ($row) {
                 if ($row->id == 1) {
@@ -106,15 +106,15 @@ class UserController extends Controller
         return Incore::form(Administrator::class, function (Form $form) {
             $form->display('id', 'ID');
 
-            $form->text('username', trans('incore::lang.username'))->rules('required');
-            $form->text('name', trans('incore::lang.name'))->rules('required');
-            $form->password('password', trans('incore::lang.password'))->rules('required');
+            $form->text('username', trans('docore::lang.username'))->rules('required');
+            $form->text('name', trans('docore::lang.name'))->rules('required');
+            $form->password('password', trans('docore::lang.password'))->rules('required');
 
-            $form->multipleSelect('roles', trans('incore::lang.roles'))->options(Role::all()->pluck('name', 'id'));
-            $form->multipleSelect('permissions', trans('incore::lang.permissions'))->options(Permission::all()->pluck('name', 'id'));
+            $form->multipleSelect('roles', trans('docore::lang.roles'))->options(Role::all()->pluck('name', 'id'));
+            $form->multipleSelect('permissions', trans('docore::lang.permissions'))->options(Permission::all()->pluck('name', 'id'));
 
-            $form->display('created_at', trans('incore::lang.created_at'));
-            $form->display('updated_at', trans('incore::lang.updated_at'));
+            $form->display('created_at', trans('docore::lang.created_at'));
+            $form->display('updated_at', trans('docore::lang.updated_at'));
 
             $form->saving(function (Form $form) {
                 if ($form->password && $form->model()->password != $form->password) {

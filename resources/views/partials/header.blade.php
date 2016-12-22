@@ -275,7 +275,7 @@
                                 <a href="#" class="btn btn-default btn-flat">Profile</a>
                             </div>
                             <div class="pull-right">
-                                <a href="{{ Docore::url('auth/logout') }}" class="btn btn-default btn-flat">{{ trans('incore::lang.logout') }}</a>
+                                <a href="{{ Docore::url('auth/logout') }}" class="btn btn-default btn-flat">{{ trans('docore::lang.logout') }}</a>
                             </div>
                         </li>
                     </ul>

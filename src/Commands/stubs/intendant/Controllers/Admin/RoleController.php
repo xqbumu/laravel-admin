@@ -23,8 +23,8 @@ class RoleController extends Controller
     public function index()
     {
         return Incore::content(function (Content $content) {
-            $content->header(trans('incore::lang.roles'));
-            $content->description(trans('incore::lang.list'));
+            $content->header(trans('docore::lang.roles'));
+            $content->description(trans('docore::lang.list'));
             $content->body($this->grid()->render());
         });
     }
@@ -39,8 +39,8 @@ class RoleController extends Controller
     public function edit($id)
     {
         return Incore::content(function (Content $content) use ($id) {
-            $content->header(trans('incore::lang.roles'));
-            $content->description(trans('incore::lang.edit'));
+            $content->header(trans('docore::lang.roles'));
+            $content->description(trans('docore::lang.edit'));
             $content->body($this->form()->edit($id));
         });
     }
@@ -53,8 +53,8 @@ class RoleController extends Controller
     public function create()
     {
         return Incore::content(function (Content $content) {
-            $content->header(trans('incore::lang.roles'));
-            $content->description(trans('incore::lang.create'));
+            $content->header(trans('docore::lang.roles'));
+            $content->description(trans('docore::lang.create'));
             $content->body($this->form());
         });
     }
@@ -68,11 +68,11 @@ class RoleController extends Controller
     {
         return Incore::grid(Role::class, function (Grid $grid) {
             $grid->id('ID')->sortable();
-            $grid->slug(trans('incore::lang.slug'));
-            $grid->name(trans('incore::lang.name'));
+            $grid->slug(trans('docore::lang.slug'));
+            $grid->name(trans('docore::lang.name'));
 
-            $grid->created_at(trans('incore::lang.created_at'));
-            $grid->updated_at(trans('incore::lang.updated_at'));
+            $grid->created_at(trans('docore::lang.created_at'));
+            $grid->updated_at(trans('docore::lang.updated_at'));
 
             $grid->rows(function ($row) {
                 if ($row->slug == 'administrator') {
@@ -94,12 +94,12 @@ class RoleController extends Controller
         return Incore::form(Role::class, function (Form $form) {
             $form->display('id', 'ID');
 
-            $form->text('slug', trans('incore::lang.slug'))->rules('required');
-            $form->text('name', trans('incore::lang.name'))->rules('required');
-            $form->multipleSelect('permissions', trans('incore::lang.permissions'))->options(Permission::all()->pluck('name', 'id'));
+            $form->text('slug', trans('docore::lang.slug'))->rules('required');
+            $form->text('name', trans('docore::lang.name'))->rules('required');
+            $form->multipleSelect('permissions', trans('docore::lang.permissions'))->options(Permission::all()->pluck('name', 'id'));
 
-            $form->display('created_at', trans('incore::lang.created_at'));
-            $form->display('updated_at', trans('incore::lang.updated_at'));
+            $form->display('created_at', trans('docore::lang.created_at'));
+            $form->display('updated_at', trans('docore::lang.updated_at'));
         });
     }
 }

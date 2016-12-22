@@ -20,8 +20,8 @@ class LogController extends Controller
     public function index()
     {
         return Incore::content(function (Content $content) {
-            $content->header(trans('incore::lang.operation_log'));
-            $content->description(trans('incore::lang.list'));
+            $content->header(trans('docore::lang.operation_log'));
+            $content->description(trans('docore::lang.list'));
 
             $grid = Incore::grid(OperationLog::class, function (Grid $grid) {
                 $grid->model()->orderBy('id', 'DESC');
@@ -42,7 +42,7 @@ class LogController extends Controller
                     return '<code>'.json_encode($input, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE).'</code>';
                 });
 
-                $grid->created_at(trans('incore::lang.created_at'));
+                $grid->created_at(trans('docore::lang.created_at'));
 
                 $grid->rows(function ($row) {
                     $row->actions('delete');
@@ -71,12 +71,12 @@ class LogController extends Controller
         if (OperationLog::destroy(array_filter($ids))) {
             return response()->json([
                 'status'  => true,
-                'message' => trans('incore::lang.delete_succeeded'),
+                'message' => trans('docore::lang.delete_succeeded'),
             ]);
         } else {
             return response()->json([
                 'status'  => false,
-                'message' => trans('incore::lang.delete_failed'),
+                'message' => trans('docore::lang.delete_failed'),
             ]);
         }
     }

@@ -19,12 +19,12 @@ trait ModelForm
         if ($this->form()->destroy($id)) {
             return response()->json([
                 'status'  => true,
-                'message' => trans('incore::lang.delete_succeeded'),
+                'message' => trans('docore::lang.delete_succeeded'),
             ]);
         } else {
             return response()->json([
                 'status'  => false,
-                'message' => trans('incore::lang.delete_failed'),
+                'message' => trans('docore::lang.delete_failed'),
             ]);
         }
     }

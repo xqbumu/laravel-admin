@@ -27,8 +27,8 @@ class MenuController extends Controller
     public function index()
     {
         return Incore::content(function (Content $content) {
-            $content->header(trans('incore::lang.menu'));
-            $content->description(trans('incore::lang.list'));
+            $content->header(trans('docore::lang.menu'));
+            $content->description(trans('docore::lang.list'));
 
             $content->row(function (Row $row) {
                 $row->column(5, function (Column $column) {
@@ -38,13 +38,13 @@ class MenuController extends Controller
                     $form->action(Incore::url('auth/menu'));
 
                     $options = [0 => 'Root'] + MenuModel::buildSelectOptions();
-                    $form->select('parent_id', trans('incore::lang.parent_id'))->options($options);
-                    $form->text('title', trans('incore::lang.title'))->rules('required');
-                    $form->text('icon', trans('incore::lang.icon'))->default('fa-bars')->rules('required');
-                    $form->text('uri', trans('incore::lang.uri'));
-                    $form->multipleSelect('roles', trans('incore::lang.roles'))->options(Role::all()->pluck('name', 'id'));
+                    $form->select('parent_id', trans('docore::lang.parent_id'))->options($options);
+                    $form->text('title', trans('docore::lang.title'))->rules('required');
+                    $form->text('icon', trans('docore::lang.icon'))->default('fa-bars')->rules('required');
+                    $form->text('uri', trans('docore::lang.uri'));
+                    $form->multipleSelect('roles', trans('docore::lang.roles'))->options(Role::all()->pluck('name', 'id'));
 
-                    $column->append((new Box(trans('incore::lang.new'), $form))->style('success'));
+                    $column->append((new Box(trans('docore::lang.new'), $form))->style('success'));
                 });
 
                 $menu = new Menu(new MenuModel());
@@ -80,8 +80,8 @@ class MenuController extends Controller
     public function edit($id)
     {
         return Incore::content(function (Content $content) use ($id) {
-            $content->header(trans('incore::lang.menu'));
-            $content->description(trans('incore::lang.edit'));
+            $content->header(trans('docore::lang.menu'));
+            $content->description(trans('docore::lang.edit'));
 
             $content->row($this->callout());
             $content->row($this->form()->edit($id));
@@ -96,7 +96,7 @@ class MenuController extends Controller
     public function update($id)
     {
         if (Request::input('parent_id') == $id) {
-            throw new \Exception(trans('incore::lang.parent_select_error'));
+            throw new \Exception(trans('docore::lang.parent_select_error'));
         }
 
         return $this->form()->update($id);
@@ -112,12 +112,12 @@ class MenuController extends Controller
         if ($this->form()->destroy($id)) {
             return response()->json([
                 'status'  => true,
-                'message' => trans('incore::lang.delete_succeeded'),
+                'message' => trans('docore::lang.delete_succeeded'),
             ]);
         } else {
             return response()->json([
                 'status'  => false,
-                'message' => trans('incore::lang.delete_failed'),
+                'message' => trans('docore::lang.delete_failed'),
             ]);
         }
     }
@@ -150,14 +150,14 @@ class MenuController extends Controller
 
             $options = [0 => 'Root'] + MenuModel::buildSelectOptions();
 
-            $form->select('parent_id', trans('incore::lang.parent_id'))->options($options);
-            $form->text('title', trans('incore::lang.title'))->rules('required');
-            $form->text('icon', trans('incore::lang.icon'))->default('fa-bars')->rules('required');
-            $form->text('uri', trans('incore::lang.uri'));
-            $form->multipleSelect('roles', trans('incore::lang.roles'))->options(Role::all()->pluck('name', 'id'));
+            $form->select('parent_id', trans('docore::lang.parent_id'))->options($options);
+            $form->text('title', trans('docore::lang.title'))->rules('required');
+            $form->text('icon', trans('docore::lang.icon'))->default('fa-bars')->rules('required');
+            $form->text('uri', trans('docore::lang.uri'));
+            $form->multipleSelect('roles', trans('docore::lang.roles'))->options(Role::all()->pluck('name', 'id'));
 
-            $form->display('created_at', trans('incore::lang.created_at'));
-            $form->display('updated_at', trans('incore::lang.updated_at'));
+            $form->display('created_at', trans('docore::lang.created_at'));
+            $form->display('updated_at', trans('docore::lang.updated_at'));
         });
     }
 

@@ -12,6 +12,7 @@
     <section class="content">
 
         @include('docore::partials.error')
+        @include('docore::partials.success')
 
         {!! $content !!}
 

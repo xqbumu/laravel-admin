@@ -326,7 +326,12 @@ class Form
             return $response;
         }
 
-        return redirect($this->resource(0));
+        $success = new MessageBag([
+            'title'   => trans('docore::lang.succeeded'),
+            'message' => trans('docore::lang.save_succeeded'),
+        ]);
+
+        return redirect($this->resource(0))->with(compact('success'));
     }
 
     /**
@@ -522,7 +527,12 @@ class Form
             return $response;
         }
 
-        return redirect($this->resource(-1));
+        $success = new MessageBag([
+            'title'   => trans('docore::lang.succeeded'),
+            'message' => trans('docore::lang.update_succeeded'),
+        ]);
+
+        return redirect($this->resource(-1))->with(compact('success'));
     }
 
     /**
@@ -672,11 +682,11 @@ class Form
      */
     protected function prepareInsert($inserts)
     {
-        $first = current($inserts);
-
-        if (is_array($first) && Arr::isAssoc($first)) {
-            $inserts = array_dot($inserts);
-        }
+//        $first = current($inserts);
+//
+//        if (is_array($first) && Arr::isAssoc($first)) {
+//            $inserts = array_dot($inserts);
+//        }
 
         foreach ($inserts as $column => $value) {
             if (is_null($field = $this->getFieldByColumn($column))) {
