@@ -833,16 +833,16 @@ class Grid
     public static function registerColumnDisplayer()
     {
         $map = [
-            'editable'      => \Encore\Admin\Grid\Displayers\Editable::class,
-            'switch'        => \Encore\Admin\Grid\Displayers\SwitchDisplay::class,
-            'switchGroup'   => \Encore\Admin\Grid\Displayers\SwitchGroup::class,
-            'select'        => \Encore\Admin\Grid\Displayers\Select::class,
-            'image'         => \Encore\Admin\Grid\Displayers\Image::class,
-            'label'         => \Encore\Admin\Grid\Displayers\Label::class,
-            'button'        => \Encore\Admin\Grid\Displayers\Button::class,
-            'link'          => \Encore\Admin\Grid\Displayers\Link::class,
-            'badge'         => \Encore\Admin\Grid\Displayers\Badge::class,
-            'progressBar'   => \Encore\Admin\Grid\Displayers\ProgressBar::class,
+            'editable'      => \Encore\Incore\Grid\Displayers\Editable::class,
+            'switch'        => \Encore\Incore\Grid\Displayers\SwitchDisplay::class,
+            'switchGroup'   => \Encore\Incore\Grid\Displayers\SwitchGroup::class,
+            'select'        => \Encore\Incore\Grid\Displayers\Select::class,
+            'image'         => \Encore\Incore\Grid\Displayers\Image::class,
+            'label'         => \Encore\Incore\Grid\Displayers\Label::class,
+            'button'        => \Encore\Incore\Grid\Displayers\Button::class,
+            'link'          => \Encore\Incore\Grid\Displayers\Link::class,
+            'badge'         => \Encore\Incore\Grid\Displayers\Badge::class,
+            'progressBar'   => \Encore\Incore\Grid\Displayers\ProgressBar::class,
         ];
 
         foreach ($map as $abstract => $class) {

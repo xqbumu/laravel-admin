@@ -7,7 +7,7 @@ use Encore\Admin\Grid;
 abstract class AbstractExporter implements ExporterInterface
 {
     /**
-     * @var \Encore\Admin\Grid
+     * @var \Encore\Incore\Grid
      */
     protected $grid;
 
