@@ -30,44 +30,48 @@
     <!-- /.box-header -->
     <div class="box-body table-responsive no-padding">
         <table class="table table-hover">
-            <tr>
-                <th><input type="checkbox" class="grid-select-all" /></th>
-                @foreach($grid->columns() as $column)
-                <th>{{$column->getLabel()}}{!! $column->sorter() !!}</th>
+            <thead>
+                <tr>
+                    <th><input type="checkbox" class="grid-select-all" /></th>
+                    @foreach($grid->columns() as $column)
+                    <th>{{$column->getLabel()}}{!! $column->sorter() !!}</th>
+                    @endforeach
+
+                    @if($grid->isOrderable())
+                        <th>{{ trans('docore::lang.order') }}</th>
+                    @endif
+
+                    @if($grid->allowActions())
+                        <th>{{ trans('docore::lang.action') }}</th>
+                    @endif
+                </tr>
+            </thead>
+
+            <tbody class="grid-tbody">
+                @foreach($grid->rows() as $row)
+                <tr {!! $row->getHtmlAttributes() !!} @if($grid->isOrderable()) data-id="{{ $row->id()}}" data-sort="{{ $row->__get('order') }}" @endif>
+                    <td><input type="checkbox" class="grid-item" data-id="{{ $row->id() }}" /></td>
+                    @foreach($grid->columnNames as $name)
+                    <td>{!! $row->column($name) !!}</td>
+                    @endforeach
+
+                    @if($grid->isOrderable())
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-xs btn-info grid-order-up" data-id="{{ $row->id() }}"><i class="fa fa-caret-up fa-fw"></i></button>
+                                <button type="button" class="btn btn-xs btn-default grid-order-down" data-id="{{ $row->id() }}"><i class="fa fa-caret-down fa-fw"></i></button>
+                            </div>
+                        </td>
+                    @endif
+
+                    @if($grid->allowActions())
+                        <td>
+                            {!! $row->actions() !!}
+                        </td>
+                    @endif
+                </tr>
                 @endforeach
-
-                @if($grid->isOrderable())
-                    <th>{{ trans('docore::lang.order') }}</th>
-                @endif
-
-                @if($grid->allowActions())
-                    <th>{{ trans('docore::lang.action') }}</th>
-                @endif
-            </tr>
-
-            @foreach($grid->rows() as $row)
-            <tr {!! $row->getHtmlAttributes() !!}>
-                <td><input type="checkbox" class="grid-item" data-id="{{ $row->id() }}" /></td>
-                @foreach($grid->columnNames as $name)
-                <td>{!! $row->column($name) !!}</td>
-                @endforeach
-
-                @if($grid->isOrderable())
-                    <td>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-xs btn-info grid-order-up" data-id="{{ $row->id() }}"><i class="fa fa-caret-up fa-fw"></i></button>
-                            <button type="button" class="btn btn-xs btn-default grid-order-down" data-id="{{ $row->id() }}"><i class="fa fa-caret-down fa-fw"></i></button>
-                        </div>
-                    </td>
-                @endif
-
-                @if($grid->allowActions())
-                    <td>
-                        {!! $row->actions() !!}
-                    </td>
-                @endif
-            </tr>
-            @endforeach
+            </tbody>
         </table>
     </div>
     <div class="box-footer clearfix">

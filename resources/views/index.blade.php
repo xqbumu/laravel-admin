@@ -67,8 +67,9 @@
 
 {!! Docore::js() !!}
 <script src="{{ asset ("/packages/docore/AdminLTE/dist/js/demo.js") }}"></script>
-<link rel="stylesheet" href="{{ asset ("/packages/docore/AdminLTE/diy/welcome.css") }}">
-<script src="{{ asset ("/packages/docore/AdminLTE/diy/welcome.js") }}"></script>
+
+<link rel="stylesheet" href="{{ asset ("/packages/docore/incore/ui.css") }}">
+<script src="{{ asset ("/packages/docore/incore/ui.js") }}"></script>
 
 <script>
 
