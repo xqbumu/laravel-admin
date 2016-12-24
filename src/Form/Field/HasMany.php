@@ -9,6 +9,7 @@ use Encore\Incore\Form;
 use Encore\Incore\Form\NestedForm;
 use Illuminate\Database\Eloquent\Relations\HasMany as Relation;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 /**
  * Class HasMany.
@@ -54,7 +55,7 @@ class HasMany extends Field
         }
 
         if (count($arguments) == 2) {
-            list($this->label, $this->builder)  = $arguments;
+            list($this->label, $this->builder) = $arguments;
         }
     }
 
@@ -71,12 +72,33 @@ class HasMany extends Field
             return false;
         }
 
+        $input = array_only($input, $this->column);
+
         $form = $this->buildNestedForm($this->column, $this->builder);
 
-        $rules = [];
+        $rules = $attributes = [];
 
         foreach ($form->fields() as $field) {
-            $rules[$field->column()] = $field->getRules();
+            if (!$fieldRules = $field->getRules()) {
+                continue;
+            }
+
+            $column = $field->column();
+
+            if (is_array($column)) {
+                foreach ($column as $key => $name) {
+                    $rules[$name.$key] = $fieldRules;
+                }
+
+                $this->resetInputKey($input, $column);
+            } else {
+                $rules[$column] = $fieldRules;
+            }
+
+            $attributes = array_merge(
+                $attributes,
+                $this->formatValidationAttribute($input, $field->label(), $column)
+            );
         }
 
         array_forget($rules, NestedForm::REMOVE_FLAG_NAME);
@@ -84,8 +106,6 @@ class HasMany extends Field
         if (empty($rules)) {
             return false;
         }
-
-        $input = array_only($input, $this->column);
 
         $newRules = [];
 
@@ -95,11 +115,71 @@ class HasMany extends Field
             }
         }
 
-        foreach (array_keys(array_dot($input)) as $key) {
-            $attributes[$key] = substr($key, strrpos($key, '.') + 1);
+        return Validator::make($input, $newRules, [], $attributes);
+    }
+
+    /**
+     * Format validation attributes.
+     *
+     * @param array  $input
+     * @param string $label
+     * @param string $column
+     *
+     * @return array
+     */
+    protected function formatValidationAttribute($input, $label, $column)
+    {
+        $new = $attributes = [];
+
+        if (is_array($column)) {
+            foreach ($column as $index => $col) {
+                $new[$col.$index] = $col;
+            }
         }
 
-        return Validator::make($input, $newRules, [], $attributes);
+        foreach (array_keys(array_dot($input)) as $key) {
+            if (is_string($column)) {
+                if (Str::endsWith($key, ".$column")) {
+                    $attributes[$key] = $label;
+                }
+            } else {
+                foreach ($new as $k => $val) {
+                    if (Str::endsWith($key, ".$k")) {
+                        $attributes[$key] = $label."[$val]";
+                    }
+                }
+            }
+        }
+
+        return $attributes;
+    }
+
+    /**
+     * Reset input key for validation.
+     *
+     * @param array $input
+     * @param array $column
+     *
+     * @return void.
+     */
+    protected function resetInputKey(array &$input, array $column)
+    {
+        $column = array_flip($column);
+
+        foreach ($input[$this->column] as $type => $group) {
+            foreach ($group as $key => $value) {
+                foreach ($value as $k => $v) {
+                    if (!array_key_exists($k, $column)) {
+                        continue;
+                    }
+
+                    $newKey = $k.$column[$k];
+
+                    array_set($input, "{$this->column}.$type.$key.$newKey", $v);
+                    array_forget($input, "{$this->column}.$type.$key.$k");
+                }
+            }
+        }
     }
 
     /**
@@ -152,9 +232,9 @@ class HasMany extends Field
     /**
      * build Nested form for related data.
      *
-     * @return array
-     *
      * @throws \Exception
+     *
+     * @return array
      */
     protected function buildRelatedForms()
     {
@@ -169,7 +249,6 @@ class HasMany extends Field
         $forms = [];
 
         if ($old = $this->getDataInFlash(NestedForm::UPDATE_KEY_NAME_OLD)) {
-
             foreach ($old as $key => $data) {
                 if ($data[NestedForm::REMOVE_FLAG_NAME] == 1) {
                     continue;
@@ -182,11 +261,11 @@ class HasMany extends Field
             }
         } else {
             foreach ($this->value as $data) {
-                $form = $this->buildNestedForm($this->column, $this->builder);
-
                 $key = array_get($data, $relation->getRelated()->getKeyName());
 
-                $forms[$key] = $form->fill($data)->setElementNameForOriginal($key);
+                $forms[$key] = $this->buildNestedForm($this->column, $this->builder)
+                    ->fill($data)
+                    ->setElementNameForOriginal($key);
             }
         }
 
@@ -206,7 +285,6 @@ class HasMany extends Field
     {
         if ($new = $this->getDataInFlash(NestedForm::UPDATE_KEY_NAME_NEW)) {
             foreach ($new as $key => $data) {
-
                 if ($data[NestedForm::REMOVE_FLAG_NAME] == 1) {
                     continue;
                 }
@@ -265,9 +343,9 @@ EOT;
     /**
      * Render the `HasMany` field.
      *
-     * @return $this
-     *
      * @throws \Exception
+     *
+     * @return $this
      */
     public function render()
     {

@@ -148,6 +148,13 @@ class Field
     protected $errorKey;
 
     /**
+     * Placeholder for this field.
+     *
+     * @var string|array
+     */
+    protected $placeholder;
+
+    /**
      * Field constructor.
      *
      * @param $column
@@ -539,6 +546,30 @@ class Field
     }
 
     /**
+     * Set field placeholder.
+     *
+     * @param string $placeholder
+     *
+     * @return Field
+     */
+    public function placeholder($placeholder = '')
+    {
+        $this->placeholder = $placeholder;
+
+        return $this;
+    }
+
+    /**
+     * Get placeholder.
+     *
+     * @return string
+     */
+    public function getPlaceholder()
+    {
+        return $this->placeholder ?: trans('admin::lang.input').' '.$this->label;
+    }
+
+    /**
      * Format the field attributes.
      *
      * @return string
@@ -600,6 +631,7 @@ class Field
         $this->variables['help'] = $this->help;
         $this->variables['class'] = $this->getElementClass();
         $this->variables['errorKey'] = $this->getErrorKey();
+        $this->variables['placeholder'] = $this->getPlaceholder();
 
         return $this->variables;
     }

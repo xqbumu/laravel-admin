@@ -1,4 +1,4 @@
-<div class="form-group {!! !$errors->has($column) ?: 'has-error' !!}">
+<div class="form-group {!! !$errors->has($errorKey) ?: 'has-error' !!}">
 
     <label for="{{$id}}" class="col-sm-2 control-label">{{$label}}</label>
 
@@ -8,7 +8,7 @@
 
         <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-internet-explorer"></i></span>
-            <input type="url" id="{{$id}}" name="{{$name}}" value="{{ old($column, $value) }}" class="form-control"  placeholder="{{ trans('docore::lang.input') }} {{$label}}" {!! $attributes !!} />
+            <input type="url" id="{{$id}}" name="{{$name}}" value="{{ old($column, $value) }}" class="form-control"  placeholder="{{ $placeholder }}" {!! $attributes !!} />
         </div>
 
         @include('docore::form.help-block')

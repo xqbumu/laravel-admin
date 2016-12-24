@@ -13,7 +13,6 @@ use Inchow\Incore\Layout\Row;
 use Inchow\Incore\Menu\Menu;
 use Inchow\Incore\Widgets\Box;
 use Inchow\Incore\Widgets\Callout;
-
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Request;
 
@@ -31,9 +30,9 @@ class MenuController extends Controller
             $content->description(trans('docore::lang.list'));
 
             $content->row(function (Row $row) {
-                $row->column(5, function (Column $column) {
-                    $column->append($this->callout());
+                $menu = new Menu(new MenuModel());
 
+                $row->column(6, $menu);
                     $form = new \Inchow\Incore\Widgets\Form();
                     $form->action(Incore::url('auth/menu'));
 
@@ -46,10 +45,6 @@ class MenuController extends Controller
 
                     $column->append((new Box(trans('docore::lang.new'), $form))->style('success'));
                 });
-
-                $menu = new Menu(new MenuModel());
-
-                $row->column(7, $menu);
             });
 
             Incore::script($this->script());
@@ -83,7 +78,6 @@ class MenuController extends Controller
             $content->header(trans('docore::lang.menu'));
             $content->description(trans('docore::lang.edit'));
 
-            $content->row($this->callout());
             $content->row($this->form()->edit($id));
         });
     }
@@ -155,7 +149,6 @@ class MenuController extends Controller
             $form->text('icon', trans('docore::lang.icon'))->default('fa-bars')->rules('required');
             $form->text('uri', trans('docore::lang.uri'));
             $form->multipleSelect('roles', trans('docore::lang.roles'))->options(Role::all()->pluck('name', 'id'));
-
             $form->display('created_at', trans('docore::lang.created_at'));
             $form->display('updated_at', trans('docore::lang.updated_at'));
         });
@@ -179,12 +172,12 @@ EOT;
     }
 
     /**
-     * @return Callout
+     * Help message for icon field.
+     *
+     * @return string
      */
-    protected function callout()
+    protected function iconHelp()
     {
-        $text = 'For icons please see <a href="http://fontawesome.io/icons/" target="_blank">http://fontawesome.io/icons/</a>';
-
-        return new Callout($text, 'Tips', 'info');
+        return 'For more icons please see <a href="http://fontawesome.io/icons/" target="_blank">http://fontawesome.io/icons/</a>';
     }
 }

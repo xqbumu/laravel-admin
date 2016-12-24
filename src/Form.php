@@ -59,6 +59,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @method Field\Decimal        decimal($column, $label = '')
  * @method Field\Html           html($html)
  * @method Field\Tags           tags($column, $label = '')
+ * @method Field\Icon           icon($column, $label = '')
  */
 class Form
 {
@@ -115,11 +116,6 @@ class Form
     protected $inputs = [];
 
     /**
-     * @var callable
-     */
-    protected $callable;
-
-    /**
      * Allow delete item in form page.
      *
      * @var bool
@@ -148,6 +144,8 @@ class Form
     protected static $collectedAssets = [];
 
     /**
+     * Create a new form instance.
+     *
      * @param \$model
      * @param \Closure $callback
      */
@@ -157,17 +155,7 @@ class Form
 
         $this->builder = new Builder($this);
 
-        $this->callable = $callback;
-
         $callback($this);
-    }
-
-    /**
-     * Set up the form.
-     */
-    protected function setUp()
-    {
-        call_user_func($this->callable, $this);
     }
 
     /**
@@ -682,9 +670,7 @@ class Form
      */
     protected function prepareInsert($inserts)
     {
-        $first = current($inserts);
-
-        if (is_array($first) && Arr::isAssoc($first)) {
+        if ($this->isHasOneRelation($inserts)) {
             $inserts = array_dot($inserts);
         }
 
@@ -706,6 +692,28 @@ class Form
         }
 
         return $prepared;
+    }
+
+    /**
+     * Is input data is has-one relation.
+     *
+     * @param array $inserts
+     *
+     * @return bool
+     */
+    protected function isHasOneRelation($inserts)
+    {
+        $first = current($inserts);
+
+        if (!is_array($first)) {
+            return false;
+        }
+
+        if (is_array(current($first))) {
+            return false;
+        }
+
+        return Arr::isAssoc($first);
     }
 
     /**
@@ -958,46 +966,47 @@ class Form
     public static function registerBuiltinFields()
     {
         $map = [
-            'button'            => \Encore\Incore\Form\Field\Button::class,
-            'checkbox'          => \Encore\Incore\Form\Field\Checkbox::class,
-            'color'             => \Encore\Incore\Form\Field\Color::class,
-            'currency'          => \Encore\Incore\Form\Field\Currency::class,
-            'date'              => \Encore\Incore\Form\Field\Date::class,
-            'dateRange'         => \Encore\Incore\Form\Field\DateRange::class,
-            'datetime'          => \Encore\Incore\Form\Field\Datetime::class,
-            'dateTimeRange'     => \Encore\Incore\Form\Field\DatetimeRange::class,
-            'decimal'           => \Encore\Incore\Form\Field\Decimal::class,
-            'display'           => \Encore\Incore\Form\Field\Display::class,
-            'divider'           => \Encore\Incore\Form\Field\Divide::class,
-            'divide'            => \Encore\Incore\Form\Field\Divide::class,
-            'editor'            => \Encore\Incore\Form\Field\Editor::class,
-            'email'             => \Encore\Incore\Form\Field\Email::class,
-            'embedsMany'        => \Encore\Incore\Form\Field\EmbedsMany::class,
-            'file'              => \Encore\Incore\Form\Field\File::class,
-            'hasMany'           => \Encore\Incore\Form\Field\HasMany::class,
-            'hidden'            => \Encore\Incore\Form\Field\Hidden::class,
-            'id'                => \Encore\Incore\Form\Field\Id::class,
-            'image'             => \Encore\Incore\Form\Field\Image::class,
-            'ip'                => \Encore\Incore\Form\Field\Ip::class,
-            'map'               => \Encore\Incore\Form\Field\Map::class,
-            'mobile'            => \Encore\Incore\Form\Field\Mobile::class,
-            'month'             => \Encore\Incore\Form\Field\Month::class,
-            'multipleSelect'    => \Encore\Incore\Form\Field\MultipleSelect::class,
-            'number'            => \Encore\Incore\Form\Field\Number::class,
-            'password'          => \Encore\Incore\Form\Field\Password::class,
-            'radio'             => \Encore\Incore\Form\Field\Radio::class,
-            'rate'              => \Encore\Incore\Form\Field\Rate::class,
-            'select'            => \Encore\Incore\Form\Field\Select::class,
-            'slider'            => \Encore\Incore\Form\Field\Slider::class,
-            'switch'            => \Encore\Incore\Form\Field\SwitchField::class,
-            'text'              => \Encore\Incore\Form\Field\Text::class,
-            'textarea'          => \Encore\Incore\Form\Field\Textarea::class,
-            'time'              => \Encore\Incore\Form\Field\Time::class,
-            'timeRange'         => \Encore\Incore\Form\Field\TimeRange::class,
-            'url'               => \Encore\Incore\Form\Field\Url::class,
-            'year'              => \Encore\Incore\Form\Field\Year::class,
-            'html'              => \Encore\Incore\Form\Field\Html::class,
-            'tags'              => \Encore\Incore\Form\Field\Tags::class,
+            'button'            => \Encore\Admin\Form\Field\Button::class,
+            'checkbox'          => \Encore\Admin\Form\Field\Checkbox::class,
+            'color'             => \Encore\Admin\Form\Field\Color::class,
+            'currency'          => \Encore\Admin\Form\Field\Currency::class,
+            'date'              => \Encore\Admin\Form\Field\Date::class,
+            'dateRange'         => \Encore\Admin\Form\Field\DateRange::class,
+            'datetime'          => \Encore\Admin\Form\Field\Datetime::class,
+            'dateTimeRange'     => \Encore\Admin\Form\Field\DatetimeRange::class,
+            'decimal'           => \Encore\Admin\Form\Field\Decimal::class,
+            'display'           => \Encore\Admin\Form\Field\Display::class,
+            'divider'           => \Encore\Admin\Form\Field\Divide::class,
+            'divide'            => \Encore\Admin\Form\Field\Divide::class,
+            'editor'            => \Encore\Admin\Form\Field\Editor::class,
+            'email'             => \Encore\Admin\Form\Field\Email::class,
+            'embedsMany'        => \Encore\Admin\Form\Field\EmbedsMany::class,
+            'file'              => \Encore\Admin\Form\Field\File::class,
+            'hasMany'           => \Encore\Admin\Form\Field\HasMany::class,
+            'hidden'            => \Encore\Admin\Form\Field\Hidden::class,
+            'id'                => \Encore\Admin\Form\Field\Id::class,
+            'image'             => \Encore\Admin\Form\Field\Image::class,
+            'ip'                => \Encore\Admin\Form\Field\Ip::class,
+            'map'               => \Encore\Admin\Form\Field\Map::class,
+            'mobile'            => \Encore\Admin\Form\Field\Mobile::class,
+            'month'             => \Encore\Admin\Form\Field\Month::class,
+            'multipleSelect'    => \Encore\Admin\Form\Field\MultipleSelect::class,
+            'number'            => \Encore\Admin\Form\Field\Number::class,
+            'password'          => \Encore\Admin\Form\Field\Password::class,
+            'radio'             => \Encore\Admin\Form\Field\Radio::class,
+            'rate'              => \Encore\Admin\Form\Field\Rate::class,
+            'select'            => \Encore\Admin\Form\Field\Select::class,
+            'slider'            => \Encore\Admin\Form\Field\Slider::class,
+            'switch'            => \Encore\Admin\Form\Field\SwitchField::class,
+            'text'              => \Encore\Admin\Form\Field\Text::class,
+            'textarea'          => \Encore\Admin\Form\Field\Textarea::class,
+            'time'              => \Encore\Admin\Form\Field\Time::class,
+            'timeRange'         => \Encore\Admin\Form\Field\TimeRange::class,
+            'url'               => \Encore\Admin\Form\Field\Url::class,
+            'year'              => \Encore\Admin\Form\Field\Year::class,
+            'html'              => \Encore\Admin\Form\Field\Html::class,
+            'tags'              => \Encore\Admin\Form\Field\Tags::class,
+            'icon'              => \Encore\Admin\Form\Field\Icon::class,
         ];
 
         foreach ($map as $abstract => $class) {

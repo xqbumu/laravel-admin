@@ -158,7 +158,9 @@ class Grid
     protected $orderable = false;
 
     /**
-     * @var Exporter
+     * Export driver.
+     *
+     * @var string
      */
     protected $exporter;
 
@@ -288,18 +290,6 @@ class Grid
     }
 
     /**
-     * Add a blank column.
-     *
-     * @param $label
-     *
-     * @return Column
-     */
-    public function blank($label)
-    {
-        return $this->addColumn('blank', $label);
-    }
-
-    /**
      * Get Grid model.
      *
      * @return Model
@@ -378,6 +368,16 @@ class Grid
     }
 
     /**
+     * Get filter of Grid.
+     *
+     * @return Filter
+     */
+    public function getFilter()
+    {
+        return $this->filter;
+    }
+
+    /**
      * Build the grid rows.
      *
      * @param array $data
@@ -433,11 +433,27 @@ class Grid
      */
     protected function setupExporter()
     {
-        if (Input::has('_export')) {
-            $exporter = new Exporter($this);
+        if (Input::has(Exporter::$queryName)) {
+            $this->model()->usePaginate(false);
 
-            $exporter->export();
+            call_user_func($this->builder, $this);
+
+            (new Exporter($this))->resolve($this->exporter)->export();
         }
+    }
+
+    /**
+     * Set exporter driver for Grid to export.
+     *
+     * @param $exporter
+     *
+     * @return $this
+     */
+    public function exporter($exporter)
+    {
+        $this->exporter = $exporter;
+
+        return $this;
     }
 
     /**
@@ -447,10 +463,11 @@ class Grid
      */
     public function exportUrl()
     {
-        $query = $query = Input::all();
-        $query['_export'] = true;
+        $input = Input::all();
 
-        return $this->resource().'?'.http_build_query($query);
+        $input = array_merge($input, [Exporter::$queryName => true]);
+
+        return $this->resource().'?'.http_build_query($input);
     }
 
     /**
@@ -600,9 +617,9 @@ class Grid
     /**
      * Set grid as orderable.
      *
-     * @return $this
+     * @throws \Exception
      *
-     * @throw \Exception
+     * @return $this
      */
     public function orderable()
     {
@@ -628,7 +645,7 @@ class Grid
     /**
      * Set the grid filter.
      *
-     * @param callable $callback
+     * @param Closure $callback
      */
     public function filter(Closure $callback)
     {
@@ -816,15 +833,16 @@ class Grid
     public static function registerColumnDisplayer()
     {
         $map = [
-            'editable'      => \Encore\Incore\Grid\Displayers\Editable::class,
-            'switch'        => \Encore\Incore\Grid\Displayers\SwitchDisplay::class,
-            'select'        => \Encore\Incore\Grid\Displayers\Select::class,
-            'image'         => \Encore\Incore\Grid\Displayers\Image::class,
-            'label'         => \Encore\Incore\Grid\Displayers\Label::class,
-            'button'        => \Encore\Incore\Grid\Displayers\Button::class,
-            'link'          => \Encore\Incore\Grid\Displayers\Link::class,
-            'badge'         => \Encore\Incore\Grid\Displayers\Badge::class,
-            'progressBar'   => \Encore\Incore\Grid\Displayers\ProgressBar::class,
+            'editable'      => \Encore\Admin\Grid\Displayers\Editable::class,
+            'switch'        => \Encore\Admin\Grid\Displayers\SwitchDisplay::class,
+            'switchGroup'   => \Encore\Admin\Grid\Displayers\SwitchGroup::class,
+            'select'        => \Encore\Admin\Grid\Displayers\Select::class,
+            'image'         => \Encore\Admin\Grid\Displayers\Image::class,
+            'label'         => \Encore\Admin\Grid\Displayers\Label::class,
+            'button'        => \Encore\Admin\Grid\Displayers\Button::class,
+            'link'          => \Encore\Admin\Grid\Displayers\Link::class,
+            'badge'         => \Encore\Admin\Grid\Displayers\Badge::class,
+            'progressBar'   => \Encore\Admin\Grid\Displayers\ProgressBar::class,
         ];
 
         foreach ($map as $abstract => $class) {

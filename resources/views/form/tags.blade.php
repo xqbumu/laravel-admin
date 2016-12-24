@@ -1,4 +1,4 @@
-<div class="form-group {!! !$errors->has($column) ?: 'has-error' !!}">
+<div class="form-group {!! !$errors->has($errorKey) ?: 'has-error' !!}">
 
     <label for="{{$id}}" class="col-sm-2 control-label">{{$label}}</label>
 
@@ -6,7 +6,7 @@
 
         @include('docore::form.error')
 
-        <select class="form-control {{$class}}" name="{{$name}}[]" multiple="multiple" data-placeholder="{{ trans('docore::lang.choose') }}{{$label}}" {!! $attributes !!} >
+        <select class="form-control {{$class}}" name="{{$name}}[]" multiple="multiple" data-placeholder="{{ $placeholder }}" {!! $attributes !!} >
             @foreach($value as $select)
                 <option value="{{$select}}" selected>{{$select}}</option>
             @endforeach

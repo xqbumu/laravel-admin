@@ -4,14 +4,14 @@
 
     <div class="col-sm-6">
 
-        @include('docore::form.error')
+        @include('admin::form.error')
 
         <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
-            <input type="text" id="{{$id}}" name="{{$name}}" value="{{ old($column, $value) }}" class="form-control"  placeholder="{{ $placeholder }}" {!! $attributes !!} />
+            <input type="text" name="{{$name}}" value="{{ old($column, $value) }}" class="form-control {{$class}}"  placeholder="{{ $placeholder }}" {!! $attributes !!} />
         </div>
 
-        @include('docore::form.help-block')
+        @include('admin::form.help-block')
 
     </div>
 </div>
