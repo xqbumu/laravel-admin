@@ -1,4 +1,4 @@
-<div class="form-group {!! !$errors->has($column) ?: 'has-error' !!}">
+<div class="form-group {!! !$errors->has($errorKey) ?: 'has-error' !!}">
 
     <label for="{{$id}}" class="col-sm-2 control-label">{{$label}}</label>
 
@@ -8,7 +8,7 @@
 
         <div class="input-group">
             <span class="input-group-addon">{{$symbol}}</span>
-            <input type="text" name="{{$name}}" value="{{ old($column, $value) }}" class="form-control {{$class}}" placeholder="{{ trans('admin::lang.input') }} {{$label}}" style="width: 120px" {!! $attributes !!} />
+            <input type="text" name="{{$name}}" value="{{ old($column, $value) }}" class="form-control {{$class}}" placeholder="{{ $placeholder }}" style="width: 120px" {!! $attributes !!} />
         </div>
 
         @include('admin::form.help-block')

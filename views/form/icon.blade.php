@@ -7,10 +7,8 @@
         @include('admin::form.error')
 
         <div class="input-group">
-            <div class="input-group-addon">
-                <i class="fa fa-phone"></i>
-            </div>
-            <input type="text" name="{{$name}}" value="{{ old($column, $value) }}" class="form-control {{$class}}" placeholder="{{ $placeholder }}" style="width: 150px" {!! $attributes !!} />
+            <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
+            <input type="text" name="{{$name}}" value="{{ old($column, $value) }}" class="form-control {{$class}}"  placeholder="{{ $placeholder }}" {!! $attributes !!} />
         </div>
 
         @include('admin::form.help-block')

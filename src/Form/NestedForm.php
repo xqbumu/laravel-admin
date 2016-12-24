@@ -4,10 +4,8 @@ namespace Encore\Admin\Form;
 
 use Encore\Admin\Admin;
 use Encore\Admin\Form;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Illuminate\Support\MessageBag;
 
 class NestedForm
 {
@@ -62,13 +60,17 @@ class NestedForm
     /**
      * Set original values for fields.
      *
-     * @param array $data
+     * @param array  $data
      * @param string $relatedKeyName
      *
      * @return $this
      */
     public function setOriginal($data, $relatedKeyName)
     {
+        if (empty($data)) {
+            return $this;
+        }
+
         foreach ($data as $value) {
             $this->original[$value[$relatedKeyName]] = $value;
         }
@@ -120,7 +122,6 @@ class NestedForm
     }
 
     /**
-     *
      * Do prepare work before store and update.
      *
      * @param array $record
@@ -161,9 +162,9 @@ class NestedForm
     /**
      * Fetch value in input data by column name.
      *
-     * @param array $data
+     * @param array        $data
      * @param string|array $columns
-     * 
+     *
      * @return array|mixed
      */
     protected function fetchColumnValue($data, $columns)
@@ -269,7 +270,19 @@ class NestedForm
     public function setErrorKey($parent, $type, $key)
     {
         foreach ($this->fields as $field) {
-            $field->setErrorKey("$parent.$type.$key.{$field->column()}");
+            $column = $field->column();
+
+            $errorKey = '';
+
+            if (is_array($column)) {
+                foreach ($column as $k => $name) {
+                    $errorKey[$k] = "$parent.$type.$key.$name";
+                }
+            } else {
+                $errorKey = "$parent.$type.$key.{$field->column()}";
+            }
+
+            $field->setErrorKey($errorKey);
         }
 
         return $this;
@@ -279,7 +292,7 @@ class NestedForm
      * Set form element name.
      *
      * @param string $type
-     * @param null $key
+     * @param null   $key
      *
      * @return $this
      */
@@ -315,7 +328,7 @@ class NestedForm
     {
         $key = is_null($key) ? static::DEFAULT_KEY_NAME : $key;
 
-        return sprintf("%s[%s][%s][%s]", $this->relation, $type, $key, $column);
+        return sprintf('%s[%s][%s][%s]', $this->relation, $type, $key, $column);
     }
 
     /**
@@ -386,11 +399,9 @@ class NestedForm
 
         $this->relation->find(array_keys($updates))
             ->each(function (Model $model) use ($updates) {
-
                 $update = $updates[$model->{$model->getKeyName()}];
 
                 $update = array_map(function ($item) {
-
                     if (is_array($item)) {
                         $item = implode(',', $item);
                     }
@@ -407,7 +418,7 @@ class NestedForm
     /**
      * Create an array of new instances of the related model.
      *
-     * @param  array  $input
+     * @param array $input
      *
      * @return array
      */
@@ -417,18 +428,15 @@ class NestedForm
             return;
         }
 
-        collect($input)->reject(function($record) {
-
+        collect($input)->reject(function ($record) {
             return $record[static::REMOVE_FLAG_NAME] == 1;
         })->map(function ($record) {
             unset($record[static::REMOVE_FLAG_NAME]);
 
             return $record;
         })->reject(function ($record) {
-
             return empty(array_filter($record));
         })->map(function ($record) {
-
             return array_map(function ($item) {
                 if (is_array($item)) {
                     $item = implode(',', $item);
@@ -436,9 +444,7 @@ class NestedForm
 
                 return $item;
             }, $record);
-
         })->pipe(function ($records) {
-
             $this->relation->createMany($records->all());
         });
     }
@@ -472,14 +478,14 @@ class NestedForm
      */
     public function getFormScript()
     {
-        return implode("\r\n",  $this->scripts);
+        return implode("\r\n", $this->scripts);
     }
 
     /**
      * Add nested-form fields dynamically.
      *
      * @param string $method
-     * @param array $arguments
+     * @param array  $arguments
      *
      * @return $this|Field
      */

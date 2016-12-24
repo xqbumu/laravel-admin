@@ -3,6 +3,7 @@
 namespace Encore\Admin\Auth\Database;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class Menu.
@@ -66,7 +67,9 @@ class Menu extends Model
         $branch = [];
 
         if (empty($elements)) {
-            $elements = static::with('roles')->orderByRaw('`order` = 0,`order`')->get()->toArray();
+            $orderColumn = DB::getQueryGrammar()->wrap('order');
+            $byOrder = $orderColumn.' = 0,'.$orderColumn;
+            $elements = static::with('roles')->orderByRaw($byOrder)->get()->toArray();
         }
 
         foreach ($elements as $element) {
@@ -141,7 +144,9 @@ class Menu extends Model
         $options = [];
 
         if (empty($elements)) {
-            $elements = static::orderByRaw('`order` = 0,`order`')->get(['id', 'parent_id', 'title'])->toArray();
+            $orderColumn = DB::getQueryGrammar()->wrap('order');
+            $byOrder = $orderColumn.' = 0,'.$orderColumn;
+            $elements = static::orderByRaw($byOrder)->get(['id', 'parent_id', 'title'])->toArray();
         }
 
         foreach ($elements as $element) {

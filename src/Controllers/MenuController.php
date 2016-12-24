@@ -11,7 +11,6 @@ use Encore\Admin\Layout\Content;
 use Encore\Admin\Layout\Row;
 use Encore\Admin\Menu\Menu;
 use Encore\Admin\Widgets\Box;
-use Encore\Admin\Widgets\Callout;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Request;
 
@@ -29,25 +28,23 @@ class MenuController extends Controller
             $content->description(trans('admin::lang.list'));
 
             $content->row(function (Row $row) {
-                $row->column(5, function (Column $column) {
-                    $column->append($this->callout());
+                $menu = new Menu(new MenuModel());
 
+                $row->column(6, $menu);
+
+                $row->column(6, function (Column $column) {
                     $form = new \Encore\Admin\Widgets\Form();
                     $form->action(admin_url('auth/menu'));
 
                     $options = [0 => 'Root'] + MenuModel::buildSelectOptions();
                     $form->select('parent_id', trans('admin::lang.parent_id'))->options($options);
                     $form->text('title', trans('admin::lang.title'))->rules('required');
-                    $form->text('icon', trans('admin::lang.icon'))->default('fa-bars')->rules('required');
+                    $form->icon('icon', trans('admin::lang.icon'))->default('fa-bars')->rules('required')->help($this->iconHelp());
                     $form->text('uri', trans('admin::lang.uri'));
                     $form->multipleSelect('roles', trans('admin::lang.roles'))->options(Role::all()->pluck('name', 'id'));
 
                     $column->append((new Box(trans('admin::lang.new'), $form))->style('success'));
                 });
-
-                $menu = new Menu(new MenuModel());
-
-                $row->column(7, $menu);
             });
 
             Admin::script($this->script());
@@ -81,7 +78,6 @@ class MenuController extends Controller
             $content->header(trans('admin::lang.menu'));
             $content->description(trans('admin::lang.edit'));
 
-            $content->row($this->callout());
             $content->row($this->form()->edit($id));
         });
     }
@@ -150,7 +146,7 @@ class MenuController extends Controller
 
             $form->select('parent_id', trans('admin::lang.parent_id'))->options($options);
             $form->text('title', trans('admin::lang.title'))->rules('required');
-            $form->text('icon', trans('admin::lang.icon'))->default('fa-bars')->rules('required');
+            $form->icon('icon', trans('admin::lang.icon'))->default('fa-bars')->rules('required')->help($this->iconHelp());
             $form->text('uri', trans('admin::lang.uri'));
             $form->multipleSelect('roles', trans('admin::lang.roles'))->options(Role::all()->pluck('name', 'id'));
 
@@ -177,12 +173,12 @@ EOT;
     }
 
     /**
-     * @return Callout
+     * Help message for icon field.
+     *
+     * @return string
      */
-    protected function callout()
+    protected function iconHelp()
     {
-        $text = 'For icons please see <a href="http://fontawesome.io/icons/" target="_blank">http://fontawesome.io/icons/</a>';
-
-        return new Callout($text, 'Tips', 'info');
+        return 'For more icons please see <a href="http://fontawesome.io/icons/" target="_blank">http://fontawesome.io/icons/</a>';
     }
 }

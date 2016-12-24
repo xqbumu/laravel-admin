@@ -59,6 +59,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @method Field\Decimal        decimal($column, $label = '')
  * @method Field\Html           html($html)
  * @method Field\Tags           tags($column, $label = '')
+ * @method Field\Icon           icon($column, $label = '')
  */
 class Form
 {
@@ -115,11 +116,6 @@ class Form
     protected $inputs = [];
 
     /**
-     * @var callable
-     */
-    protected $callable;
-
-    /**
      * Allow delete item in form page.
      *
      * @var bool
@@ -148,6 +144,8 @@ class Form
     protected static $collectedAssets = [];
 
     /**
+     * Create a new form instance.
+     *
      * @param \$model
      * @param \Closure $callback
      */
@@ -157,17 +155,7 @@ class Form
 
         $this->builder = new Builder($this);
 
-        $this->callable = $callback;
-
         $callback($this);
-    }
-
-    /**
-     * Set up the form.
-     */
-    protected function setUp()
-    {
-        call_user_func($this->callable, $this);
     }
 
     /**
@@ -682,9 +670,7 @@ class Form
      */
     protected function prepareInsert($inserts)
     {
-        $first = current($inserts);
-
-        if (is_array($first) && Arr::isAssoc($first)) {
+        if ($this->isHasOneRelation($inserts)) {
             $inserts = array_dot($inserts);
         }
 
@@ -706,6 +692,28 @@ class Form
         }
 
         return $prepared;
+    }
+
+    /**
+     * Is input data is has-one relation.
+     *
+     * @param array $inserts
+     *
+     * @return bool
+     */
+    protected function isHasOneRelation($inserts)
+    {
+        $first = current($inserts);
+
+        if (!is_array($first)) {
+            return false;
+        }
+
+        if (is_array(current($first))) {
+            return false;
+        }
+
+        return Arr::isAssoc($first);
     }
 
     /**
@@ -998,6 +1006,7 @@ class Form
             'year'              => \Encore\Admin\Form\Field\Year::class,
             'html'              => \Encore\Admin\Form\Field\Html::class,
             'tags'              => \Encore\Admin\Form\Field\Tags::class,
+            'icon'              => \Encore\Admin\Form\Field\Icon::class,
         ];
 
         foreach ($map as $abstract => $class) {

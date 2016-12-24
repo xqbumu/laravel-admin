@@ -1,4 +1,4 @@
-<div class="form-group {!! !$errors->has($column) ?: 'has-error' !!}">
+<div class="form-group {!! !$errors->has($errorKey) ?: 'has-error' !!}">
 
     <label for="{{$id}}" class="col-sm-2 control-label">{{$label}}</label>
 
@@ -6,7 +6,7 @@
 
         @include('admin::form.error')
 
-        <select class="form-control {{$class}}" name="{{$name}}[]" multiple="multiple" data-placeholder="{{ trans('admin::lang.choose') }}{{$label}}" {!! $attributes !!} >
+        <select class="form-control {{$class}}" name="{{$name}}[]" multiple="multiple" data-placeholder="{{ $placeholder }}" {!! $attributes !!} >
             @foreach($options as $select => $option)
                 <option value="{{$select}}" {{  in_array($select, (array)old($column, $value)) ?'selected':'' }}>{{$option}}</option>
             @endforeach
