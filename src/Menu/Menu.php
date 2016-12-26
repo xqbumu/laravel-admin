@@ -63,8 +63,12 @@ class Menu implements Renderable
      */
     protected function buildupScript()
     {
-        $confirm = trans('docore::lang.delete_confirm');
         $token = csrf_token();
+
+        $confirm = trans('docore::lang.delete_confirm');
+        $saveSucceeded = trans('admin::lang.save_succeeded');
+        $refreshSucceeded = trans('admin::lang.refresh_succeeded');
+        $deleteSucceeded = trans('admin::lang.delete_succeeded');
 
         return <<<SCRIPT
 
@@ -75,6 +79,7 @@ class Menu implements Renderable
             if(confirm("{$confirm}")) {
                 $.post('/{$this->path}/' + id, {_method:'delete','_token':'{$token}'}, function(data){
                     $.pjax.reload('#pjax-container');
+                    toastr.success('{$deleteSucceeded}');
                 });
             }
         });
@@ -88,11 +93,13 @@ class Menu implements Renderable
             },
             function(data){
                 $.pjax.reload('#pjax-container');
+                toastr.success('{$saveSucceeded}');
             });
         });
 
         $('.{$this->elementId}-refresh').click(function () {
             $.pjax.reload('#pjax-container');
+            toastr.success('{$refreshSucceeded}');
         });
 
 
@@ -107,7 +114,7 @@ SCRIPT;
     public function variables()
     {
         return [
-            'id'    => $this->elementId,
+            'id' => $this->elementId,
             'items' => $this->model->toTree(),
         ];
     }
@@ -121,7 +128,7 @@ SCRIPT;
     {
         DocoreManager::script($this->buildupScript());
 
-        view()->share(['path'  => $this->path]);
+        view()->share(['path' => $this->path]);
 
         return view('docore::menu.tree', $this->variables())->render();
     }

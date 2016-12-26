@@ -843,6 +843,8 @@ class Grid
             'link'          => \Encore\Incore\Grid\Displayers\Link::class,
             'badge'         => \Encore\Incore\Grid\Displayers\Badge::class,
             'progressBar'   => \Encore\Incore\Grid\Displayers\ProgressBar::class,
+            'radio'         => \Encore\Incore\Grid\Displayers\Radio::class,
+            'checkbox'      => \Encore\Incore\Grid\Displayers\Checkbox::class,
         ];
 
         foreach ($map as $abstract => $class) {
@@ -918,7 +920,13 @@ class Grid
     {
         $path = app('router')->current()->getPath();
         $token = csrf_token();
+<<<<<<< HEAD
         $confirm = trans('docore::lang.delete_confirm');
+=======
+        $confirm = trans('admin::lang.delete_confirm');
+        $deleteSucceeded = trans('admin::lang.delete_succeeded');
+        $refreshSucceeded = trans('admin::lang.refresh_succeeded');
+>>>>>>> e44a3be76c63bbc5cb554b0736aa5ab2a0bd7dc6
 
         $script = <<<EOT
 
@@ -943,36 +951,22 @@ $('.batch-delete').on('click', function() {
     if(confirm("{$confirm}")) {
         $.post('/{$path}/' + selected.join(), {_method:'delete','_token':'{$token}'}, function(data){
             $.pjax.reload('#pjax-container');
-            noty({
-                text: "<strong>Succeeded!</strong>",
-                type:'success',
-                timeout: 1000
-            });
+            toastr.success('{$deleteSucceeded}');
         });
     }
 });
 
 $('.grid-refresh').on('click', function() {
     $.pjax.reload('#pjax-container');
-
-    noty({
-        text: "<strong>Succeeded!</strong>",
-        type:'success',
-        timeout: 1000
-    });
+    toastr.success('{$refreshSucceeded}');
 });
 
 var grid_order = function(id, direction) {
     $.post('/{$path}/' + id, {_method:'PUT', _token:'{$token}', _orderable:direction}, function(data){
 
         if (data.status) {
-            noty({
-                text: "<strong>Succeeded!</strong>",
-                type:'success',
-                timeout: 1000
-            });
-
             $.pjax.reload('#pjax-container');
+            toastr.success(data.message);
         }
     });
 }

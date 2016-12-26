@@ -29,7 +29,7 @@ class Action
      * @var array
      */
     protected $defaultActionViews = [
-        self::EDIT   => '<a href="/{path}/{id}/edit"><i class="fa fa-edit"></i></a> ',
+        self::EDIT => '<a href="/{path}/{id}/edit"><i class="fa fa-edit"></i></a> ',
         self::DELETE => '<a href="javascript:void(0);" data-id="{id}" class="_delete"><i class="fa fa-trash"></i></a> ',
     ];
 
@@ -88,8 +88,11 @@ class Action
      */
     protected function setUpScript()
     {
-        $confirm = trans('docore::lang.delete_confirm');
         $token = csrf_token();
+        $confirm = trans('docore::lang.delete_confirm');
+        $deleteSucceeded = trans('docore::lang.delete_succeeded');
+        $deleteFailed = trans('docore::lang.delete_failed');
+
         $script = <<<SCRIPT
 
 $('._delete').click(function() {
@@ -97,23 +100,15 @@ $('._delete').click(function() {
     if(confirm("{$confirm}")) {
         $.post('/{$this->path}/' + id, {_method:'delete','_token':'{$token}'}, function(data){
 
+            $.pjax.reload('#pjax-container');
+
             if (typeof data === 'object') {
                 if (data.status) {
-                    noty({
-                        text: "<strong>Succeeded!</strong><br/>"+data.message,
-                        type:'success',
-                        timeout: 3000
-                    });
+                    toastr.success('{$deleteSucceeded}');
                 } else {
-                    noty({
-                        text: "<strong>Failed!</strong><br/>"+data.message,
-                        type:'error',
-                        timeout: 3000
-                    });
+                    toastr.error('{$deleteFailed}');
                 }
             }
-
-            $.pjax.reload('#pjax-container');
         });
     }
 });
