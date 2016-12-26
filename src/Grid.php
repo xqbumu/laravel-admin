@@ -920,7 +920,7 @@ class Grid
         $token = csrf_token();
         $confirm = trans('docore::lang.delete_confirm');
 
-        return <<<EOT
+        $script = <<<EOT
 
 $('.grid-select-all').change(function() {
     if (this.checked) {
@@ -990,6 +990,14 @@ $('.per-page').select2({minimumResultsForSearch: -1}).on("select2:select", funct
 });
 
 EOT;
+
+    if ($this->isOrderable()) {
+        $script .= <<<EOT
+ui.sortable('#', '.grid-tbody');
+EOT;
+    }
+
+    return $script;
     }
 
     /**

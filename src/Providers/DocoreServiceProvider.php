@@ -85,7 +85,9 @@ class DocoreServiceProvider extends ServiceProvider
         $this->app->booting(function () {
             $loader = AliasLoader::getInstance();
 
-            $loader->alias('Incore', \Encore\Incore\Facades\Incore::class);
+            $loader->alias('Docore', \Encore\Incore\Facades\Incore::class);
+
+            $loader->alias('Doutils', \Encore\Incore\Facades\Doutils::class);
 
             $this->setupAuth();
         });

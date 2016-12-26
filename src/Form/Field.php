@@ -566,7 +566,7 @@ class Field
      */
     public function getPlaceholder()
     {
-        return $this->placeholder ?: trans('admin::lang.input').' '.$this->label;
+        return $this->placeholder ?: trans('docore::lang.input').' '.$this->label;
     }
 
     /**

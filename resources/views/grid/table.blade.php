@@ -29,8 +29,8 @@
     </div>
     <!-- /.box-header -->
     <div class="box-body table-responsive no-padding">
-        <table class="table table-hover">
-            <thead>
+        <table class="table table-hover grid-table">
+            <thead class="grid-thead">
                 <tr>
                     <th><input type="checkbox" class="grid-select-all" /></th>
                     @foreach($grid->columns() as $column)
@@ -49,27 +49,27 @@
 
             <tbody class="grid-tbody">
                 @foreach($grid->rows() as $row)
-                <tr {!! $row->getHtmlAttributes() !!} @if($grid->isOrderable()) data-id="{{ $row->id()}}" data-sort="{{ $row->__get('order') }}" @endif>
-                    <td><input type="checkbox" class="grid-item" data-id="{{ $row->id() }}" /></td>
-                    @foreach($grid->columnNames as $name)
-                    <td>{!! $row->column($name) !!}</td>
-                    @endforeach
+                    <tr {!! $row->getHtmlAttributes() !!} @if($grid->isOrderable()) data-id="{{ $row->id()}}" data-sort="{{ $row->__get('order') }}" @endif>
+                        <td><input type="checkbox" class="grid-item" data-id="{{ $row->id() }}" /></td>
+                        @foreach($grid->columnNames as $name)
+                        <td>{!! $row->column($name) !!}</td>
+                        @endforeach
 
-                    @if($grid->isOrderable())
-                        <td>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-xs btn-info grid-order-up" data-id="{{ $row->id() }}"><i class="fa fa-caret-up fa-fw"></i></button>
-                                <button type="button" class="btn btn-xs btn-default grid-order-down" data-id="{{ $row->id() }}"><i class="fa fa-caret-down fa-fw"></i></button>
-                            </div>
-                        </td>
-                    @endif
+                        @if($grid->isOrderable())
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-xs btn-info grid-order-up" data-id="{{ $row->id() }}"><i class="fa fa-caret-up fa-fw"></i></button>
+                                    <button type="button" class="btn btn-xs btn-default grid-order-down" data-id="{{ $row->id() }}"><i class="fa fa-caret-down fa-fw"></i></button>
+                                </div>
+                            </td>
+                        @endif
 
-                    @if($grid->allowActions())
-                        <td>
-                            {!! $row->actions() !!}
-                        </td>
-                    @endif
-                </tr>
+                        @if($grid->allowActions())
+                            <td>
+                                {!! $row->actions() !!}
+                            </td>
+                        @endif
+                    </tr>
                 @endforeach
             </tbody>
         </table>
