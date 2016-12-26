@@ -1,6 +1,6 @@
 # 基于数据模型的表单
 
-`Encore\Admin\Form`类用于生成基于数据模型的表单，先来个例子，数据库中有`movies`表
+`Encore\Incore\Form`类用于生成基于数据模型的表单，先来个例子，数据库中有`movies`表
 
 ```sql
 CREATE TABLE `movies` (
@@ -23,10 +23,10 @@ CREATE TABLE `movies` (
 ```php
 
 use App\Models\Movie;
-use Encore\Admin\Form;
-use Encore\Admin\Facades\Admin;
+use Encore\Incore\Form;
+use Encore\Incore\Facades\Admin;
 
-$grid = Admin::form(Movie::class, function(Form $grid){
+$grid = Docore::form(Movie::class, function(Form $grid){
 
     // 显示记录id
     $form->display('id', 'ID');

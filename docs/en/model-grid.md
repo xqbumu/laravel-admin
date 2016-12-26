@@ -1,6 +1,6 @@
 # Model-Grid
 
-Class `Encore\Admin\Grid` is used to generate tables based on the data model,for example,we have a table `movies` in database:
+Class `Encore\Incore\Grid` is used to generate tables based on the data model,for example,we have a table `movies` in database:
 
 ```sql
 CREATE TABLE `movies` (
@@ -23,10 +23,10 @@ And the model of this table is `App\Models\Movie`,The following code can generat
 ```php
 
 use App\Models\Movie;
-use Encore\Admin\Grid;
-use Encore\Admin\Facades\Admin;
+use Encore\Incore\Grid;
+use Encore\Incore\Facades\Admin;
 
-$grid = Admin::grid(Movie::class, function(Grid $grid){
+$grid = Docore::grid(Movie::class, function(Grid $grid){
 
     // The first column displays the id field and sets the column as a sortable column
     $grid->id('ID')->sortable();
@@ -256,7 +256,7 @@ class Profile extends Model
 You can associate them in a grid with the following code:
 
 ```php
-Admin::grid(User::class, function (Grid $grid) {
+Docore::grid(User::class, function (Grid $grid) {
 
     $grid->id('ID')->sortable();
 
@@ -327,7 +327,7 @@ You can associate them in a grid with the following code:
 
 ```php
 
-return Admin::grid(Post::class, function (Grid $grid) {
+return Docore::grid(Post::class, function (Grid $grid) {
     $grid->id('id')->sortable();
     $grid->title();
     $grid->content();
@@ -342,7 +342,7 @@ return Admin::grid(Post::class, function (Grid $grid) {
 });
 
 
-return Admin::grid(Comment::class, function (Grid $grid) {
+return Docore::grid(Comment::class, function (Grid $grid) {
     $grid->id('id');
     $grid->post()->title();
     $grid->content();
@@ -414,7 +414,7 @@ class Role extends Model
 You can associate them in a grid with the following code:
 
 ```php
-return Admin::grid(User::class, function (Grid $grid) {
+return Docore::grid(User::class, function (Grid $grid) {
     $grid->id('ID')->sortable();
     $grid->username();
     $grid->name();

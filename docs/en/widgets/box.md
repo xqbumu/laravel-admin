@@ -1,9 +1,9 @@
 # Box
 
-`Encore\Admin\Widgets\Box` used to generate box components:
+`Encore\Incore\Widgets\Box` used to generate box components:
 
 ```php
-use Encore\Admin\Widgets\Box;
+use Encore\Incore\Widgets\Box;
 
 $box = new Box('Box Title', 'Box content');
 

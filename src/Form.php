@@ -310,7 +310,7 @@ class Form
             return $result;
         }
 
-        if ($response = $this->ajaxResponse(trans('admin::lang.save_succeeded'))) {
+        if ($response = $this->ajaxResponse(trans('docore::lang.save_succeeded'))) {
             return $response;
         }
 
@@ -516,7 +516,7 @@ class Form
             return $result;
         }
 
-        if ($response = $this->ajaxResponse(trans('admin::lang.update_succeeded'))) {
+        if ($response = $this->ajaxResponse(trans('docore::lang.update_succeeded'))) {
             return $response;
         }
 

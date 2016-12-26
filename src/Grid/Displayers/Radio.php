@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Grid\Displayers;
+namespace Encore\Incore\Grid\Displayers;
 
-use Encore\Admin\Admin;
+use Encore\Incore\Admin;
 
 class Radio extends AbstractDisplayer
 {
@@ -22,7 +22,7 @@ class Radio extends AbstractDisplayer
 EOT;
         }
 
-        Admin::script($this->script());
+        Docore::script($this->script());
 
         return <<<EOT
 <form class="form-group grid-radio-$name" style="text-align: left" data-key="{$this->getKey()}">

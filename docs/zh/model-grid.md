@@ -1,6 +1,6 @@
 # 基于数据模型的表格
 
-`Encore\Admin\Grid`类用于生成基于数据模型的表格，先来个例子，数据库中有`movies`表
+`Encore\Incore\Grid`类用于生成基于数据模型的表格，先来个例子，数据库中有`movies`表
 
 ```sql
 CREATE TABLE `movies` (
@@ -23,10 +23,10 @@ CREATE TABLE `movies` (
 ```php
 
 use App\Models\Movie;
-use Encore\Admin\Grid;
-use Encore\Admin\Facades\Admin;
+use Encore\Incore\Grid;
+use Encore\Incore\Facades\Admin;
 
-$grid = Admin::grid(Movie::class, function(Grid $grid){
+$grid = Docore::grid(Movie::class, function(Grid $grid){
 
     // 第一列显示id字段，并将这一列设置为可排序列
     $grid->id('ID')->sortable();
@@ -259,7 +259,7 @@ class Profile extends Model
 通过下面的代码可以关联在一个grid里面:
 
 ```php
-Admin::grid(User::class, function (Grid $grid) {
+Docore::grid(User::class, function (Grid $grid) {
 
     $grid->id('ID')->sortable();
 
@@ -330,7 +330,7 @@ class Comment extends Model
 
 ```php
 
-return Admin::grid(Post::class, function (Grid $grid) {
+return Docore::grid(Post::class, function (Grid $grid) {
     $grid->id('id')->sortable();
     $grid->title();
     $grid->content();
@@ -345,7 +345,7 @@ return Admin::grid(Post::class, function (Grid $grid) {
 });
 
 
-return Admin::grid(Comment::class, function (Grid $grid) {
+return Docore::grid(Comment::class, function (Grid $grid) {
     $grid->id('id');
     $grid->post()->title();
     $grid->content();
@@ -418,7 +418,7 @@ class Role extends Model
 
 
 ```php
-return Admin::grid(User::class, function (Grid $grid) {
+return Docore::grid(User::class, function (Grid $grid) {
     $grid->id('ID')->sortable();
     $grid->username();
     $grid->name();

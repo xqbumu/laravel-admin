@@ -66,9 +66,9 @@ class Menu implements Renderable
         $token = csrf_token();
 
         $confirm = trans('docore::lang.delete_confirm');
-        $saveSucceeded = trans('admin::lang.save_succeeded');
-        $refreshSucceeded = trans('admin::lang.refresh_succeeded');
-        $deleteSucceeded = trans('admin::lang.delete_succeeded');
+        $saveSucceeded = trans('docore::lang.save_succeeded');
+        $refreshSucceeded = trans('docore::lang.refresh_succeeded');
+        $deleteSucceeded = trans('docore::lang.delete_succeeded');
 
         return <<<SCRIPT
 

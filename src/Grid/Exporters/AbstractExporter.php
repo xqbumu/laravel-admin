@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Grid\Exporters;
+namespace Encore\Incore\Grid\Exporters;
 
-use Encore\Admin\Grid;
+use Encore\Incore\Grid;
 
 abstract class AbstractExporter implements ExporterInterface
 {

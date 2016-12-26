@@ -37,14 +37,14 @@ composer require encore/laravel-admin "1.1.x-dev"
 在`config/app.php`加入`ServiceProvider`:
 
 ```
-Encore\Admin\Providers\AdminServiceProvider::class
+Encore\Incore\Providers\AdminServiceProvider::class
 ```
 
 然后运行下面的命令完成安装：
 
 ```
 php artisan vendor:publish --tag=laravel-admin
-php artisan admin:install
+php artisan docore:install
 ```
 
 启动服务后，在浏览器打开 `http://localhost/admin/` ,使用用户名 `admin` 和密码 `admin`登陆.
@@ -117,7 +117,7 @@ CREATE TABLE `users` (
 
 使用下面的命令来创建一个对应`App\User`模型的路由器
 ```php
-php artisan admin:make UserController --model=App\\User
+php artisan docore:make UserController --model=App\\User
 ```
 
 上面的命令会创建路由器文件`app/Admin/Controllers/UserController.php`.

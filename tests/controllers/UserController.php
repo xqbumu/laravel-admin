@@ -3,11 +3,11 @@
 namespace Tests\Controllers;
 
 use App\Http\Controllers\Controller;
-use Encore\Admin\Controllers\ModelForm;
-use Encore\Admin\Facades\Admin;
-use Encore\Admin\Form;
-use Encore\Admin\Grid;
-use Encore\Admin\Layout\Content;
+use Encore\Incore\Controllers\ModelForm;
+use Encore\Incore\Facades\Admin;
+use Encore\Incore\Form;
+use Encore\Incore\Grid;
+use Encore\Incore\Layout\Content;
 use Tests\Models\Tag;
 use Tests\Models\User;
 
@@ -22,7 +22,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return Admin::content(function (Content $content) {
+        return Docore::content(function (Content $content) {
             $content->header('All users');
             $content->description('description');
 
@@ -39,7 +39,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        return Admin::content(function (Content $content) use ($id) {
+        return Docore::content(function (Content $content) use ($id) {
             $content->header('Edit user');
             $content->description('description');
 
@@ -54,7 +54,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return Admin::content(function (Content $content) {
+        return Docore::content(function (Content $content) {
             $content->header('Create user');
 
             $content->body($this->form());
@@ -68,7 +68,7 @@ class UserController extends Controller
      */
     protected function grid()
     {
-        return Admin::grid(User::class, function (Grid $grid) {
+        return Docore::grid(User::class, function (Grid $grid) {
             $grid->id('ID')->sortable();
 
             $grid->username();
@@ -129,7 +129,7 @@ class UserController extends Controller
      */
     protected function form()
     {
-        return Admin::form(User::class, function (Form $form) {
+        return Docore::form(User::class, function (Form $form) {
             $form->disableDeletion();
 
             $form->display('id', 'ID');

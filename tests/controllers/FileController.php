@@ -3,11 +3,11 @@
 namespace Tests\Controllers;
 
 use App\Http\Controllers\Controller;
-use Encore\Admin\Controllers\ModelForm;
-use Encore\Admin\Facades\Admin;
-use Encore\Admin\Form;
-use Encore\Admin\Grid;
-use Encore\Admin\Layout\Content;
+use Encore\Incore\Controllers\ModelForm;
+use Encore\Incore\Facades\Admin;
+use Encore\Incore\Form;
+use Encore\Incore\Grid;
+use Encore\Incore\Layout\Content;
 use Tests\Models\File;
 
 class FileController extends Controller
@@ -21,7 +21,7 @@ class FileController extends Controller
      */
     public function index()
     {
-        return Admin::content(function (Content $content) {
+        return Docore::content(function (Content $content) {
             $content->header('header');
             $content->description('description');
 
@@ -38,7 +38,7 @@ class FileController extends Controller
      */
     public function edit($id)
     {
-        return Admin::content(function (Content $content) use ($id) {
+        return Docore::content(function (Content $content) use ($id) {
             $content->header('header');
             $content->description('description');
 
@@ -53,7 +53,7 @@ class FileController extends Controller
      */
     public function create()
     {
-        return Admin::content(function (Content $content) {
+        return Docore::content(function (Content $content) {
             $content->header('Upload file');
 
             $content->body($this->form());
@@ -67,7 +67,7 @@ class FileController extends Controller
      */
     protected function grid()
     {
-        return Admin::grid(File::class, function (Grid $grid) {
+        return Docore::grid(File::class, function (Grid $grid) {
             $grid->id('ID')->sortable();
 
             $grid->created_at();
@@ -82,7 +82,7 @@ class FileController extends Controller
      */
     protected function form()
     {
-        return Admin::form(File::class, function (Form $form) {
+        return Docore::form(File::class, function (Form $form) {
             $form->display('id', 'ID');
 
             $form->file('file1');

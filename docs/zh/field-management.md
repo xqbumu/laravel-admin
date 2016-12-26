@@ -12,7 +12,7 @@ form表单内置的`map`和`editor`组件通过cdn的方式引用了前端文件
 
 <?php
 
-use Encore\Admin\Form;
+use Encore\Incore\Form;
 
 Form::forget('map');
 Form::forget('editor');
@@ -39,7 +39,7 @@ Form::forget(['map', 'editor']);
 
 namespace App\Admin\Extensions;
 
-use Encore\Admin\Form\Field;
+use Encore\Incore\Form\Field;
 
 class PHPEditor extends Field
 {
@@ -94,9 +94,9 @@ EOT;
 
     <div class="col-sm-6">
 
-        @include('admin::form.error')
+        @include('docore::form.error')
 
-        <textarea class="form-control" id="{{$id}}" name="{{$name}}" placeholder="{{ trans('admin::lang.input') }} {{$label}}" {!! $attributes !!} >{{ old($column, $value) }}</textarea>
+        <textarea class="form-control" id="{{$id}}" name="{{$name}}" placeholder="{{ trans('docore::lang.input') }} {{$label}}" {!! $attributes !!} >{{ old($column, $value) }}</textarea>
     </div>
 </div>
 
@@ -108,7 +108,7 @@ EOT;
 <?php
 
 use App\Admin\Extensions\PHPEditor;
-use Encore\Admin\Form;
+use Encore\Incore\Form;
 
 Form::extend('php', PHPEditor::class);
 
@@ -138,11 +138,11 @@ $form->php('code');
 
 namespace App\Admin\Extensions;
 
-use Encore\Admin\Form\Field;
+use Encore\Incore\Form\Field;
 
 class WangEditor extends Field
 {
-    protected $view = 'admin::form.editor';
+    protected $view = 'docore::form.editor';
 
     protected static $css = [
         '/packages/wangEditor-2.1.22/dist/css/wangEditor.min.css',
@@ -174,7 +174,7 @@ EOT;
 <?php
 
 use App\Admin\Extensions\WangEditor;
-use Encore\Admin\Form;
+use Encore\Incore\Form;
 
 Form::extend('editor', WangEditor::class);
 
@@ -188,4 +188,4 @@ $form->editor('content');
 
 ```
 
-> 组件类中指定了`admin::form.editor`作为视图文件，视图文件路径在`vendor/encore/laravel-admin/views/form/editor.blade.php`，如果需要修改视图文件，可以将上述视图文件拷贝到`resources/views`目录下自行修改，然后在组件类`app/Admin/Extensions/WangEditor.php`的`$view`属性指定刚才修改的view即可。
+> 组件类中指定了`docore::form.editor`作为视图文件，视图文件路径在`vendor/encore/laravel-admin/views/form/editor.blade.php`，如果需要修改视图文件，可以将上述视图文件拷贝到`resources/views`目录下自行修改，然后在组件类`app/Admin/Extensions/WangEditor.php`的`$view`属性指定刚才修改的view即可。

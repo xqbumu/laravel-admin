@@ -17,7 +17,7 @@ class TestCase extends LaravelTestCase
     {
         $app = require __DIR__.'/../vendor/laravel/laravel/bootstrap/app.php';
 
-        $app->register('Encore\Admin\Providers\AdminServiceProvider');
+        $app->register('Encore\Incore\Providers\AdminServiceProvider');
 
         $app->make('Illuminate\Contracts\Console\Kernel')->bootstrap();
 
@@ -41,7 +41,7 @@ class TestCase extends LaravelTestCase
 
         $this->migrate();
 
-        $this->artisan('admin:install');
+        $this->artisan('docore:install');
 
         if (file_exists($routes = admin_path('routes.php'))) {
             require $routes;

@@ -37,14 +37,14 @@ composer require encore/laravel-admin "1.1.x-dev"
 In`config/app.php`add`ServiceProvider`:
 
 ```
-Encore\Admin\Providers\AdminServiceProvider::class
+Encore\Incore\Providers\AdminServiceProvider::class
 ```
 
 Then run these commands to finnish install：
 
 ```
 php artisan vendor:publish --tag=laravel-admin
-php artisan admin:install
+php artisan docore:install
 ```
 
 open `http://localhost/admin/` in browser,use username `admin` and password `admin` to login.
@@ -112,7 +112,7 @@ You can follow these steps to setup `CURD` interfaces of table `users`:
 Use the following command to create a controller for `App\User` model
 
 ```php
-php artisan admin:make UserController --model=App\\User
+php artisan docore:make UserController --model=App\\User
 ```
 The above command will create the controller in `app/Admin/Controllers/UserController.php`.
 

@@ -923,9 +923,9 @@ class Grid
 <<<<<<< HEAD
         $confirm = trans('docore::lang.delete_confirm');
 =======
-        $confirm = trans('admin::lang.delete_confirm');
-        $deleteSucceeded = trans('admin::lang.delete_succeeded');
-        $refreshSucceeded = trans('admin::lang.refresh_succeeded');
+        $confirm = trans('docore::lang.delete_confirm');
+        $deleteSucceeded = trans('docore::lang.delete_succeeded');
+        $refreshSucceeded = trans('docore::lang.refresh_succeeded');
 >>>>>>> e44a3be76c63bbc5cb554b0736aa5ab2a0bd7dc6
 
         $script = <<<EOT

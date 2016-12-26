@@ -3,11 +3,11 @@
 namespace Tests\Controllers;
 
 use App\Http\Controllers\Controller;
-use Encore\Admin\Controllers\ModelForm;
-use Encore\Admin\Facades\Admin;
-use Encore\Admin\Form;
-use Encore\Admin\Grid;
-use Encore\Admin\Layout\Content;
+use Encore\Incore\Controllers\ModelForm;
+use Encore\Incore\Facades\Admin;
+use Encore\Incore\Form;
+use Encore\Incore\Grid;
+use Encore\Incore\Layout\Content;
 use Tests\Models\Image;
 
 class ImageController extends Controller
@@ -21,7 +21,7 @@ class ImageController extends Controller
      */
     public function index()
     {
-        return Admin::content(function (Content $content) {
+        return Docore::content(function (Content $content) {
             $content->header('header');
             $content->description('description');
 
@@ -38,7 +38,7 @@ class ImageController extends Controller
      */
     public function edit($id)
     {
-        return Admin::content(function (Content $content) use ($id) {
+        return Docore::content(function (Content $content) use ($id) {
             $content->header('header');
             $content->description('description');
 
@@ -53,7 +53,7 @@ class ImageController extends Controller
      */
     public function create()
     {
-        return Admin::content(function (Content $content) {
+        return Docore::content(function (Content $content) {
             $content->header('Upload image');
 
             $content->body($this->form());
@@ -67,7 +67,7 @@ class ImageController extends Controller
      */
     protected function grid()
     {
-        return Admin::grid(Image::class, function (Grid $grid) {
+        return Docore::grid(Image::class, function (Grid $grid) {
             $grid->id('ID')->sortable();
 
             $grid->created_at();
@@ -84,7 +84,7 @@ class ImageController extends Controller
      */
     protected function form()
     {
-        return Admin::form(Image::class, function (Form $form) {
+        return Docore::form(Image::class, function (Form $form) {
             $form->display('id', 'ID');
 
             $form->image('image1');

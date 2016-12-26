@@ -1,8 +1,8 @@
 <?php
 
-namespace Encore\Admin\Grid\Displayers;
+namespace Encore\Incore\Grid\Displayers;
 
-use Encore\Admin\Admin;
+use Encore\Incore\Admin;
 
 class Checkbox extends AbstractDisplayer
 {
@@ -26,7 +26,7 @@ class Checkbox extends AbstractDisplayer
 EOT;
         }
 
-        Admin::script($this->script());
+        Docore::script($this->script());
 
         return <<<EOT
 <form class="form-group grid-checkbox-$name" style="text-align:left;" data-key="{$this->getKey()}">
