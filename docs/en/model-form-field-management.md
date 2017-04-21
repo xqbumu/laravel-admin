@@ -1,9 +1,9 @@
-# Components management
+# Fields management
 
 
-## Remove components
+## Remove field
 
-The built-in `map` and `editor` components requires the front-end files via cdn, and if there are problems with the network, they can be removed in the following ways
+The built-in `map` and `editor` fields requires the front-end files via cdn, and if there are problems with the network, they can be removed in the following ways
 
 Locate the file `app/Admin/bootstrap.php`. If the file does not exist, update `laravel-admin` and create this file.
 
@@ -22,9 +22,9 @@ Form::forget(['map', 'editor']);
 
 ```
 
-This removes the two components, which can be used to remove the other components.
+This removes the two fields, which can be used to remove the other fields.
 
-## Extend the custom component
+## Extend the custom field
 
 Extend a PHP code editor based on [codemirror](http://codemirror.net/index.html) with the following steps.
 
@@ -32,7 +32,7 @@ see [PHP mode](http://codemirror.net/mode/php/).
 
 Download and unzip the [codemirror](http://codemirror.net/codemirror.zip) library to the front-end resource directory, for example, in the directory `public/packages/codemirror-5.20.2`.
 
-Create a new component class `app/Admin/Extensions/PHPEditor.php`:
+Create a new field class `app/Admin/Extensions/PHPEditor.php`:
 
 ```php
 <?php
@@ -122,4 +122,67 @@ $form->php('code');
 
 ```
 
-In this way, you can add any form components you want to add.
+In this way, you can add any form fields you want to add.
+
+## Integrate CKEditor
+
+Here is another example to show you how to integrate ckeditor.
+
+At first download [CKEditor](http://ckeditor.com/download), unzip to public directory， for example `public/packages/ckeditor/`.
+
+Then Write Extension class `app/Admin/Extensions/Form/CKEditor.php`:
+```php
+<?php
+
+namespace App\Admin\Extensions\Form;
+
+use Encore\Admin\Form\Field;
+
+class CKEditor extends Field
+{
+    public static $js = [
+        '/packages/ckeditor/ckeditor.js',
+        '/packages/ckeditor/adapters/jquery.js',
+    ];
+
+    protected $view = 'admin.ckeditor';
+
+    public function render()
+    {
+        $this->script = "$('textarea.{$this->getElementClass()}').ckeditor();";
+
+        return parent::render();
+    }
+}
+```
+Add blade file `resources/views/admin/ckeditor.blade.php` for view `admin.ckeditor` : 
+```php
+<div class="form-group {!! !$errors->has($errorKey) ?: 'has-error' !!}">
+
+    <label for="{{$id}}" class="col-sm-2 control-label">{{$label}}</label>
+
+    <div class="col-sm-6">
+
+        @include('admin::form.error')
+
+        <textarea class="form-control {{$class}}" id="{{$id}}" name="{{$name}}" placeholder="{{ $placeholder }}" {!! $attributes !!} >{{ old($column, $value) }}</textarea>
+
+        @include('admin::form.help-block')
+
+    </div>
+</div>
+
+```
+Register this extension in `app/Admin/bootstrap.php`:
+
+```php
+use Encore\Admin\Form;
+use App\Admin\Extensions\Form\CKEditor;
+
+Form::extend('ckeditor', CKEditor::class);
+```
+After this you can use ckeditor in your form:
+
+```php
+$form->ckeditor('content');
+```

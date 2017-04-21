@@ -1,4 +1,4 @@
-# Model-Grid
+# Model-grid
 
 Class `Encore\Admin\Grid` is used to generate tables based on the data model,for example,we have a table `movies` in database:
 
@@ -34,8 +34,8 @@ $grid = Admin::grid(Movie::class, function(Grid $grid){
     // The second column shows the title field, because the title field name and the Grid object's title method conflict, so use Grid's column () method instead
     $grid->column('title');
     
-    // The third column shows the director field, which is set by the value($callback) method to display the corresponding user name in the users table
-    $grid->director()->value(function($userId) {
+    // The third column shows the director field, which is set by the display($callback) method to display the corresponding user name in the users table
+    $grid->director()->display(function($userId) {
         return User::find($userId)->name;
     });
     
@@ -45,8 +45,8 @@ $grid = Admin::grid(Movie::class, function(Grid $grid){
     // The fifth column is displayed as the rate field
     $grid->rate();
 
-    // The sixth column shows the released field, formatting the display output through the value($callback) method
-    $grid->released('Release?')->value(function ($released) {
+    // The sixth column shows the released field, formatting the display output through the display($callback) method
+    $grid->released('Release?')->display(function ($released) {
         return $released ? 'yes' : 'no';
     });
 
@@ -63,17 +63,9 @@ $grid = Admin::grid(Movie::class, function(Grid $grid){
     });
 });
 
-// Displays the table contents
-echo $grid;
-
 ```
 
 ## Basic Usage
-
-#### Set the table title
-```php
-$grid->title('Movie list');
-```
 
 #### Add a column
 ```php
@@ -102,10 +94,10 @@ $grid->model()->take(100);
 
 ```php
 // The default is 15 per page
-$grid->paginate(15);
+$grid->paginate(20);
 ```
 
-#### Modify the display output
+#### Modify the display output of column
 
 ```php
 $grid->text()->display(function($text) {
@@ -149,24 +141,24 @@ $grid->disableCreation();
 $grid->disablePagination();
 ```
 
-#### Disable PerPage Selector
-```php
-$grid->disablePerPageSelector();
-```
-
 #### Disable data filter
 ```php
 $grid->disableFilter();
 ```
 
-#### Disable the batch delete button
-```php
-$grid->disableBatchDeletion();
-```
-
 #### Disable the export button
 ```php
 $grid->disableExport();
+```
+
+#### Disable row selector
+```php
+$grid->disableRowSelector();
+```
+
+#### Disable row actions
+```php
+$grid->disableActions();
 ```
 
 #### Enable orderable grid
@@ -177,50 +169,6 @@ $grid->orderable();
 #### Set options for perPage selector
 ```php
 $grid->perPages([10, 20, 30, 40, 50]);
-```
-
-#### Modify the row action button
-```php
-//Opens the edit and delete operations
-$grid->actions('edit|delete');
-
-//Close all operations
-$grid->disableActions();
-```
-
-#### Column control 
-```php
-$grid->rows(function($row){
-
-    //add style to lines which Id less than 10 
-    if($row->id < 10) {
-        $row->style('color:red');
-    }
-
-    // Open the edit operation for specified column
-    if($row->id % 3) {
-        $row->action('edit');
-    }
-
-    //Specifies the column to add a custom action button
-    if($row->id % 2) {
-        $row->actions()->add(function ($row) {
-            return "<a class=\"btn btn-xs btn-danger\">btn</a>";
-        });
-    }
-    
-    // add custom button in specified rows.
-    if($row->id % 2) {
-        $row->actions()->add(function ($row) {
-            return "<a class=\"btn btn-xs btn-danger\">btn</a>";
-        });
-    }
-    
-    // modify the output of column `column1`, use the data in column `column2`
-    $row->column('column1', function ($column1)  use ($row) {
-        return $column1 . $row->column2;
-    });
-});
 ```
 
 #### Add query filters
@@ -397,7 +345,7 @@ return Admin::grid(Post::class, function (Grid $grid) {
     $grid->title();
     $grid->content();
 
-    $grid->comments('Comments count')->value(function ($comments) {
+    $grid->comments('Comments count')->display(function ($comments) {
         $count = count($comments);
         return "<span class='label label-warning'>{$count}</span>";
     });
@@ -484,7 +432,7 @@ return Admin::grid(User::class, function (Grid $grid) {
     $grid->username();
     $grid->name();
 
-    $grid->roles()->value(function ($roles) {
+    $grid->roles()->display(function ($roles) {
 
         $roles = array_map(function ($role) {
             return "<span class='label label-success'>{$role['name']}</span>";

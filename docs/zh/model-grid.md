@@ -34,8 +34,8 @@ $grid = Admin::grid(Movie::class, function(Grid $grid){
     // 第二列显示title字段，由于title字段名和Grid对象的title方法冲突，所以用Grid的column()方法代替
     $grid->column('title');
     
-    // 第三列显示director字段，通过value($callback)方法设置这一列的显示内容为users表中对应的用户名
-    $grid->director()->value(function($userId) {
+    // 第三列显示director字段，通过display($callback)方法设置这一列的显示内容为users表中对应的用户名
+    $grid->director()->display(function($userId) {
         return User::find($userId)->name;
     });
     
@@ -45,8 +45,8 @@ $grid = Admin::grid(Movie::class, function(Grid $grid){
     // 第五列显示为rate字段
     $grid->rate();
 
-    // 第六列显示released字段，通过value($callback)方法来格式化显示输出
-    $grid->released('上映?')->value(function ($released) {
+    // 第六列显示released字段，通过display($callback)方法来格式化显示输出
+    $grid->released('上映?')->display(function ($released) {
         return $released ? '是' : '否';
     });
 
@@ -63,17 +63,9 @@ $grid = Admin::grid(Movie::class, function(Grid $grid){
     });
 });
 
-// 显示表格内容
-echo $grid;
-
 ```
 
-## Basic Usage
-
-#### 设置表格title
-```php
-$grid->title('电影列表');
-```
+## 基本使用方法
 
 #### 添加列
 ```php
@@ -149,10 +141,6 @@ $grid->disableCreation();
 $grid->disablePagination();
 ```
 
-#### 禁用页数选择器
-```php
-$grid->disablePerPageSelector();
-```
 #### 禁用查询过滤器
 ```php
 $grid->disableFilter();
@@ -163,61 +151,19 @@ $grid->disableFilter();
 $grid->disableExport();
 ```
 
-#### 禁用批量删除按钮
+#### 禁用行选择checkbox
 ```php
-$grid->disableBatchDeletion();
+$grid->disableRowSelector();
 ```
 
-#### 开启行排序功能
+#### 禁用行操作列
 ```php
-$grid->orderable();
+$grid->disableActions();
 ```
 
 #### 设置分页选择器选项
 ```php
 $grid->perPages([10, 20, 30, 40, 50]);
-```
-
-#### 修改行操作按钮
-```php
-//开启编辑和删除操作
-$grid->actions('edit|delete');
-
-//关闭所有操作
-$grid->disableActions();
-```
-
-#### 控制列
-```php
-$grid->rows(function($row){
-
-    //id小于10的行添加style
-    if($row->id < 10) {
-        $row->style('color:red');
-    }
-
-    //指定列只开启编辑操作
-    if($row->id % 3) {
-        $row->actions('edit');
-    }
-    
-    // 添加自定义操作按钮
-    $row->actions()->add(function ($row) {
-        return "<a href='/url/{$row->id}'><i class='fa fa-eye'></i></a>";
-    });
-
-    //指定列添加自定义操作按钮
-    if($row->id % 2) {
-        $row->actions()->add(function ($row) {
-            return "<a class=\"btn btn-xs btn-danger\">btn</a>";
-        });
-    }
-    
-    // 修改column1的显示，使用列column2的值
-    $row->column('column1', function ($column1)  use ($row) {
-        return $column1 . $row->column2;
-    });
-});
 ```
 
 #### 添加查询过滤器
@@ -226,6 +172,9 @@ $grid->filter(function($filter){
 
     // 如果过滤器太多，可以使用弹出模态框来显示过滤器.
     $filter->useModal();
+    
+    // 禁用id查询框
+    $filter->disableIdFilter();
 
     // sql: ... WHERE `user.name` LIKE "%$name%";
     $filter->like('name', 'name');
@@ -310,7 +259,10 @@ class User extends Model
 
 class Profile extends Model
 {
-    $this->belongsTo(User::class);
+    public function user()
+    {
+        $this->belongsTo(User::class);
+    }
 }
 
 ```
@@ -394,7 +346,7 @@ return Admin::grid(Post::class, function (Grid $grid) {
     $grid->title();
     $grid->content();
 
-    $grid->comments('评论数')->value(function ($comments) {
+    $grid->comments('评论数')->display(function ($comments) {
         $count = count($comments);
         return "<span class='label label-warning'>{$count}</span>";
     });
@@ -482,7 +434,7 @@ return Admin::grid(User::class, function (Grid $grid) {
     $grid->username();
     $grid->name();
 
-    $grid->roles()->value(function ($roles) {
+    $grid->roles()->display(function ($roles) {
 
         $roles = array_map(function ($role) {
             return "<span class='label label-success'>{$role['name']}</span>";
